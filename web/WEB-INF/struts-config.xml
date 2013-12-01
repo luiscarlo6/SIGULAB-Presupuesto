@@ -22,18 +22,22 @@
         <action path="/Welcome" forward="/welcomeStruts.jsp"/>
         
         <action path="/agregar" forward= "/agregar.jsp"/>        
+        
         <action input="/agregar.jsp" name="Presupuesto" path="/form1" type="Actions.agregado" validate="false">
             <forward name="success" path="/agregado.jsp"/>
             <forward name="failure" path="/welcomeStruts.jsp"/>
         </action>
         
         <action path="/modificar" forward= "/modificar.jsp"/> 
+        
+        
         <action input="/modificar.jsp" name="Presupuesto" path="/form2" type="Actions.modificado" validate="false">
             <forward name="success" path="/modificado.jsp"/>
             <forward name="failure" path="/welcomeStruts.jsp"/>
         </action>
         
         <action path="/eliminar" forward= "/eliminar.jsp"/>
+        
         <action input="/eliminar.jsp" name="Presupuesto" path="/form3" type="Actions.eliminado" validate="false">
             <forward name="success" path="/eliminado.jsp"/>
             <forward name="failure" path="/welcomeStruts.jsp"/>
