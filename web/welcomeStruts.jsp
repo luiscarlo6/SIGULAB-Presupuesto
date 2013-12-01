@@ -27,45 +27,53 @@
         </div>
 
         <div id="content">
-        
-            
-                    <p style="text-align: left"><strong>Introduzca una opcion a realizar:</strong></p>
-                    <table border="0">
-                        <tbody>
-                        <tr>
-                            <html:link action= "/agregar" >
-                                <h2>
-                                    Agregar
-                                </h2>    
-                            </html:link>
-                        </tr>
-                        
-                        
-                        <tr>
-                            <html:link action= "/modificar" >
-                                <h2>
-                                    Modificar
-                                </h2>
-                            </html:link>
-                        </tr>
-                        
-                        <tr>
-                            <html:link action= "/eliminar" >
-                                <h2>
-                                    Eliminar
-                                </h2>
-                            </html:link>
-                        </tr>
-                        
-                        </tbody>
-                    </table>
 
-                </div>
-            
-        
-        
+
+            <p style="text-align: left"><strong>Introduzca una opcion a realizar:</strong></p>
+            <table border="0">
+                <tbody>
+                    <tr>
+                        <html:link action= "/agregar" >
+                    <h2>
+                        Agregar
+                    </h2>    
+                </html:link>
+                </tr>
+
+
+                <tr>
+                    <html:link action= "/modificar" >
+                    <h2>
+                        Modificar
+                    </h2>
+                </html:link>
+                </tr>
+
+                <tr>
+                    <html:link action= "/eliminar" >
+                    <h2>
+                        Eliminar
+                    </h2>
+                </html:link>
+                </tr>
+                
+                <tr>
+                    <html:link action= "/consultar" >
+                    <h2>
+                        Consultar
+                    </h2>
+                </html:link>
+                </tr>
+
+                </tbody>
+            </table>
+
         </div>
-        
-        
-    </body>
+
+
+
+    </div>
+
+
+</body>
 </html:html>

@@ -15,20 +15,20 @@
     </head>
     <body>
         <h2>Introduzca los siguientes datos:</h2>
-        
+
         <html:form action="/form1">            
             <div id="welcome">
-                    <table border="0">
-                        <tbody>
+                <table border="0">
+                    <tbody>
                         <tr>Codigo:</tr>
-                        
+
                         <tr>
                             <td>
                                 <html:text property="codigo" />
                             </td>
                         </tr>               
                         <tr>
-                            
+
                             <td style="color: red">
                                 <html:errors property="codigo" /> 
                             </td>
@@ -46,7 +46,7 @@
                                 <html:errors property="tipo" /> 
                             </td>
                         </tr>
-                        
+
                         <tr>
                             <td>Descripcion:</td>
                         </tr>
@@ -60,23 +60,23 @@
                                 <html:errors property="descripcion" /> 
                             </td>
                         </tr>
-                            
-                        <td>
-                            <html:submit value="Agregar" />
-                            <html:reset value="Limpiar" />
-                        </td>
-                        </tr>
-                        </tbody>
-                    </table>   
+
+                    <td>
+                        <html:submit value="Agregar" />
+                        <html:reset value="Limpiar" />
+                    </td>
+                    </tr>
+                    </tbody>
+                </table>   
             </div>     
-       </html:form>
-        
+        </html:form>
+
         <html:link action= "/Welcome" >
             <h2>
                 Volver
             </h2>
         </html:link>
-        
-        
+
+
     </body>
 </html>

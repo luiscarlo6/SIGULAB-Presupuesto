@@ -20,8 +20,8 @@
         <h1>Modificacion Exitosa!</h1>
     </body>
     <html:link action= "/Welcome" >
-            <h2>
-                Inicio
-            </h2>
+        <h2>
+            Inicio
+        </h2>
     </html:link>
 </html>

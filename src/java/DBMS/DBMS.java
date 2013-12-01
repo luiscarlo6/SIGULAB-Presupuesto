@@ -5,6 +5,7 @@
  */
 package DBMS;
 
+import java.util.ArrayList;
 import Clases.Presupuesto;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -59,7 +60,7 @@ public class DBMS {
         try {
 
             psAgregar = conexion.prepareStatement("INSERT INTO PRESUPUESTO VALUES (?,?,?);");
-            
+
             psAgregar.setInt(1, u.getCodigo());
             psAgregar.setString(2, u.getTipo());
             psAgregar.setString(3, u.getDescripcion());
@@ -73,28 +74,26 @@ public class DBMS {
             return false;
         }
     }
-    
-    public boolean ModificarDatos(Presupuesto u){
+
+    public boolean ModificarDatos(Presupuesto u) {
         PreparedStatement psConsultar = null;
         try {
-/**
- TOY CAGANDOLA AKI
- * ME FUI PA CLASES
- * MOSK QUE ESTOY ES AKII
- * AKIIIIIIIIIIIII
- */
+            /**
+             * TOY CAGANDOLA AKI ME FUI PA CLASES MOSK QUE ESTOY ES AKII
+             * AKIIIIIIIIIIIII
+             */
 
             psConsultar = conexion.prepareStatement("UPDATE PRESUPUESTO SET codigo=?, descripcion=?, tipo=? where codigo = ?;");
-            
+
             psConsultar.setInt(1, u.getCodigo());
             psConsultar.setString(2, u.getTipo());
             psConsultar.setString(3, u.getDescripcion());
-            
+
             psConsultar.setInt(4, u.getCodigo());
             System.out.println(psConsultar.toString());
 
             Integer i = psConsultar.executeUpdate();
-            
+
             return i > 0;
 
         } catch (SQLException ex) {
@@ -102,15 +101,14 @@ public class DBMS {
             return false;
         }
     }
-    
-    
+
     public boolean EliminarDatos(Presupuesto u) {
 
         PreparedStatement psEliminar = null;
         try {
 
             psEliminar = conexion.prepareStatement("DELETE FROM PRESUPUESTO WHERE codigo = ?;");
-            
+
             psEliminar.setInt(1, u.getCodigo());
             System.out.println(psEliminar.toString());
 
@@ -122,30 +120,32 @@ public class DBMS {
             return false;
         }
     }
-    
-    
-    public boolean consultarDatos(Presupuesto u) {
 
+    public ArrayList<Presupuesto> consultarDatos() {
+
+        ArrayList<Presupuesto> Presupuestos = new ArrayList<Presupuesto>();
         PreparedStatement psConsultar = null;
         try {
 
-            psConsultar = conexion.prepareStatement("SELECT * FROM PRESUPUESTO WHERE codigo = ?");
-            
-            psConsultar.setInt(1, u.getCodigo());
-            System.out.println(psConsultar.toString());
-
+            psConsultar = conexion.prepareStatement("SELECT * FROM PRESUPUESTO;");
             ResultSet Rs = psConsultar.executeQuery();
-            
+
             while (Rs.next()) {
-                if((Rs.getString("nombre")).equals("SFAFA"))
-                return true;
+                Presupuesto u = new Presupuesto();
+                
+                u.setCodigo(Rs.getInt("codigo"));
+                u.setDescripcion(Rs.getString("descripcion"));
+                u.setTipo(Rs.getString("tipo"));
+                
+                Presupuestos.add(u);
             }
-            
-            return false;
+
 
         } catch (SQLException ex) {
             ex.printStackTrace();
-            return false;
         }
+        
+        return Presupuestos;
+
     }
 }

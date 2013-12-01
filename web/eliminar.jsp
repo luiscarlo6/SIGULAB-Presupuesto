@@ -15,36 +15,36 @@
     </head>
     <body>
         <h2>Introduzca los datos del presupuesto a eliminar</h2>
-        
+
         <html:form action="/form3">            
             <div id="welcome">
-                    <table border="0">
-                        <tbody>
+                <table border="0">
+                    <tbody>
                         <tr>Indique el Codigo del presupuesto a eliminar:</tr>
-                        
+
                         <tr>
                             <td>
                                 <html:text property="codigo" />
                             </td>
                         </tr>               
                         <tr>
-                            
+
                             <td style="color: red">
                                 <html:errors property="codigo" /> 
                             </td>
                         </tr>
-                        
-                            
-                        <td>
-                            <html:submit value="Eliminar" />
-                            <html:reset value="Limpiar" />
-                        </td>
-                        </tr>
-                        </tbody>
-                    </table>   
+
+
+                    <td>
+                        <html:submit value="Eliminar" />
+                        <html:reset value="Limpiar" />
+                    </td>
+                    </tr>
+                    </tbody>
+                </table>   
             </div>     
-       </html:form>
-        
-        
+        </html:form>
+
+
     </body>
 </html>

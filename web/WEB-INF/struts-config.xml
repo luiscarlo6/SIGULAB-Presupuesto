@@ -43,6 +43,10 @@
             <forward name="failure" path="/welcomeStruts.jsp"/>
         </action>
         
+        <action path="/consultar" type="Actions.consultado" validate="false">
+            <forward name="success" path="/consultar.jsp"/>
+        </action>
+        
         
                                         
     </action-mappings>       

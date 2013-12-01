@@ -3,14 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package Actions;
 
 import Clases.Presupuesto;
 
-
 import DBMS.DBMS;
-
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -64,7 +61,8 @@ public class agregado extends org.apache.struts.action.Action {
             //si los campos son validos
         } else {
             boolean agrego = DBMS.getInstance().agregarDatos(u);
-            u.resetearVariables();
+            //PA QUE ES ESTO?
+//            u.resetearVariables();
             if (agrego) {
                 return mapping.findForward(SUCCESS);
             } else {

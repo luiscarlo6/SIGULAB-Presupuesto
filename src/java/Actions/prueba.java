@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package Actions;
 
 import javax.servlet.http.HttpServletRequest;
@@ -35,7 +34,7 @@ public class prueba extends org.apache.struts.action.Action {
     public ActionForward execute(ActionMapping mapping, ActionForm form,
             HttpServletRequest request, HttpServletResponse response)
             throws Exception {
-        
+
         return mapping.findForward(SUCCESS);
     }
 }
