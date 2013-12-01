@@ -44,7 +44,11 @@
                 </table>   
             </div>     
         </html:form>
-
+        <html:link action= "/Welcome" >
+            <h2>
+                Volver
+            </h2>
+        </html:link>
 
     </body>
 </html>
