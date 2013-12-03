@@ -5,13 +5,6 @@
 <%@ taglib uri="http://struts.apache.org/tags-html" prefix="html" %>
 <%@ taglib uri="http://struts.apache.org/tags-logic" prefix="logic" %>
 
-<html:html lang="true">
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <link rel="stylesheet" type="text/css" href="css/Login.css">
-        <title>Bienvenidos a Sistema de Gestion Presupuestaria</title>
-    </head>
-    <body>     
         <div id="contenedor">
 
 
@@ -69,11 +62,3 @@
             </table>
 
         </div>
-
-
-
-    </div>
-
-
-</body>
-</html:html>
