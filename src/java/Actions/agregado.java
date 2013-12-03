@@ -62,7 +62,7 @@ public class agregado extends org.apache.struts.action.Action {
         } else {
             boolean agrego = DBMS.getInstance().agregarDatos(u);
             //PA QUE ES ESTO?
-//            u.resetearVariables();
+            u.resetearVariables();
             if (agrego) {
                 return mapping.findForward(SUCCESS);
             } else {
