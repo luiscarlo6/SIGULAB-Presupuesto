@@ -8,6 +8,7 @@
 <struts-config>
     <form-beans>
         <form-bean name="Presupuesto" type="Clases.Presupuesto"/>
+        <form-bean name="Cheque" type="Clases.Cheque"/>
     </form-beans>
     
     <global-exceptions>
@@ -19,33 +20,94 @@
     </global-forwards>
 
     <action-mappings>
-        <action path="/Welcome" forward="/welcomeStruts.jsp"/>
         
-        <action path="/agregar" forward= "/agregar.jsp"/>        
+        <action path="/inicio" type="org.apache.struts.actions.ForwardAction" 
+                scope="request" validate="false" 
+                parameter="/vista_inicio.jsp"/>
         
-        <action input="/agregar.jsp" name="Presupuesto" path="/form1" type="Actions.agregado" validate="false">
-            <forward name="success" path="/agregado.jsp"/>
-            <forward name="failure" path="/welcomeStruts.jsp"/>
+        
+        <action path="/presupuesto" type="org.apache.struts.actions.ForwardAction" 
+                scope="request" validate="false" 
+                parameter="/Presupuesto/vista_presupuesto.jsp"/>
+        
+        
+        <action path="/agregar_presupuesto" type="org.apache.struts.actions.ForwardAction" 
+                scope="request" validate="false" 
+                parameter="/Presupuesto/vista_agregar.jsp"/>
+        
+        <action input="/Presupuesto/agregar_presupuesto.jsp" name="Presupuesto" path="/form1_presupuesto" type="Actions_Presupuesto.agregado" validate="false">
+            <forward name="success" path="/Presupuesto/vista_agregado.jsp"/>
+            <forward name="failure" path="/Presupuesto/vista_agregar.jsp"/>
         </action>
         
-        <action path="/modificar" forward= "/modificar.jsp"/> 
+        
+        <!--Farta estoo ERIKKK AYUDAME CABRON-->
+        <action path="/modificar_presupuesto" name="Presupuesto" forward= "/Presupuesto/modificar_presupuesto.jsp"/> 
         
         
-        <action input="/modificar.jsp" name="Presupuesto" path="/form2" type="Actions.modificado" validate="false">
-            <forward name="success" path="/modificado.jsp"/>
-            <forward name="failure" path="/welcomeStruts.jsp"/>
+        
+        
+        
+        <action path="/eliminar_presupuesto" type="org.apache.struts.actions.ForwardAction" 
+                scope="request" validate="false" 
+                parameter="/Presupuesto/vista_eliminar.jsp"/>
+        
+        <action input="/Presupuesto/eliminar_presupuesto.jsp" name="Presupuesto" path="/form3_presupuesto" type="Actions_Presupuesto.eliminado" validate="false">
+            <forward name="success" path="/Presupuesto/vista_eliminado.jsp"/>
+            <forward name="failure" path="/Presupuesto/vista_presupuesto.jsp"/>
         </action>
         
-        <action path="/eliminar" forward= "/eliminar.jsp"/>
         
-        <action input="/eliminar.jsp" name="Presupuesto" path="/form3" type="Actions.eliminado" validate="false">
-            <forward name="success" path="/eliminado.jsp"/>
-            <forward name="failure" path="/welcomeStruts.jsp"/>
+        <action path="/consultar_presupuesto" type="Actions_Presupuesto.consultado" validate="false">
+            <forward name="success" path="/Presupuesto/vista_consultar.jsp"/>
         </action>
         
-        <action path="/consultar" type="Actions.consultado" validate="false">
-            <forward name="success" path="/consultar.jsp"/>
+                      
+                      
+        <!--CHEQUES-->
+        <action path="/cheque" type="org.apache.struts.actions.ForwardAction" 
+                scope="request" validate="false" 
+                parameter="/Cheque/vista_cheque.jsp"/>
+        
+        <action path="/agregar_cheque" type="org.apache.struts.actions.ForwardAction" 
+                scope="request" validate="false" 
+                parameter="/Cheque/vista_agregar.jsp"/>
+        
+        
+        
+        <action input="/Cheque/agregar_cheque.jsp" name="Cheque" path="/form1_cheque" type="Actions_Cheque.agregado" validate="false">
+            <forward name="success" path="/Cheque/vista_agregado.jsp"/>
+            <forward name="failure" path="/Cheque/vista_cheque.jsp"/>
         </action>
+        
+        <action path="/consultar_cheque" type="Actions_Cheque.consultado" validate="false">
+            <forward name="success" path="/Cheque/vista_consultar.jsp"/>
+        </action>
+        
+        
+             
+        <action path="/modificar_cheque" type="org.apache.struts.actions.ForwardAction" 
+                scope="request" validate="false" 
+                parameter="/Cheque/vista_modificar.jsp"/>
+        
+        
+        <action input="/Cheque/modificar_cheque.jsp" name="Cheque" path="/form2_cheque" type="Actions_Cheque.modificado" validate="false">
+            <forward name="success" path="/Cheque/vista_modificado.jsp"/>
+            <forward name="failure" path="/Cheque/vista_cheque.jsp"/>
+        </action>
+        
+        
+        <!--Esto es un peo! no se que pasa pero de aki no sale!-->
+        <action input="/" name="Presupuesto" path="/form2_presupuesto" scope="request" type="Actions_Presupuesto.modificado" validate="false">
+            <forward name="success" path="/lista_modificar.jsp"/>
+            <forward name="failure" path="/Presupuesto/modificar_presupuesto.jsp"/>
+        </action>    
+        
+        <action input="/Presupuesto/modificar_presupuesto.jsp" name="Presupuesto" path="/form4_presupuesto" type="Actions_Presupuesto.modificado" validate="false">
+            <forward name="success" path="/Presupuesto/modificado_presupuesto.jsp"/>
+            <forward name="failure" path="/Presupuesto/Presupuesto.jsp"/>
+        </action>
+        <action input="/" name="Presupuesto" path="/modificado" scope="session" type="Actions_Cheque.modificado"/>        
         
         
                                         
@@ -94,4 +156,9 @@
             value="/WEB-INF/validator-rules.xml,/WEB-INF/validation.xml"/>
     </plug-in>
   
+    <plug-in className="org.apache.struts.tiles.TilesPlugin">
+        <set-property
+            property="definitions-config"
+            value="/WEB-INF/tiles-defs.xml"/>
+    </plug-in>
 </struts-config>

@@ -19,22 +19,32 @@ import org.apache.struts.action.ActionMessage;
 public class Presupuesto extends org.apache.struts.action.ActionForm {
 
     /* forward name="success" path="" */
-    private int codigo;
+    private String codigo;
     private String tipo;
     private String descripcion;
+    private String error;
+
+    public String getError() {
+        return error;
+    }
+    
+        
+    public void setError() {
+        this.error = "Codigo errado intente de nuevo";
+    }
 
     public void resetearVariables() {
-        this.codigo = 0;
+        this.codigo = "";
         this.tipo = "";
         this.descripcion = "";
     }
     
     
-    public int getCodigo() {
+    public String getCodigo() {
         return codigo;
     }
 
-    public void setCodigo(int codigo) {
+    public void setCodigo(String codigo) {
         this.codigo = codigo;
     }
 
@@ -67,7 +77,17 @@ public class Presupuesto extends org.apache.struts.action.ActionForm {
 
     public ActionErrors validate(ActionMapping mapping, HttpServletRequest request) {
         ActionErrors errors = new ActionErrors();
-        
+        Integer valor;
+        try {
+            valor=Integer.parseInt(getCodigo());
+            if (valor<=0){
+                throw new Exception();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            errors.add("codigo", new ActionMessage("error.codigo.errado"));
+
+        }
         
         return errors;
         

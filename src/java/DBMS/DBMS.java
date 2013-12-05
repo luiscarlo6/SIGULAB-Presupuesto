@@ -7,6 +7,7 @@ package DBMS;
 
 import java.util.ArrayList;
 import Clases.Presupuesto;
+import Clases.Cheque;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -59,11 +60,12 @@ public class DBMS {
         PreparedStatement psAgregar = null;
         try {
 
-            psAgregar = conexion.prepareStatement("INSERT INTO PRESUPUESTO VALUES (?,?,?);");
+            psAgregar = conexion.prepareStatement("INSERT INTO PRESUPUESTO VALUES (?,?,?,?);");
 
-            psAgregar.setInt(1, u.getCodigo());
+            psAgregar.setInt(1, Integer.parseInt(u.getCodigo()));
             psAgregar.setString(2, u.getTipo());
             psAgregar.setString(3, u.getDescripcion());
+            psAgregar.setInt(4, 1);
             System.out.println(psAgregar.toString());
 
             Integer i = psAgregar.executeUpdate();
@@ -75,6 +77,31 @@ public class DBMS {
         }
     }
 
+    public Presupuesto seleccionarDatos_Presupuesto(int codigo){
+        PreparedStatement psConsultar = null;
+        try {
+            
+            psConsultar = conexion.prepareStatement("SELECT * FROM PRESUPUESTO WHERE codigo = ?;");
+            psConsultar.setInt(1, codigo);
+            
+            System.out.println(psConsultar.toString());
+            ResultSet Rs = psConsultar.executeQuery();
+            
+            Presupuesto pre = new Presupuesto();
+            pre.setCodigo(""+Rs.getInt("codigo"));
+            pre.setDescripcion(Rs.getString("descripcion"));
+            pre.setTipo(Rs.getString("tipo"));
+            
+            return pre;
+
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            return null;
+        }
+        
+  
+    }
+    
     public boolean ModificarDatos(Presupuesto u) {
         PreparedStatement psConsultar = null;
         try {
@@ -85,11 +112,11 @@ public class DBMS {
 
             psConsultar = conexion.prepareStatement("UPDATE PRESUPUESTO SET codigo=?, descripcion=?, tipo=? where codigo = ?;");
 
-            psConsultar.setInt(1, u.getCodigo());
+            psConsultar.setInt(1, Integer.parseInt(u.getCodigo()));
             psConsultar.setString(2, u.getTipo());
             psConsultar.setString(3, u.getDescripcion());
 
-            psConsultar.setInt(4, u.getCodigo());
+            psConsultar.setInt(4, Integer.parseInt(u.getCodigo()));
             System.out.println(psConsultar.toString());
 
             Integer i = psConsultar.executeUpdate();
@@ -109,7 +136,7 @@ public class DBMS {
 
             psEliminar = conexion.prepareStatement("DELETE FROM PRESUPUESTO WHERE codigo = ?;");
 
-            psEliminar.setInt(1, u.getCodigo());
+            psEliminar.setInt(1, Integer.parseInt(u.getCodigo()));
             System.out.println(psEliminar.toString());
 
             Integer i = psEliminar.executeUpdate();
@@ -133,7 +160,7 @@ public class DBMS {
             while (Rs.next()) {
                 Presupuesto u = new Presupuesto();
                 
-                u.setCodigo(Rs.getInt("codigo"));
+                u.setCodigo(""+Rs.getInt("codigo"));
                 u.setDescripcion(Rs.getString("descripcion"));
                 u.setTipo(Rs.getString("tipo"));
                 
@@ -148,4 +175,80 @@ public class DBMS {
         return Presupuestos;
 
     }
+    
+     public boolean agregarDatos_Cheque(Cheque u) {
+
+        PreparedStatement psAgregar = null;
+        try {
+
+            psAgregar = conexion.prepareStatement("INSERT INTO CHEQUE VALUES (?,?,?,?);");
+
+            psAgregar.setInt(1, u.getCodigo());
+            psAgregar.setDouble(2, u.getMonto());
+            psAgregar.setString(3, u.getFecha());
+            psAgregar.setString(4, u.getStatus());
+            System.out.println(psAgregar.toString());
+
+            Integer i = psAgregar.executeUpdate();
+            return i > 0;
+
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            return false;
+        }
+    }
+     
+      public ArrayList<Cheque> consultarDatos_Cheque() {
+
+        ArrayList<Cheque> Cheques = new ArrayList<Cheque>();
+        PreparedStatement psConsultar = null;
+        try {
+
+            psConsultar = conexion.prepareStatement("SELECT * FROM CHEQUE;");
+            ResultSet Rs = psConsultar.executeQuery();
+
+            while (Rs.next()) {
+                Cheque u = new Cheque();
+                
+                u.setCodigo(Rs.getInt("codigo"));
+                u.setStatus(Rs.getString("status"));
+                u.setFecha(Rs.getString("fecha"));
+                u.setMonto(Rs.getDouble("monto"));
+                
+                Cheques.add(u);
+            }
+
+
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        
+        return Cheques;
+
+    }
+      
+      
+    public boolean Modificar_Cheque(Cheque u) {
+        PreparedStatement psModificar = null;
+        try {
+            /**
+             * TOY CAGANDOLA AKI ME FUI PA CLASES MOSK QUE ESTOY ES AKII
+             * AKIIIIIIIIIIIII
+             */
+
+            psModificar = conexion.prepareStatement("UPDATE CHEQUE SET status=? where codigo = ?;");
+
+            psModificar.setString(1, u.getStatus());
+            psModificar.setInt(2, u.getCodigo());
+            System.out.println(psModificar.toString());
+
+            Integer i = psModificar.executeUpdate();
+
+            return i > 0;
+
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            return false;
+        }
+    }  
 }
