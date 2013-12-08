@@ -1,15 +1,12 @@
 <%-- 
-    Document   : modificado
-    Created on : 29-nov-2013, 9:05:28
+    Document   : construccion
+    Created on : 05-dic-2013, 14:39:23
     Author     : juanpe
 --%>
 
-<%@page contentType="text/html"%>
-<%@page pageEncoding="UTF-8"%>
-
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://struts.apache.org/tags-bean" prefix="bean" %>
 <%@ taglib uri="http://struts.apache.org/tags-html" prefix="html" %>
-<%@ taglib uri="http://struts.apache.org/tags-logic" prefix="logic" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -17,11 +14,11 @@
         <title>JSP Page</title>
     </head>
     <body>
-        <h1>Modificacion Exitosa!</h1>
+        <h1>>>>En Construccion<<<</h1>
     </body>
-    <html:link action= "/consultar_presupuesto" >
-        <h2>
-            Volver
-        </h2>
+    <html:link action= "/inicio" >
+            <h2>
+                Inicio
+            </h2>
     </html:link>
 </html>

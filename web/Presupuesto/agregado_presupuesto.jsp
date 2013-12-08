@@ -18,9 +18,9 @@
     </head>
     <body>
         <h1>Agregado Exitosamente!</h1>
-        <html:link action= "/presupuesto" >
+        <html:link action= "/consultar_presupuesto" >
             <h2>
-                Inicio
+                Volver
             </h2>
         </html:link>
     </body>

@@ -30,14 +30,13 @@
                         <tr>
 
                             <td style="color: red">
-                                <html:errors property="codigo" /> 
+                                <bean:write name = "Presupuesto" property="error" filter="false" />
+                                &nbsp;
                             </td>
                         </tr>
                         <tr>
                             <td>Tipo:
                         
-                        
-                           
                                 <html:select property="tipo">
                                     <option value="FUNINDES">FUNINDES</option>
                                     <option value="FONACIT">FONACIT</option>
@@ -68,8 +67,10 @@
                         </tr>
 
                     <td>
-                        <html:submit value="Agregar" />
-                        <html:reset value="Limpiar" />
+                        <html:submit onclick="javascript: return confirm('¿Está seguro de que los datos son correctos?')">
+                            Agregar Presupuesto
+                        </html:submit>
+                        <!---< html:reset value="Limpiar" /> -->
                     </td>
                     </tr>
                     </tbody>
@@ -77,7 +78,7 @@
             </div>     
         </html:form>
 
-        <html:link action= "/presupuesto" >
+        <html:link action= "/consultar_presupuesto" >
             <h2>
                 Volver
             </h2>

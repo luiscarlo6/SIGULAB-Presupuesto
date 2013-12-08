@@ -3,7 +3,7 @@ drop table CHEQUE_OG;
 drop table ORDEN_GASTO;
 drop table CHEQUE;
 create table PRESUPUESTO 
-    (codigo int CHECK (codigo > 0), 
+    (codigo int unique CHECK (codigo > 0), 
     tipo varchar(50), 
     descripcion varchar(50), 
     status int NOT NULL CHECK  (status in (0,1)), 
@@ -32,3 +32,5 @@ create table CHEQUE_OG
     CONSTRAINT FK_CHEQUE FOREIGN KEY (codigo)  REFERENCES CHEQUE,
     CONSTRAINT FK_OG FOREIGN KEY (num_orden)  REFERENCES ORDEN_GASTO,
     CONSTRAINT PK_CHEQUE_OG PRIMARY KEY (codigo,num_orden));
+
+

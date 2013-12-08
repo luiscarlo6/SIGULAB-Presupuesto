@@ -17,39 +17,38 @@
         <h1>
             Presupuestos:
         </h1>
-        <table border="1" class="altrowstable" id="alternatecolor">
-            <thead>
-                <tr>
-                    <th width="155px" align="center">
-                        Código
-                    </th>
-                    <th width="155px" align="center">
-                        Tipo
-                    </th>
-                    <th width="155px" align="center">
-                        Descripción
-                    </th>
-                </tr>
-            </thead>
 
-            <logic:iterate name="presupuesto" id="Presupuesto">
-                <tr>
-                    <td width="155px" align="center">
-                        <bean:write name="Presupuesto" property="codigo"/>
-                    </td>
-                    <td width="155px" align="center">
-                        <bean:write name="Presupuesto" property="tipo"/>
-                    </td>
-                    <td width="155px" align="center">
-                        <bean:write name="Presupuesto" property="descripcion"/>
-                    </td>
-                </tr>    
-            </logic:iterate>
-        </table>
-        <html:link action="/presupuesto">
-            <h2>
-                Volver
-            </h2>
-        </html:link>
-    </body>
+<table border="1" class="altrowstable" id="alternatecolor">
+    <thead>
+        <tr>
+            <th width="155px" align="center">
+                Código
+            </th>
+            <th width="155px" align="center">
+                Tipo
+            </th>
+            <th width="155px" align="center">
+                Descripción
+            </th>
+        </tr>
+    </thead>
+    <div float:left>
+        <logic:iterate name="presupuesto" id="Presupuesto">
+            <tr>
+                <td width="155px" align="center">
+                    <bean:write name="Presupuesto" property="codigo"/>
+                </td>
+                <td width="155px" align="center">
+                    <bean:write name="Presupuesto" property="tipo"/>
+                </td>
+                <td width="155px" align="center">
+                    <bean:write name="Presupuesto" property="descripcion"/>
+                </td>
+                
+            </tr>                       
+                
+        </logic:iterate>
+    </div>
+</table>
+</body>
 </html>

@@ -10,7 +10,7 @@
 <%@ taglib uri="http://struts.apache.org/tags-logic" prefix="logic" %>
 <%@ taglib uri="http://struts.apache.org/tags-tiles" prefix="tiles" %>
 
-<tiles:insert page = "/plantilla_cuerpo.jsp" flush="true">
+<tiles:insert page = "/plantilla_presupuesto.jsp" flush="true">
     <tiles:put name="titulo" value = "Presupuesto"/>
     <tiles:put name="cuerpo" value = "/Presupuesto/agregar_presupuesto.jsp"/>
 </tiles:insert>

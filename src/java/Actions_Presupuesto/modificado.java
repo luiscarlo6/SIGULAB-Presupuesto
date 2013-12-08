@@ -54,7 +54,8 @@ public class modificado extends org.apache.struts.action.Action {
 
         if (huboError) {
             saveErrors(request, error);
-            u.setError();
+            u.resetearVariables();
+            u.setError1();
             return mapping.findForward(FAILURE);
             //si los campos son validos
         } else {
@@ -65,7 +66,8 @@ public class modificado extends org.apache.struts.action.Action {
                 request.setAttribute("datosPres", pre);
                 return mapping.findForward(SUCCESS);
             } else {
-                u.setError();
+                u.setError1();
+                
                 return mapping.findForward(FAILURE);
             }
         }

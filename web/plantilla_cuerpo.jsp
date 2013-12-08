@@ -96,9 +96,9 @@
                             <div class="inner">
                                 <div class="content">
                                     <ul class="menu">
-                                        <li class="first leaf"><html:link action="presupuesto"><p>Presupuesto</p></html:link></li>
-                                        <li class="leaf"><html:link action="orden_gastos"><p>Orden de Gastos</p></html:link></li>
-                                        <li class="leaf"><html:link action="cheque"><p>Cheques</p></html:link></li>
+                                        <li class="first leaf"><html:link action="consultar_presupuesto"><p>Presupuesto</p></html:link></li>
+                                        <li class="leaf"><html:link action="construccion"><p>Orden de Gastos</p></html:link></li>
+                                        <li class="leaf"><html:link action="construccion"><p>Cheques</p></html:link></li>
                                     </ul>
                                 </div>
                             </div>

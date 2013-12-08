@@ -85,12 +85,15 @@ public class DBMS {
             psConsultar.setInt(1, codigo);
             
             System.out.println(psConsultar.toString());
+            
             ResultSet Rs = psConsultar.executeQuery();
+            Rs.next();
             
             Presupuesto pre = new Presupuesto();
             pre.setCodigo(""+Rs.getInt("codigo"));
             pre.setDescripcion(Rs.getString("descripcion"));
             pre.setTipo(Rs.getString("tipo"));
+            
             
             return pre;
 
@@ -105,18 +108,14 @@ public class DBMS {
     public boolean ModificarDatos(Presupuesto u) {
         PreparedStatement psConsultar = null;
         try {
-            /**
-             * TOY CAGANDOLA AKI ME FUI PA CLASES MOSK QUE ESTOY ES AKII
-             * AKIIIIIIIIIIIII
-             */
-
+            
             psConsultar = conexion.prepareStatement("UPDATE PRESUPUESTO SET codigo=?, descripcion=?, tipo=? where codigo = ?;");
 
-            psConsultar.setInt(1, Integer.parseInt(u.getCodigo()));
-            psConsultar.setString(2, u.getTipo());
-            psConsultar.setString(3, u.getDescripcion());
-
+            psConsultar.setInt(1, Integer.parseInt(u.getCodigo_nuevo()));
+            psConsultar.setString(2, u.getDescripcion());
+            psConsultar.setString(3, u.getTipo());
             psConsultar.setInt(4, Integer.parseInt(u.getCodigo()));
+            
             System.out.println(psConsultar.toString());
 
             Integer i = psConsultar.executeUpdate();

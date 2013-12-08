@@ -23,6 +23,19 @@ public class Presupuesto extends org.apache.struts.action.ActionForm {
     private String tipo;
     private String descripcion;
     private String error;
+    private String codigo_nuevo;
+
+    
+    
+    public String getCodigo_nuevo() {
+        return codigo_nuevo;
+    }
+
+    public void setCodigo_nuevo(String codigo_nuevo) {
+        this.codigo_nuevo = codigo_nuevo;
+    }
+
+  
 
     public String getError() {
         return error;
@@ -30,13 +43,20 @@ public class Presupuesto extends org.apache.struts.action.ActionForm {
     
         
     public void setError() {
-        this.error = "Codigo errado intente de nuevo";
+        this.error = "Codigo errado o ya existe, intente de nuevo";
+    }
+
+    public void setError1() {
+        this.error = "Codigo errado o no existe, intente de nuevo";
     }
 
     public void resetearVariables() {
         this.codigo = "";
         this.tipo = "";
         this.descripcion = "";
+        //this.codigo_nuevo = "";
+        this.error="";
+                
     }
     
     
@@ -75,6 +95,7 @@ public class Presupuesto extends org.apache.struts.action.ActionForm {
      * @return
      */
 
+    /**peos para comparar la entrada!!**///
     public ActionErrors validate(ActionMapping mapping, HttpServletRequest request) {
         ActionErrors errors = new ActionErrors();
         Integer valor;
@@ -83,6 +104,14 @@ public class Presupuesto extends org.apache.struts.action.ActionForm {
             if (valor<=0){
                 throw new Exception();
             }
+            /*valor = 0;
+            if (this.getCodigo_nuevo() != null){
+                valor=Integer.parseInt(getCodigo_nuevo());
+                if (valor<=0){
+                throw new Exception();
+                }
+            }*/
+            
         } catch (Exception e) {
             e.printStackTrace();
             errors.add("codigo", new ActionMessage("error.codigo.errado"));
@@ -94,6 +123,32 @@ public class Presupuesto extends org.apache.struts.action.ActionForm {
         
         //return mapping.findForward("SUCCESS");
     }
+    
+    
+    public ActionErrors validate_codigo_nuevo(ActionMapping mapping, HttpServletRequest request) {
+        ActionErrors errors = new ActionErrors();
+        Integer valor;
+        try {
+            valor=Integer.parseInt(""+getCodigo_nuevo());
+            if (valor<=0){
+                throw new Exception();
+            }
+            System.out.println("codigo nuevo ="+getCodigo_nuevo());
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println("Estoy entro de error codigo nuevo ="+getCodigo_nuevo());
+            errors.add("codigo_nuevo", new ActionMessage("error.codigo_nuevo.errado"));
+
+        }
+        
+        return errors;
+        
+        
+        //return mapping.findForward("SUCCESS");
+    }
+    
+    
 
     @Override
     public String toString() {

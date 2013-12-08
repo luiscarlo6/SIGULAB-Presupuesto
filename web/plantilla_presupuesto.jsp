@@ -1,6 +1,6 @@
 <%-- 
-    Document   : Inicio
-    Created on : 04-dic-2013, 13:55:32
+    Document   : plantilla_cuerpo
+    Created on : 03-dic-2013, 22:18:06
     Author     : juanpe
 --%>
 
@@ -74,14 +74,15 @@
             </header>
             <div id="main" class="section section-main clearfix" role="main">
                 <div id="content" class="column grid-10 push-3">
-                    <div class="breadcrumb"><html:link action="/inicio"><p class="leaf">Inicio</p></html:link></div>      <div class="inner">
+                    <div class="breadcrumb"><html:link action="inicio"><p class="leaf">Inicio</p></html:link></div>      <div class="inner">
                         <div id="main-content" class="clearfix">
                             <div class="region region-content">
                                 <div class="view view-noticias view-id-noticias view-display-id-page_1 view-dom-id-f258d0e6a6378f17f545a0c53e3df3ad">
 
                                     <div class="view-content">
                                         
-                                        <FONT FACE="arial" SIZE=6 >Bienvenido a SIGULAB</FONT>
+
+                                        <tiles:insert attribute="cuerpo"/>
 
                                     </div>
 
@@ -96,7 +97,10 @@
                                 <div class="content">
                                     <ul class="menu">
                                         <li class="first leaf"><html:link action="consultar_presupuesto"><p>Presupuesto</p></html:link></li>
-                                        <li class="leaf"><html:link action="construccion"><p>Orden de Gastos</p></html:link></li>
+                                            <li class="leaf"><html:link  action="agregar_presupuesto"><p>Agregar Nuevo</p></html:link></li>
+                                            <li class="leaf"><html:link action="modificar_presupuesto"><p>Modificar</p></html:link></li>
+                                            <li class="leaf"><html:link action="eliminar_presupuesto"><p>Eliminar</p></html:link></li>
+                                        <li  class="leaf"><html:link action="construccion"><p>Orden de Gastos</p></html:link></li>
                                         <li class="leaf"><html:link action="construccion"><p>Cheques</p></html:link></li>
                                     </ul>
                                 </div>

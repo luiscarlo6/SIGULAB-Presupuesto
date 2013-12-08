@@ -15,8 +15,7 @@
     </head>
     <body>
         <h2>Introduzca los datos del presupuesto a modificar:</h2>
-        <bean:write name = "Presupuesto" property="error" filter="false" />
-        &nbsp;
+        
         <html:form action="/form2_presupuesto">            
             <div id="welcome">
                 <table border="0">
@@ -29,23 +28,25 @@
                             </td>
                         </tr>               
                         <tr>
-
                             <td style="color: red">
-                                <html:errors property="codigo" /> 
+                                <bean:write name = "Presupuesto" property="error" filter="false" />
+                                &nbsp;
                             </td>
+
+                            
                         </tr>
                         
                        
                     <td>
                         <html:submit value="Modificar" />
-                        <html:reset value="Limpiar" />
+                        <!---< html:reset value="Limpiar" /> -->
                     </td>
                     </tbody>
                 </table>   
             </div>     
         </html:form>
 
-        <html:link action= "/presupuesto" >
+        <html:link action= "/consultar_presupuesto" >
             <h2>
                 Volver
             </h2>

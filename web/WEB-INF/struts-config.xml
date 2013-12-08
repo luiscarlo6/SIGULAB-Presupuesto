@@ -21,6 +21,9 @@
 
     <action-mappings>
         
+        <action path="/construccion" forward="/construccion.jsp"/>
+        
+        
         <action path="/inicio" type="org.apache.struts.actions.ForwardAction" 
                 scope="request" validate="false" 
                 parameter="/vista_inicio.jsp"/>
@@ -41,11 +44,26 @@
         </action>
         
         
-        <!--Farta estoo ERIKKK AYUDAME CABRON-->
-        <action path="/modificar_presupuesto" name="Presupuesto" forward= "/Presupuesto/modificar_presupuesto.jsp"/> 
+        <action path="/modificar_presupuesto" name = "Presupuesto" type="org.apache.struts.actions.ForwardAction" 
+                scope="request" validate="false" 
+                parameter="/Presupuesto/vista_modificar.jsp"/>
         
+        <action input="/Presupuesto/modificar_presupuesto.jsp" name="Presupuesto" path="/form2_presupuesto" scope="request" type="Actions_Presupuesto.modificado" validate="false">
+            <forward name="success" path="/Presupuesto/vista_listar_modificar.jsp"/>
+            <forward name="failure" path="/Presupuesto/vista_modificar.jsp"/>
+        </action>    
         
-        
+        <!--Farta estoo ERIKKK AYUDAME CABRON
+        el forward de failure esta cagandola no se porq carajo
+        nito acomodar esto
+        PILAAAA
+        PILAAA
+        PILAAAAAA
+        -->
+        <action input="/Presupuesto/listar_modificar.jsp" name="Presupuesto" path="/form4_presupuesto" type="Actions_Presupuesto.modificar_datos" validate="false">
+            <forward name="success" path="/Presupuesto/vista_modificado.jsp"/>
+            <forward name="failure" path="/Presupuesto/vista_consultar.jsp"/>
+        </action>
         
         
         <action path="/eliminar_presupuesto" type="org.apache.struts.actions.ForwardAction" 
@@ -54,7 +72,7 @@
         
         <action input="/Presupuesto/eliminar_presupuesto.jsp" name="Presupuesto" path="/form3_presupuesto" type="Actions_Presupuesto.eliminado" validate="false">
             <forward name="success" path="/Presupuesto/vista_eliminado.jsp"/>
-            <forward name="failure" path="/Presupuesto/vista_presupuesto.jsp"/>
+            <forward name="failure" path="/Presupuesto/vista_eliminar.jsp"/>
         </action>
         
         
@@ -98,16 +116,7 @@
         
         
         <!--Esto es un peo! no se que pasa pero de aki no sale!-->
-        <action input="/" name="Presupuesto" path="/form2_presupuesto" scope="request" type="Actions_Presupuesto.modificado" validate="false">
-            <forward name="success" path="/lista_modificar.jsp"/>
-            <forward name="failure" path="/Presupuesto/modificar_presupuesto.jsp"/>
-        </action>    
         
-        <action input="/Presupuesto/modificar_presupuesto.jsp" name="Presupuesto" path="/form4_presupuesto" type="Actions_Presupuesto.modificado" validate="false">
-            <forward name="success" path="/Presupuesto/modificado_presupuesto.jsp"/>
-            <forward name="failure" path="/Presupuesto/Presupuesto.jsp"/>
-        </action>
-        <action input="/" name="Presupuesto" path="/modificado" scope="session" type="Actions_Cheque.modificado"/>        
         
         
                                         

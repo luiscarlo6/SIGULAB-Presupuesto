@@ -58,6 +58,7 @@ public class agregado extends org.apache.struts.action.Action {
         if (huboError) {
             saveErrors(request, error);
             u.resetearVariables();
+            u.setError();
             return mapping.findForward(FAILURE);
             //si los campos son validos
         } else {
@@ -67,6 +68,7 @@ public class agregado extends org.apache.struts.action.Action {
             if (agrego) {
                 return mapping.findForward(SUCCESS);
             } else {
+                u.setError();
                 return mapping.findForward(FAILURE);
             }
         }

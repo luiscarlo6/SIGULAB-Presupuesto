@@ -19,9 +19,9 @@
     <body>
         <h1>Eliminacion Exitosa!</h1>
     </body>
-    <html:link action= "/presupuesto" >
+    <html:link action= "/consultar_presupuesto" >
         <h2>
-            Inicio
+            Volver
         </h2>
     </html:link>
 </html>

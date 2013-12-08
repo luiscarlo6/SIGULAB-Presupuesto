@@ -30,21 +30,24 @@
                         <tr>
 
                             <td style="color: red">
-                                <html:errors property="codigo" /> 
+                                <bean:write name = "Presupuesto" property="error" filter="false" />
+                                &nbsp;
                             </td>
                         </tr>
 
 
                     <td>
-                        <html:submit value="Eliminar" />
-                        <html:reset value="Limpiar" />
+                        <html:submit onclick="javascript: return confirm('¿Está seguro de que desea eliminar este presupuesto?\n***se eliminara de la base de datos')">
+                            Eliminar Presupuesto
+                        </html:submit>
+                        <!---< html:reset value="Limpiar" /> -->
                     </td>
                     </tr>
                     </tbody>
                 </table>   
             </div>     
         </html:form>
-        <html:link action= "/presupuesto" >
+        <html:link action= "/consultar_presupuesto" >
             <h2>
                 Volver
             </h2>

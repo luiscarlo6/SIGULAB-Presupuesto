@@ -3,6 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+
 package Actions_Presupuesto;
 
 import Clases.Presupuesto;
@@ -19,7 +20,7 @@ import org.apache.struts.action.ActionMapping;
  *
  * @author juanpe
  */
-public class eliminado extends org.apache.struts.action.Action {
+public class modificar_datos extends org.apache.struts.action.Action {
 
     /* forward name="success" path="" */
     private static final String SUCCESS = "success";
@@ -39,34 +40,42 @@ public class eliminado extends org.apache.struts.action.Action {
     public ActionForward execute(ActionMapping mapping, ActionForm form,
             HttpServletRequest request, HttpServletResponse response)
             throws Exception {
+        
         Presupuesto u;
         u = (Presupuesto) form;
         HttpSession session = request.getSession(true);
 
         ActionErrors error = new ActionErrors();
 
-        error = u.validate(mapping, request);
+        error = u.validate_codigo_nuevo(mapping, request);
         boolean huboError = false;
 
         if (error.size() != 0) {
             huboError = true;
+            
         }
 
         if (huboError) {
             saveErrors(request, error);
             u.resetearVariables();
-            u.setError1();
+            u.setError();
             return mapping.findForward(FAILURE);
             //si los campos son validos
-        } else {
-            boolean elimino = DBMS.getInstance().EliminarDatos(u);
-            u.resetearVariables();
-            if (elimino) {
-                return mapping.findForward(SUCCESS);
-            } else {
-                u.setError1();
-                return mapping.findForward(FAILURE);
+        } else 
+            
+            {
+                boolean modifico = DBMS.getInstance().ModificarDatos(u);
+                u.resetearVariables();
+                if (modifico) {
+         
+                    //request.setAttribute("datosPres", pre);
+                    return mapping.findForward(SUCCESS);
+                } else {
+                    u.setError();
+                    return mapping.findForward(FAILURE);
             }
         }
+        
+        
     }
 }
