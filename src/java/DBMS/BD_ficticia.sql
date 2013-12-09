@@ -7,3 +7,4 @@ insert into presupuesto values(100005, 'Delegado', 'Presupuesto Delegado de la D
 insert into presupuesto values(100006, 'FONACIT', 'Presupuesto para Proyecto 3', 1);
 insert into presupuesto values(100007, 'FONACIT', 'Presupuesto para Proyecto 2', 1);
 insert into presupuesto values(100008, 'FONACIT', 'Presupuesto para Proyecto 4', 1);
+

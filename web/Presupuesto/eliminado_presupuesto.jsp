@@ -17,7 +17,7 @@
         <title>JSP Page</title>
     </head>
     <body>
-        <h1>Eliminacion Exitosa!</h1>
+        <h1>Cambio de Status Exitoso!</h1>
     </body>
     <html:link action= "/consultar_presupuesto" >
         <h2>

@@ -23,7 +23,18 @@ public class Presupuesto extends org.apache.struts.action.ActionForm {
     private String tipo;
     private String descripcion;
     private String error;
+    private String error_tipo;
     private String codigo_nuevo;
+
+    
+    
+    public String getError_tipo() {
+        return error_tipo;
+    }
+
+    public void setError_tipo() {
+        this.error_tipo = "Seleccione un Tipo";
+    }
 
     
     
@@ -56,6 +67,7 @@ public class Presupuesto extends org.apache.struts.action.ActionForm {
         this.descripcion = "";
         //this.codigo_nuevo = "";
         this.error="";
+        this.error_tipo="";
                 
     }
     

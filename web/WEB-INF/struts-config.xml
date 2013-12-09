@@ -83,6 +83,9 @@
                       
                       
         <!--CHEQUES-->
+        <!--Esto es un adelanto.. no tiene funcionalidad aun porque no es para esta entrega
+        razon por la que no creo que deba ser evaluada-->
+        
         <action path="/cheque" type="org.apache.struts.actions.ForwardAction" 
                 scope="request" validate="false" 
                 parameter="/Cheque/vista_cheque.jsp"/>
@@ -115,7 +118,6 @@
         </action>
         
         
-        <!--Esto es un peo! no se que pasa pero de aki no sale!-->
         
         
         

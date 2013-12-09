@@ -38,6 +38,7 @@
                             <td>Tipo:
                         
                                 <html:select property="tipo">
+                                    <!--<option value=""></option> -->
                                     <option value="FUNINDES">FUNINDES</option>
                                     <option value="FONACIT">FONACIT</option>
                                     <option value="Donacion">Donacion</option>
@@ -48,7 +49,8 @@
                         </tr>
                         <tr>
                             <td style="color: red">
-                                <html:errors property="tipo" /> 
+                                <bean:write name = "Presupuesto" property="error_tipo" filter="false" />
+                                &nbsp;
                             </td>
                         </tr>
 

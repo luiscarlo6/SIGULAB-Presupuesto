@@ -81,7 +81,9 @@
 
                                     <div class="view-content">
                                         
-                                        <FONT FACE="arial" SIZE=6 >Bienvenido a SIGULAB</FONT>
+                                        <FONT FACE="arial" SIZE=4 >Bienvenido al Sistema de Gestion Presupuestaria de ULAB</FONT>
+                                        
+                                       
 
                                     </div>
 

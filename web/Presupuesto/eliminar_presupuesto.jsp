@@ -14,13 +14,13 @@
         <title>SIGU-LAB</title>
     </head>
     <body>
-        <h2>Introduzca los datos del presupuesto a eliminar</h2>
+        <h2>Introduzca el codigo del presupuesto al que se le cambiara el status</h2>
 
         <html:form action="/form3_presupuesto">            
             <div id="welcome">
                 <table border="0">
                     <tbody>
-                        <tr>Indique el Codigo del presupuesto a eliminar:</tr>
+                        <tr>Codigo del presupuesto:</tr>
 
                         <tr>
                             <td>
@@ -37,8 +37,8 @@
 
 
                     <td>
-                        <html:submit onclick="javascript: return confirm('¿Está seguro de que desea eliminar este presupuesto?\n***se eliminara de la base de datos')">
-                            Eliminar Presupuesto
+                        <html:submit onclick="javascript: return confirm('¿Está seguro de este cambio?\n***Estara desactivado a la vista***')">
+                            Camdiar Status Presupuesto
                         </html:submit>
                         <!---< html:reset value="Limpiar" /> -->
                     </td>

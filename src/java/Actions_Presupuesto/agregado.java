@@ -59,16 +59,17 @@ public class agregado extends org.apache.struts.action.Action {
             saveErrors(request, error);
             u.resetearVariables();
             u.setError();
+            //u.setError_tipo();
             return mapping.findForward(FAILURE);
             //si los campos son validos
         } else {
             boolean agrego = DBMS.getInstance().agregarDatos(u);
-            //PA QUE ES ESTO?
             u.resetearVariables();
             if (agrego) {
                 return mapping.findForward(SUCCESS);
             } else {
                 u.setError();
+                //u.setError_tipo();
                 return mapping.findForward(FAILURE);
             }
         }

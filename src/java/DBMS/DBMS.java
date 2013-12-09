@@ -133,7 +133,7 @@ public class DBMS {
         PreparedStatement psEliminar = null;
         try {
 
-            psEliminar = conexion.prepareStatement("DELETE FROM PRESUPUESTO WHERE codigo = ?;");
+            psEliminar = conexion.prepareStatement("UPDATE PRESUPUESTO SET status=0 where codigo = ?;");
 
             psEliminar.setInt(1, Integer.parseInt(u.getCodigo()));
             System.out.println(psEliminar.toString());
@@ -153,17 +153,20 @@ public class DBMS {
         PreparedStatement psConsultar = null;
         try {
 
-            psConsultar = conexion.prepareStatement("SELECT * FROM PRESUPUESTO;");
+            psConsultar = conexion.prepareStatement("SELECT * FROM PRESUPUESTO ORDER BY CODIGO;");
             ResultSet Rs = psConsultar.executeQuery();
 
             while (Rs.next()) {
                 Presupuesto u = new Presupuesto();
                 
-                u.setCodigo(""+Rs.getInt("codigo"));
-                u.setDescripcion(Rs.getString("descripcion"));
-                u.setTipo(Rs.getString("tipo"));
+                if (Rs.getInt("status") == 1) {
+                    u.setCodigo(""+Rs.getInt("codigo"));
+                    u.setDescripcion(Rs.getString("descripcion"));
+                    u.setTipo(Rs.getString("tipo"));
+                    Presupuestos.add(u);
+                }
                 
-                Presupuestos.add(u);
+                
             }
 
 
