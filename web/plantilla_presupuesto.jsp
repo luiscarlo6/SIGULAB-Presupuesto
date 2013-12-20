@@ -96,7 +96,7 @@
                             <div class="inner">
                                 <div class="content">
                                     <ul class="menu">
-                                        <li class="first leaf"><html:link action="consultar_presupuesto"><p>Presupuesto</p></html:link></li>
+                                        <li class="first leaf"><html:link action="consultar_presupuesto"><p>Tipo de Presupuesto</p></html:link></li>
                                             <li class="leaf"><html:link  action="agregar_presupuesto"><p>Agregar Nuevo</p></html:link></li>
                                             <li class="leaf"><html:link action="modificar_presupuesto"><p>Modificar</p></html:link></li>
                                             <li class="leaf"><html:link action="eliminar_presupuesto"><p>Cambiar Status</p></html:link></li>

@@ -44,34 +44,50 @@ public class modificar_datos extends org.apache.struts.action.Action {
         Presupuesto u;
         u = (Presupuesto) form;
         HttpSession session = request.getSession(true);
-
+        String msg_codigo = "", msg_monto = "", msg_tipo = "";
         ActionErrors error = new ActionErrors();
 
-        error = u.validate_codigo_nuevo(mapping, request);
+        error = u.validate(mapping, request);
         boolean huboError = false;
 
-        if (error.size() != 0) {
+        /*if (error.size() != 0) {
             huboError = true;
             
-        }
+        }*/
+        msg_codigo = u.ValidarCampoCodigo(); 
+        msg_monto = u.ValidarCampoMonto();
+        msg_tipo = u.ValidarCampoTipo();
 
+        if ((!msg_codigo.equals("ok")) || (!msg_monto.equals("ok")) || (!msg_tipo.equals("ok"))){
+            huboError = true;
+        }
+        
         if (huboError) {
             saveErrors(request, error);
             u.resetearVariables();
-            u.setError();
+            if (!msg_codigo.equals("ok")){
+                u.setError(msg_codigo);
+            }
+            if (!msg_monto.equals("ok")){
+                u.setError_monto(msg_monto);
+            }
+            if (!msg_tipo.equals("ok")){
+                u.setError_tipo(msg_tipo);
+            }
+            u.setError_modificando("No se pudo realizar la modificacion, verifique los datos ingresados");
             return mapping.findForward(FAILURE);
             //si los campos son validos
         } else 
             
             {
-                boolean modifico = DBMS.getInstance().ModificarDatos(u);
+                boolean modifico = DBMS.getInstance().ModificarDatos_presupuesto(u);
                 u.resetearVariables();
                 if (modifico) {
-         
+                    //u.resetearVariables();
                     //request.setAttribute("datosPres", pre);
                     return mapping.findForward(SUCCESS);
                 } else {
-                    u.setError();
+                    u.setError_modificando("No se pudo realizar la modificacion, verifique los datos ingresados");
                     return mapping.findForward(FAILURE);
             }
         }

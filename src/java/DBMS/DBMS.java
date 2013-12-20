@@ -55,17 +55,23 @@ public class DBMS {
         return false;
     }
 
-    public boolean agregarDatos(Presupuesto u) {
+    public boolean agregarDatos_presupuesto(Presupuesto u) {
 
         PreparedStatement psAgregar = null;
         try {
 
-            psAgregar = conexion.prepareStatement("INSERT INTO PRESUPUESTO VALUES (?,?,?,?);");
-
+            psAgregar = conexion.prepareStatement("INSERT INTO TIPO_DE_PRESUPUESTO VALUES (?,?,?,?,?,?,?,?);");
+            
             psAgregar.setInt(1, Integer.parseInt(u.getCodigo()));
             psAgregar.setString(2, u.getTipo());
             psAgregar.setString(3, u.getDescripcion());
-            psAgregar.setInt(4, 1);
+            psAgregar.setInt(4, 1);            
+            psAgregar.setFloat(5, Float.parseFloat(u.getMonto()));
+            psAgregar.setInt(6, Integer.parseInt(u.getDia()));
+            psAgregar.setString(7, u.getMes());
+            psAgregar.setInt(8, Integer.parseInt(u.getAno()));
+            
+            
             System.out.println(psAgregar.toString());
 
             Integer i = psAgregar.executeUpdate();
@@ -81,7 +87,7 @@ public class DBMS {
         PreparedStatement psConsultar = null;
         try {
             
-            psConsultar = conexion.prepareStatement("SELECT * FROM PRESUPUESTO WHERE codigo = ?;");
+            psConsultar = conexion.prepareStatement("SELECT * FROM TIPO_DE_PRESUPUESTO WHERE codigo = ? and status = 1;");
             psConsultar.setInt(1, codigo);
             
             System.out.println(psConsultar.toString());
@@ -94,6 +100,11 @@ public class DBMS {
             pre.setDescripcion(Rs.getString("descripcion"));
             pre.setTipo(Rs.getString("tipo"));
             
+            pre.setMonto(""+Rs.getFloat("monto"));
+            pre.setDia(""+Rs.getInt("dia"));
+            pre.setMes(Rs.getString("mes"));
+            pre.setAno(""+Rs.getInt("ano"));
+            
             
             return pre;
 
@@ -105,16 +116,20 @@ public class DBMS {
   
     }
     
-    public boolean ModificarDatos(Presupuesto u) {
+    public boolean ModificarDatos_presupuesto(Presupuesto u) {
         PreparedStatement psConsultar = null;
         try {
             
-            psConsultar = conexion.prepareStatement("UPDATE PRESUPUESTO SET codigo=?, descripcion=?, tipo=? where codigo = ?;");
+            psConsultar = conexion.prepareStatement("UPDATE TIPO_DE_PRESUPUESTO SET descripcion=?, tipo=?, monto=?, dia=?, mes=?, ano=? where codigo = ?;");
 
-            psConsultar.setInt(1, Integer.parseInt(u.getCodigo_nuevo()));
-            psConsultar.setString(2, u.getDescripcion());
-            psConsultar.setString(3, u.getTipo());
-            psConsultar.setInt(4, Integer.parseInt(u.getCodigo()));
+            //psConsultar.setInt(1, Integer.parseInt(u.getCodigo_nuevo()));
+            psConsultar.setString(1, u.getDescripcion());
+            psConsultar.setString(2, u.getTipo());
+            psConsultar.setFloat(3, Float.parseFloat(u.getMonto()));
+            psConsultar.setInt(4, Integer.parseInt(u.getDia()));
+            psConsultar.setString(5, u.getMes());
+            psConsultar.setInt(6, Integer.parseInt(u.getAno()));
+            psConsultar.setInt(7, Integer.parseInt(u.getCodigo()));
             
             System.out.println(psConsultar.toString());
 
@@ -128,12 +143,12 @@ public class DBMS {
         }
     }
 
-    public boolean EliminarDatos(Presupuesto u) {
+    public boolean CambiarStatus_presupuesto(Presupuesto u) {
 
         PreparedStatement psEliminar = null;
         try {
 
-            psEliminar = conexion.prepareStatement("UPDATE PRESUPUESTO SET status=0 where codigo = ?;");
+            psEliminar = conexion.prepareStatement("UPDATE TIPO_DE_PRESUPUESTO SET status=0 where codigo = ?;");
 
             psEliminar.setInt(1, Integer.parseInt(u.getCodigo()));
             System.out.println(psEliminar.toString());
@@ -147,13 +162,13 @@ public class DBMS {
         }
     }
 
-    public ArrayList<Presupuesto> consultarDatos() {
+    public ArrayList<Presupuesto> consultarDatos_presupuesto() {
 
         ArrayList<Presupuesto> Presupuestos = new ArrayList<Presupuesto>();
         PreparedStatement psConsultar = null;
         try {
 
-            psConsultar = conexion.prepareStatement("SELECT * FROM PRESUPUESTO ORDER BY CODIGO;");
+            psConsultar = conexion.prepareStatement("SELECT * FROM TIPO_DE_PRESUPUESTO ORDER BY CODIGO;");
             ResultSet Rs = psConsultar.executeQuery();
 
             while (Rs.next()) {
@@ -163,6 +178,10 @@ public class DBMS {
                     u.setCodigo(""+Rs.getInt("codigo"));
                     u.setDescripcion(Rs.getString("descripcion"));
                     u.setTipo(Rs.getString("tipo"));
+                    u.setMonto(""+Rs.getFloat("monto"));
+                    u.setDia(""+Rs.getInt("dia"));
+                    u.setMes(Rs.getString("mes"));
+                    u.setAno(""+Rs.getInt("ano"));
                     Presupuestos.add(u);
                 }
                 

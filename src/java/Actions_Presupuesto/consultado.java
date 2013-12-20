@@ -43,7 +43,7 @@ public class consultado extends org.apache.struts.action.Action {
         
         HttpSession session = request.getSession(true);
         
-        ArrayList<Presupuesto> Presupuestos = DBMS.getInstance().consultarDatos();
+        ArrayList<Presupuesto> Presupuestos = DBMS.getInstance().consultarDatos_presupuesto();
         
         session.setAttribute(("presupuesto"), Presupuestos);
 

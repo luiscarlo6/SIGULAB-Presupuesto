@@ -54,18 +54,9 @@
         <script type="text/javascript" src="http://www.ulab.usb.ve/misc/progress.js?v=7.22"></script>
         <script type="text/javascript" src="http://www.ulab.usb.ve/sites/all/modules/views/js/ajax_view.js?ml8e0y"></script>
         <script type="text/javascript" src="http://www.ulab.usb.ve/themes/sky/js/scripts.js?ml8e0y"></script>
-        <script type="text/javascript">
-            <!--//--><![CDATA[//><!--
-        jQuery.extend(Drupal.settings, {"basePath": "\/", "pathPrefix": "", "ajaxPageState": {"theme": "sky", "theme_token": "1mcfSKBygVSp27Fx0CDiUUZ_GAkCPYFfROsiND8pVpQ", "js": {"misc\/jquery.js": 1, "misc\/jquery.once.js": 1, "misc\/drupal.js": 1, "misc\/jquery.cookie.js": 1, "misc\/jquery.form.js": 1, "misc\/ajax.js": 1, "public:\/\/languages\/es_4XpqCflKazTuXzLphPzjQcs4p_0-3cW6doKJyQdMlBo.js": 1, "sites\/all\/modules\/views\/js\/base.js": 1, "misc\/progress.js": 1, "sites\/all\/modules\/views\/js\/ajax_view.js": 1, "themes\/sky\/js\/scripts.js": 1}, "css": {"modules\/system\/system.base.css": 1, "modules\/field\/theme\/field.css": 1, "modules\/user\/user.css": 1, "sites\/all\/modules\/views\/css\/views.css": 1, "sites\/all\/modules\/ckeditor\/ckeditor.css": 1, "sites\/all\/modules\/ctools\/css\/ctools.css": 1, "themes\/sky\/css\/layout.css": 1, "themes\/sky\/css\/style.css": 1, "themes\/sky\/css\/forms.css": 1, "themes\/sky\/css\/colors.css": 1, "themes\/sky\/css\/print.css": 1, "themes\/sky\/css\/ie.css": 1}}, "views": {"ajax_path": "\/views\/ajax", "ajaxViews": {"views_dom_id:f258d0e6a6378f17f545a0c53e3df3ad": {"view_name": "noticias", "view_display_id": "page_1", "view_args": "", "view_path": "noticias", "view_base_path": "noticias", "view_dom_id": "f258d0e6a6378f17f545a0c53e3df3ad", "pager_element": 0}}}});
-            //--><!]]>
-        </script>
-        <!--[if lt IE 9]><script src="http://html5shiv.googlecode.com/svn/trunk/html5.js">
-        </script><![endif]-->
+
     </head>
     <body class="html not-front not-logged-in two-sidebars page-noticias" >
-        <div id="skip-link">
-            <a href="" class="element-invisible element-focusable">Pasar al contenido principal</a>
-        </div>
         <div id="container" class="container-16">
             <header id="header" class="section section-header clearfix" role="banner">
                 <hgroup class="grid-10">
@@ -97,7 +88,7 @@
                             <div class="inner">
                                 <div class="content">
                                     <ul class="menu">
-                                        <li class="first leaf"><html:link action="consultar_presupuesto"><p>Presupuesto</p></html:link></li>
+                                        <li class="first leaf"><html:link action="consultar_presupuesto"><p>Tipo de Presupuesto</p></html:link></li>
                                         <li class="leaf"><html:link action="construccion"><p>Orden de Gastos</p></html:link></li>
                                         <li class="leaf"><html:link action="construccion"><p>Cheques</p></html:link></li>
                                     </ul>

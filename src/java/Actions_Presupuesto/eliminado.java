@@ -44,27 +44,27 @@ public class eliminado extends org.apache.struts.action.Action {
         HttpSession session = request.getSession(true);
 
         ActionErrors error = new ActionErrors();
-
+        String msg_codigo = "";
         error = u.validate(mapping, request);
         boolean huboError = false;
-
+        msg_codigo = u.ValidarCampoCodigo();
         if (error.size() != 0) {
             huboError = true;
         }
-
+        
         if (huboError) {
             saveErrors(request, error);
             u.resetearVariables();
-            u.setError1();
+            u.setError(msg_codigo);
             return mapping.findForward(FAILURE);
             //si los campos son validos
         } else {
-            boolean elimino = DBMS.getInstance().EliminarDatos(u);
+            boolean elimino = DBMS.getInstance().CambiarStatus_presupuesto(u);
             u.resetearVariables();
             if (elimino) {
                 return mapping.findForward(SUCCESS);
             } else {
-                u.setError1();
+                u.setError("Codigo indicado NO existe");
                 return mapping.findForward(FAILURE);
             }
         }

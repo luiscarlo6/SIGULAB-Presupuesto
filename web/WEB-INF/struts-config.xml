@@ -53,6 +53,7 @@
             <forward name="failure" path="/Presupuesto/vista_modificar.jsp"/>
         </action>    
         
+        
         <!--Farta estoo ERIKKK AYUDAME CABRON
         el forward de failure esta cagandola no se porq carajo
         nito acomodar esto

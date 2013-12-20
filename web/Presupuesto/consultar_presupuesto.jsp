@@ -14,8 +14,10 @@
         <title>Presupuestos</title>
     </head>
     <body>
+        
+        
         <h1>
-            Presupuestos:
+            Tipos de Presupuestos:
         </h1>
 
 <table border="1" class="altrowstable" id="alternatecolor">
@@ -29,6 +31,15 @@
             </th>
             <th width="155px" align="center">
                 Descripción
+            </th>
+            <th width="155px" align="center">
+                Monto
+            </th>
+            <th width="155px" align="center">
+                Fecha
+            </th>
+            <th width="155px" align="center">
+                Accion
             </th>
         </tr>
     </thead>
@@ -44,11 +55,24 @@
                 <td width="155px" align="center">
                     <bean:write name="Presupuesto" property="descripcion"/>
                 </td>
-                
+                <td width="155px" align="center">
+                    <bean:write name="Presupuesto" property="monto"/>
+                </td>
+                <td width="155px" align="center">
+                    <bean:write name="Presupuesto" property="dia"/> /               
+                    <bean:write name="Presupuesto" property="mes"/> /
+                    <bean:write name="Presupuesto" property="ano"/>
+                </td>
+                <td width="155px" align="center">   
+                <html:link action= "/construccion" >
+                    Modificar
+                </html:link>
+                </td>  
             </tr>                       
                 
         </logic:iterate>
     </div>
 </table>
 </body>
+
 </html>

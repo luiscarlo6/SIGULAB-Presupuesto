@@ -47,28 +47,43 @@ public class agregado extends org.apache.struts.action.Action {
         HttpSession session = request.getSession(true);
 
         ActionErrors error = new ActionErrors();
-
+        String msg_codigo = "", msg_monto = "", msg_tipo = "";
         error = u.validate(mapping, request);
         boolean huboError = false;
 
-        if (error.size() != 0) {
+        msg_codigo = u.ValidarCampoCodigo(); 
+        msg_monto = u.ValidarCampoMonto();
+        msg_tipo = u.ValidarCampoTipo();
+        /*if (error.size() != 0) {
             huboError = true;
         }
-
+        */
+        if ((!msg_codigo.equals("ok")) || (!msg_monto.equals("ok")) || (!msg_tipo.equals("ok"))){
+            huboError = true;
+        }
+            
         if (huboError) {
             saveErrors(request, error);
             u.resetearVariables();
-            u.setError();
-            //u.setError_tipo();
+            if (!msg_codigo.equals("ok")){
+                u.setError(msg_codigo);
+            }
+            if (!msg_monto.equals("ok")){
+                u.setError_monto(msg_monto);
+            }
+            if (!msg_tipo.equals("ok")){
+                u.setError_tipo(msg_tipo);
+            }
+            
             return mapping.findForward(FAILURE);
             //si los campos son validos
         } else {
-            boolean agrego = DBMS.getInstance().agregarDatos(u);
+            boolean agrego = DBMS.getInstance().agregarDatos_presupuesto(u);
             u.resetearVariables();
             if (agrego) {
                 return mapping.findForward(SUCCESS);
             } else {
-                u.setError();
+                u.setError("Codigo ya existe, indique otro valor");
                 //u.setError_tipo();
                 return mapping.findForward(FAILURE);
             }

@@ -1,12 +1,16 @@
-drop table PRESUPUESTO;
+drop table TIPO_DE_PRESUPUESTO;
 drop table CHEQUE_OG;
 drop table ORDEN_GASTO;
 drop table CHEQUE;
-create table PRESUPUESTO 
+create table TIPO_DE_PRESUPUESTO 
     (codigo int unique CHECK (codigo > 0), 
     tipo varchar(50) NOT NULL CHECK (tipo != ''), 
     descripcion varchar(50), 
     status int NOT NULL CHECK  (status in (0,1)), 
+    monto float NOT NULL CHECK (monto > 0.0),
+    dia int NOT NULL CHECK (dia > 0),
+    mes varchar(30) NOT NULL CHECK (mes != ''),
+    ano int NOT NULL CHECK (ano > 2000),
     CONSTRAINT PK_PRESUPUESTO PRIMARY KEY (codigo,tipo));
 
 /*create table CHEQUE 
