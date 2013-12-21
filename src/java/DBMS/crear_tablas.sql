@@ -1,17 +1,35 @@
+drop table PRESUPUESTO;
 drop table TIPO_DE_PRESUPUESTO;
-drop table CHEQUE_OG;
+drop table LABORATORIO;
+/*drop table CHEQUE_OG;
 drop table ORDEN_GASTO;
-drop table CHEQUE;
+drop table CHEQUE;*/
+
 create table TIPO_DE_PRESUPUESTO 
     (codigo int unique CHECK (codigo > 0), 
-    tipo varchar(50) NOT NULL CHECK (tipo != ''), 
+    tipo varchar(100) NOT NULL CHECK (tipo != ''), 
     descripcion varchar(50), 
     status int NOT NULL CHECK  (status in (0,1)), 
     monto float NOT NULL CHECK (monto > 0.0),
     dia int NOT NULL CHECK (dia > 0),
-    mes varchar(30) NOT NULL CHECK (mes != ''),
+    mes varchar(15) NOT NULL CHECK (mes != ''),
     ano int NOT NULL CHECK (ano > 2000),
-    CONSTRAINT PK_PRESUPUESTO PRIMARY KEY (codigo,tipo));
+    CONSTRAINT PK_TIPO_DE_PRESUPUESTO PRIMARY KEY (codigo,tipo));
+
+create table LABORATORIO 
+    (codigo_laboratorio int unique CHECK (codigo_laboratorio > 0), 
+    nombre varchar(50) NOT NULL CHECK (nombre != ''), 
+    CONSTRAINT PK_LABORATORIO PRIMARY KEY (codigo_laboratorio));
+
+create table PRESUPUESTO 
+    (codigo_presupuesto int, 
+    codigo_laboratorio int, 
+    monto_asignado float NOT NULL CHECK (monto_asignado > 0.0),
+    CONSTRAINT PK_PRESUPUESTO PRIMARY KEY (codigo_presupuesto,codigo_laboratorio),
+    CONSTRAINT FK_PRESUPUESTO_TIPO_DE_PRESUPUESTO FOREIGN KEY (codigo_presupuesto)  REFERENCES TIPO_DE_PRESUPUESTO (codigo),
+    CONSTRAINT FK_PRESUPUESTO_LABORATORIO FOREIGN KEY (codigo_laboratorio)  REFERENCES LABORATORIO);
+
+
 
 /*create table CHEQUE 
     (codigo int, 

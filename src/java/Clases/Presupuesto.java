@@ -33,7 +33,7 @@ public class Presupuesto extends org.apache.struts.action.ActionForm {
     private String error_tipo;
     private String error_monto;
     private String error_modificando;
-    
+    private String error_fecha;
     
     
     public String getMonto() {
@@ -94,6 +94,13 @@ public class Presupuesto extends org.apache.struts.action.ActionForm {
         return error_modificando;
     }
 
+    public String getError_fecha() {
+        return error_fecha;
+    }
+
+    public void setError_fecha(String error_fecha) {
+        this.error_fecha = error_fecha;
+    }
     
     public void setError(String error) {
         this.error = error;
@@ -126,6 +133,7 @@ public class Presupuesto extends org.apache.struts.action.ActionForm {
         this.error_tipo="";
         this.error_monto="";
         this.error_modificando = "";        
+        this.error_fecha = "";  
     }    
     
     public String getCodigo() {
@@ -204,14 +212,12 @@ public class Presupuesto extends org.apache.struts.action.ActionForm {
             try{
                 codigo = Integer.parseInt(getCodigo());
             }catch (NumberFormatException e){
-                this.setError("Codigo errado, indique un Numero");
                 return "Codigo errado, indique un Numero";
             }
             if (codigo <= 0){
                 throw new Exception();
             }
         }catch (Exception e) {
-            this.setError("Codigo errado, indique un Numero mayor a 0");
             return "Codigo errado, indique un Numero mayor a 0";
         }        
         return "ok";
@@ -248,7 +254,37 @@ public class Presupuesto extends org.apache.struts.action.ActionForm {
         return "ok";
     }
     
-
+    public String VerificarFecha()  {
+        String mes = getMes();
+        Integer dia = Integer.parseInt(getDia()), ano = Integer.parseInt(getAno());  
+        try{
+		if ((mes.equals("ENERO")) || (mes.equals("MARZO")) || (mes.equals("MAYO")) || (mes.equals("JULIO")) || (mes.equals("AGOSTO")) || (mes.equals("OCTUBRE")) || (mes.equals("DICIEMBRE"))){
+		    if ((dia > 31) || (dia < 1)){                    
+                        throw new Exception();
+                    }
+                    
+		}else if (mes.equals("FEBRERO")){
+		    if (ano % 4 == 0){
+                        if ((dia > 29) || (dia < 1)){
+                            throw new Exception();
+                        }
+                    }else{
+                        if ((dia > 28) || (dia < 1)){
+                            throw new Exception();
+                        }
+                    }
+		}else{
+		    if ((dia > 30) && (dia < 1)){                  
+                        throw new Exception();
+                    }
+		}
+                
+          }catch (Exception e){
+                return "La fecha indicada es errada ";
+          }
+          return "ok";      
+    }
+    
     @Override
     public String toString() {
         return "presupuesto{" + "codigo=" + codigo + ", tipo=" + tipo + ", descripcion=" + descripcion + '}';

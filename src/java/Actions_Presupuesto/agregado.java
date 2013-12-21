@@ -47,18 +47,19 @@ public class agregado extends org.apache.struts.action.Action {
         HttpSession session = request.getSession(true);
 
         ActionErrors error = new ActionErrors();
-        String msg_codigo = "", msg_monto = "", msg_tipo = "";
+        String msg_codigo = "", msg_monto = "", msg_tipo = "", msg_fecha= "";
         error = u.validate(mapping, request);
         boolean huboError = false;
 
         msg_codigo = u.ValidarCampoCodigo(); 
         msg_monto = u.ValidarCampoMonto();
         msg_tipo = u.ValidarCampoTipo();
+        msg_fecha = u.VerificarFecha();
         /*if (error.size() != 0) {
             huboError = true;
         }
         */
-        if ((!msg_codigo.equals("ok")) || (!msg_monto.equals("ok")) || (!msg_tipo.equals("ok"))){
+        if ((!msg_codigo.equals("ok")) || (!msg_monto.equals("ok")) || (!msg_tipo.equals("ok")) || (!msg_fecha.equals("ok"))){
             huboError = true;
         }
             
@@ -73,6 +74,9 @@ public class agregado extends org.apache.struts.action.Action {
             }
             if (!msg_tipo.equals("ok")){
                 u.setError_tipo(msg_tipo);
+            }
+            if (!msg_fecha.equals("ok")){
+                u.setError_fecha(msg_fecha);
             }
             
             return mapping.findForward(FAILURE);

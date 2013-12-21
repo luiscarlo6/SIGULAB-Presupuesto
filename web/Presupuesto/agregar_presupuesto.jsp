@@ -143,7 +143,8 @@
                         </tr>
                         <tr>
                             <td style="color: red">
-                                <html:errors property="dia" /> 
+                                <bean:write name = "Presupuesto" property="error_fecha" filter="false" />
+                                &nbsp;
                             </td>
                         </tr>
                         
