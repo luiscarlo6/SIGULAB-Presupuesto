@@ -5,7 +5,7 @@
  */
 package Actions_Presupuesto;
 
-import Clases.Presupuesto;
+import Clases.Tipo_de_Presupuesto;
 
 import DBMS.DBMS;
 
@@ -42,8 +42,8 @@ public class agregado extends org.apache.struts.action.Action {
     public ActionForward execute(ActionMapping mapping, ActionForm form,
             HttpServletRequest request, HttpServletResponse response)
             throws Exception {
-        Presupuesto u;
-        u = (Presupuesto) form;
+        Tipo_de_Presupuesto u;
+        u = (Tipo_de_Presupuesto) form;
         HttpSession session = request.getSession(true);
 
         ActionErrors error = new ActionErrors();

@@ -6,7 +6,7 @@
 
 package Actions_Presupuesto;
 
-import Clases.Presupuesto;
+import Clases.Tipo_de_Presupuesto;
 import DBMS.DBMS;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -39,8 +39,8 @@ public class modificado extends org.apache.struts.action.Action {
     public ActionForward execute(ActionMapping mapping, ActionForm form,
             HttpServletRequest request, HttpServletResponse response)
             throws Exception {
-       Presupuesto u;
-        u = (Presupuesto) form;
+       Tipo_de_Presupuesto u;
+        u = (Tipo_de_Presupuesto) form;
         HttpSession session = request.getSession(true);
 
         ActionErrors error = new ActionErrors();
@@ -59,7 +59,7 @@ public class modificado extends org.apache.struts.action.Action {
             return mapping.findForward(FAILURE);
             //si los campos son validos
         } else {
-            Presupuesto pre = DBMS.getInstance().seleccionarDatos_Presupuesto(Integer.parseInt(u.getCodigo()));
+            Tipo_de_Presupuesto pre = DBMS.getInstance().seleccionarDatos_Presupuesto(Integer.parseInt(u.getCodigo()));
             u.resetearVariables();
             if (pre != null) {
          

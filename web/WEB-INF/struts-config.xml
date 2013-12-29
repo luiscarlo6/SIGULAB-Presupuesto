@@ -7,7 +7,7 @@
 
 <struts-config>
     <form-beans>
-        <form-bean name="Presupuesto" type="Clases.Presupuesto"/>
+        <form-bean name="Presupuesto" type="Clases.Tipo_de_Presupuesto"/>
         <form-bean name="Cheque" type="Clases.Cheque"/>
     </form-beans>
     
@@ -28,7 +28,7 @@
                 scope="request" validate="false" 
                 parameter="/vista_inicio.jsp"/>
         
-        
+        <!--Tipo de Presupuesto -->
         <action path="/presupuesto" type="org.apache.struts.actions.ForwardAction" 
                 scope="request" validate="false" 
                 parameter="/Presupuesto/vista_presupuesto.jsp"/>

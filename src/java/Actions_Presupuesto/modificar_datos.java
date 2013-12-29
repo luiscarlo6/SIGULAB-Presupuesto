@@ -6,7 +6,7 @@
 
 package Actions_Presupuesto;
 
-import Clases.Presupuesto;
+import Clases.Tipo_de_Presupuesto;
 import DBMS.DBMS;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -41,8 +41,8 @@ public class modificar_datos extends org.apache.struts.action.Action {
             HttpServletRequest request, HttpServletResponse response)
             throws Exception {
         
-        Presupuesto u;
-        u = (Presupuesto) form;
+        Tipo_de_Presupuesto u;
+        u = (Tipo_de_Presupuesto) form;
         HttpSession session = request.getSession(true);
         String msg_codigo = "", msg_monto = "", msg_tipo = "";
         ActionErrors error = new ActionErrors();

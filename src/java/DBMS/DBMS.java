@@ -6,7 +6,7 @@
 package DBMS;
 
 import java.util.ArrayList;
-import Clases.Presupuesto;
+import Clases.Tipo_de_Presupuesto;
 import Clases.Cheque;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -55,7 +55,7 @@ public class DBMS {
         return false;
     }
 
-    public boolean agregarDatos_presupuesto(Presupuesto u) {
+    public boolean agregarDatos_presupuesto(Tipo_de_Presupuesto u) {
 
         PreparedStatement psAgregar = null;
         try {
@@ -83,7 +83,7 @@ public class DBMS {
         }
     }
 
-    public Presupuesto seleccionarDatos_Presupuesto(int codigo){
+    public Tipo_de_Presupuesto seleccionarDatos_Presupuesto(int codigo){
         PreparedStatement psConsultar = null;
         try {
             
@@ -95,7 +95,7 @@ public class DBMS {
             ResultSet Rs = psConsultar.executeQuery();
             Rs.next();
             
-            Presupuesto pre = new Presupuesto();
+            Tipo_de_Presupuesto pre = new Tipo_de_Presupuesto();
             pre.setCodigo(""+Rs.getInt("codigo"));
             pre.setDescripcion(Rs.getString("descripcion"));
             pre.setTipo(Rs.getString("tipo"));
@@ -116,7 +116,7 @@ public class DBMS {
   
     }
     
-    public boolean ModificarDatos_presupuesto(Presupuesto u) {
+    public boolean ModificarDatos_presupuesto(Tipo_de_Presupuesto u) {
         PreparedStatement psConsultar = null;
         try {
             
@@ -143,7 +143,7 @@ public class DBMS {
         }
     }
 
-    public boolean CambiarStatus_presupuesto(Presupuesto u) {
+    public boolean CambiarStatus_presupuesto(Tipo_de_Presupuesto u) {
 
         PreparedStatement psEliminar = null;
         try {
@@ -162,9 +162,9 @@ public class DBMS {
         }
     }
 
-    public ArrayList<Presupuesto> consultarDatos_presupuesto() {
+    public ArrayList<Tipo_de_Presupuesto> consultarDatos_presupuesto() {
 
-        ArrayList<Presupuesto> Presupuestos = new ArrayList<Presupuesto>();
+        ArrayList<Tipo_de_Presupuesto> Presupuestos = new ArrayList<Tipo_de_Presupuesto>();
         PreparedStatement psConsultar = null;
         try {
 
@@ -172,7 +172,7 @@ public class DBMS {
             ResultSet Rs = psConsultar.executeQuery();
 
             while (Rs.next()) {
-                Presupuesto u = new Presupuesto();
+                Tipo_de_Presupuesto u = new Tipo_de_Presupuesto();
                 
                 if (Rs.getInt("status") == 1) {
                     u.setCodigo(""+Rs.getInt("codigo"));

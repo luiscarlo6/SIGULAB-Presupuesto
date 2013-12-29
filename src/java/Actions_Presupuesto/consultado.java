@@ -5,7 +5,7 @@
 package Actions_Presupuesto;
 
 import DBMS.DBMS;
-import Clases.Presupuesto;
+import Clases.Tipo_de_Presupuesto;
 import java.util.ArrayList;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -43,7 +43,7 @@ public class consultado extends org.apache.struts.action.Action {
         
         HttpSession session = request.getSession(true);
         
-        ArrayList<Presupuesto> Presupuestos = DBMS.getInstance().consultarDatos_presupuesto();
+        ArrayList<Tipo_de_Presupuesto> Presupuestos = DBMS.getInstance().consultarDatos_presupuesto();
         
         session.setAttribute(("presupuesto"), Presupuestos);
 
