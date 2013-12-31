@@ -18,14 +18,16 @@
             <div>
                 <tiles:insert attribute="banner"/>
             </div>
+           
+            <div>
+                <tiles:insert attribute="sidebarR"/>
+            </div>
             
-            <div id="sidebarL">
+            <div>
                 <tiles:insert attribute="sidebarL"/>
             </div>
             
-            <tiles:insert attribute="sidebarR"/>
-            
-            <div style="width:760px; margin-left: auto;margin-right: auto;">
+            <div style="width:760px; align:center; margin-left: auto;margin-right: auto;">
                 <tiles:insert attribute="body"/>
             </div>
             

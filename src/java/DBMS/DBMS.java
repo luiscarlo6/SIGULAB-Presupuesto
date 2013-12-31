@@ -8,6 +8,7 @@ package DBMS;
 import java.util.ArrayList;
 import Clases.Tipo_de_Presupuesto;
 import Clases.Cheque;
+import Clases.Presupuesto;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -55,7 +56,10 @@ public class DBMS {
         return false;
     }
 
-    public boolean agregarDatos_presupuesto(Tipo_de_Presupuesto u) {
+    
+    // TIPO DE PRESUPUESTO
+    
+    public boolean agregarDatos_Tipo_de_presupuesto(Tipo_de_Presupuesto u) {
 
         PreparedStatement psAgregar = null;
         try {
@@ -83,7 +87,7 @@ public class DBMS {
         }
     }
 
-    public Tipo_de_Presupuesto seleccionarDatos_Presupuesto(int codigo){
+    public Tipo_de_Presupuesto seleccionarDatos_Tipo_de_presupuesto(int codigo){
         PreparedStatement psConsultar = null;
         try {
             
@@ -116,7 +120,7 @@ public class DBMS {
   
     }
     
-    public boolean ModificarDatos_presupuesto(Tipo_de_Presupuesto u) {
+    public boolean ModificarDatos_Tipo_de_presupuesto(Tipo_de_Presupuesto u) {
         PreparedStatement psConsultar = null;
         try {
             
@@ -143,7 +147,7 @@ public class DBMS {
         }
     }
 
-    public boolean CambiarStatus_presupuesto(Tipo_de_Presupuesto u) {
+    public boolean CambiarStatus_Tipo_de_presupuesto(Tipo_de_Presupuesto u) {
 
         PreparedStatement psEliminar = null;
         try {
@@ -162,7 +166,7 @@ public class DBMS {
         }
     }
 
-    public ArrayList<Tipo_de_Presupuesto> consultarDatos_presupuesto() {
+    public ArrayList<Tipo_de_Presupuesto> consultarDatos_Tipo_de_presupuesto() {
 
         ArrayList<Tipo_de_Presupuesto> Presupuestos = new ArrayList<Tipo_de_Presupuesto>();
         PreparedStatement psConsultar = null;
@@ -197,7 +201,63 @@ public class DBMS {
 
     }
     
-     public boolean agregarDatos_Cheque(Cheque u) {
+    // PRESUPUESTO 
+    
+    public boolean agregarDatos_Presupuesto(Presupuesto u) {
+
+        PreparedStatement psAgregar = null;
+        try {
+
+            psAgregar = conexion.prepareStatement("INSERT INTO PRESUPUESTO VALUES (?,?,?);");
+
+            psAgregar.setInt(1, Integer.parseInt(u.getCodigo_TDP()));   
+            psAgregar.setInt(2, Integer.parseInt(u.getCodigo_lab()));
+            psAgregar.setFloat(3, Float.parseFloat(u.getMonto_asignado()));            
+            System.out.println(psAgregar.toString());
+            Integer i = psAgregar.executeUpdate();
+            return i > 0;
+
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            return false;
+        }
+    }
+    
+    
+    public ArrayList<Presupuesto> consultarDatos_Presupuesto() {
+
+        ArrayList<Presupuesto> Presupuestos = new ArrayList<Presupuesto>();
+        PreparedStatement psConsultar = null;
+        try {
+
+            psConsultar = conexion.prepareStatement("SELECT * FROM PRESUPUESTO ORDER BY CODIGO_LABORATORIO;");
+            ResultSet Rs = psConsultar.executeQuery();
+
+            while (Rs.next()) {
+                Presupuesto u = new Presupuesto();                                
+                    u.setCodigo_TDP(""+Rs.getInt("codigo_TDP"));
+                    u.setCodigo_lab(""+Rs.getInt("codigo_laboratorio"));
+                    u.setMonto_asignado(""+Rs.getFloat("monto_asignado"));
+                    u.setFecha(""+Rs.getString("fecha"));
+                    Presupuestos.add(u);
+            }
+
+
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        
+        return Presupuestos;
+
+    }
+    
+    
+    
+    
+    
+    // CHEQUE
+    
+    public boolean agregarDatos_Cheque(Cheque u) {
 
         PreparedStatement psAgregar = null;
         try {

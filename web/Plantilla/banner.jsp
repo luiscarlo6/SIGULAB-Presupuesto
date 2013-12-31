@@ -10,6 +10,11 @@
 <%@ taglib uri="http://struts.apache.org/tags-logic" prefix="logic" %>
 <%@ taglib uri="http://struts.apache.org/tags-tiles" prefix="tiles" %>  
 
+<html>
+
+
 <div>
-    <img id="banner" src="imagenes/logo.jpg" alt="Inicio">
+    <img id="banner" src="imagenes/logo.jpg" alt="">
 </div>
+    
+</html>

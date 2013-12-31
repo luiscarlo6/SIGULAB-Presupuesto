@@ -22,11 +22,12 @@ create table LABORATORIO
     CONSTRAINT PK_LABORATORIO PRIMARY KEY (codigo_laboratorio));
 
 create table PRESUPUESTO 
-    (codigo_presupuesto int, 
+    (codigo_TDP int, 
     codigo_laboratorio int, 
     monto_asignado float NOT NULL CHECK (monto_asignado > 0.0),
-    CONSTRAINT PK_PRESUPUESTO PRIMARY KEY (codigo_presupuesto,codigo_laboratorio),
-    CONSTRAINT FK_PRESUPUESTO_TIPO_DE_PRESUPUESTO FOREIGN KEY (codigo_presupuesto)  REFERENCES TIPO_DE_PRESUPUESTO (codigo),
+    fecha Date Default current_date,
+    CONSTRAINT PK_PRESUPUESTO PRIMARY KEY (codigo_TDP,codigo_laboratorio),
+    CONSTRAINT FK_PRESUPUESTO_TIPO_DE_PRESUPUESTO FOREIGN KEY (codigo_TDP)  REFERENCES TIPO_DE_PRESUPUESTO (codigo),
     CONSTRAINT FK_PRESUPUESTO_LABORATORIO FOREIGN KEY (codigo_laboratorio)  REFERENCES LABORATORIO);
 
 

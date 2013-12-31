@@ -8,6 +8,7 @@ insert into tipo_de_presupuesto values(100006, 'FONACIT', 'Presupuesto para Proy
 insert into tipo_de_presupuesto values(100007, 'FONACIT', 'Presupuesto para Proyecto 2', 1, '150000.00', '18','NOVIEMBRE','2014');
 insert into tipo_de_presupuesto values(100008, 'FONACIT', 'Presupuesto para Proyecto 4', 1, '150000.00', '17','MARZO','2014');
 
+insert into laboratorio values(50000000, 'ULAB');
 insert into laboratorio values(50000001, 'Laboratorio A');
 insert into laboratorio values(50000002, 'Laboratorio B');
 insert into laboratorio values(50000003, 'Laboratorio C');
@@ -15,7 +16,7 @@ insert into laboratorio values(50000004, 'Laboratorio D');
 insert into laboratorio values(50000005, 'Laboratorio E');
 insert into laboratorio values(50000006, 'Laboratorio F');
 insert into laboratorio values(50000007, 'Laboratorio G');
-insert into laboratorio values(50000000, 'ULAB');
+
 
 insert into presupuesto values(100001,50000001,'20000');
 insert into presupuesto values(100002,50000001,'50000');
@@ -41,7 +42,10 @@ insert into presupuesto values(100002,50000007,'60000');
 insert into presupuesto values(100001,50000000,'80000');
 insert into presupuesto values(100007,50000000,'100000');
 
-select distinct lab.codigo_laboratorio, lab.nombre, SUM(p.monto_asignado) 
+select * from presupuesto;
+
+
+select distinct lab.codigo_laboratorio, lab.nombre, SUM(p.monto_asignado) as "Monto total asignado"
 from laboratorio lab, Presupuesto p 
 where lab.codigo_laboratorio = p.codigo_laboratorio 
 group by lab.codigo_laboratorio 

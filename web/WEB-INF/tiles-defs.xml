@@ -11,33 +11,77 @@
 
 <tiles-definitions>
 
-    <!-- sample tiles definitions
-    <definition name=".mainLayout" path="/common/layouts/classicLayout.jsp">
-        <put name="title"  value="Sample Page Title" />
-        <put name="header" value="/common/header.jsp" />
-        <put name="menu"   value=".mainMenu" />
-        <put name="footer" value="/common/footer.jsp" />
-        <put name="body"   value=".portal.body" />
+    
+    <definition name="base" path="/Plantilla/plantilla.jsp">
+        <put name="banner" value="/Plantilla/banner.jsp"/>
+        <put name="sidebarR" value="/Plantilla/sidebarR.jsp"/>
+        <put name="body" value="/Plantilla/body.jsp"/>
+        <put name="footer" value="/Plantilla/footer.jsp"/>
+    </definition>
+    
+    <definition name="baseAdmin" extends="base"> <!-- BASE PARA ADMIN -->
+        <put name="sidebarL" value="/Plantilla/sidebarL.jsp"/>
+    </definition>
+    
+    <definition name="InicioAdmin" extends="baseAdmin"> <!-- Vista administrador -->
+        <put name="body" value="/Inicio.jsp"/>
+    </definition>
+    
+    <!--Para cuando le das click a Tipo de Presupuesto (para resumir esta frase
+    se utilizaran las siglas: TDP)-->
+    <definition name="baseAdminTDP" extends="base"> <!-- BASE PARA ADMIN -->
+        <put name="sidebarL" value="/Plantilla/sidebarLTDP.jsp"/>
+    </definition>
+    
+    <definition name="consultarTDP" extends="baseAdminTDP"> <!-- Vista administrador -->
+        <put name="body" value="/TipoDePresupuesto/consultar_tipo_de_presupuesto.jsp"/>
+    </definition>
+    
+    <definition name="agregarTDP" extends="baseAdminTDP"> <!-- Crear Usuario -->
+        <put name="body" value="/TipoDePresupuesto/agregar_tipo_de_presupuesto.jsp"/>
+    </definition>
+    
+    <definition name="agregadoTDPsatisfactoriamente" extends="baseAdminTDP"> <!-- Crear Usuario -->
+        <put name="body" value="/TipoDePresupuesto/agregado_tipo_de_presupuesto.jsp"/>
+    </definition>
+    
+    <definition name="eliminarTDP" extends="baseAdminTDP"> <!-- Crear Usuario -->
+        <put name="body" value="/TipoDePresupuesto/eliminar_tipo_de_presupuesto.jsp"/>
+    </definition>
+    
+    <definition name="eliminadoTDPsatisfactoriamente" extends="baseAdminTDP"> <!-- Crear Usuario -->
+        <put name="body" value="/TipoDePresupuesto/eliminado_tipo_de_presupuesto.jsp"/>
+    </definition>
+        
+    <definition name="modificarTDP" extends="baseAdminTDP"> <!-- Crear Usuario -->
+        <put name="body" value="/TipoDePresupuesto/modificar_tipo_de_presupuesto.jsp"/>
+    </definition>
+    
+    <definition name="nuevosDatosDeTDP" extends="baseAdminTDP"> <!-- Crear Usuario -->
+        <put name="body" value="/TipoDePresupuesto/listar_tipo_de_modificar.jsp"/>
+    </definition>
+    
+    <definition name="modificadoTDPsatisfactoriamente" extends="baseAdminTDP"> <!-- Crear Usuario -->
+        <put name="body" value="/TipoDePresupuesto/modificado_tipo_de_presupuesto.jsp"/>
+    </definition>
+    
+    
+    <!--Para cuando le das click a Presupuesto -->
+    <definition name="baseAdminPresupuesto" extends="base"> <!-- BASE PARA ADMIN -->
+        <put name="sidebarL" value="/Plantilla/sidebarLPresupuesto.jsp"/>
+    </definition>
+    
+    <definition name="consultarPresupuesto" extends="baseAdminPresupuesto"> <!-- Vista administrador -->
+        <put name="body" value="/Presupuesto/consultar_presupuesto.jsp"/>
+    </definition>
+    
+    <definition name="asignarPresupuesto" extends="baseAdminPresupuesto"> <!-- Vista administrador -->
+        <put name="body" value="/Presupuesto/asignar_presupuesto.jsp"/>
+    </definition>
+    
+    <definition name="asignadoPresupuestosatisfactoriamente" extends="baseAdminPresupuesto"> <!-- Vista administrador -->
+        <put name="body" value="/Presupuesto/asignado_presupuesto.jsp"/>
     </definition>
 
-    <definition name=".mainMenu" path="/common/layouts/vboxLayout.jsp" >
-        <putList name="list" >
-            <add value=".menu.links" />
-            <add value=".menu.taglib.references" />
-            <add value=".menu.printer.friendly" />
-            <add value=".menu.old.documents" />
-      </putList>
-    </definition>
-
-    <definition name="aPage" extends=".mainLayout">
-        <put name="title"  value="Another Title" />
-        <put name="body"   value=".aPage.body" />
-    </definition>
-
-    end samples -->
-
-    <definition name="prueba">
-        <put name="body" value="/prueba/prueba.jsp"/>
-    </definition>
 
 </tiles-definitions>

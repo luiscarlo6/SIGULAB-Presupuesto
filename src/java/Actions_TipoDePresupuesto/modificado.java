@@ -4,9 +4,9 @@
  * and open the template in the editor.
  */
 
-package Actions_Presupuesto;
+package Actions_TipoDePresupuesto;
 
-import Clases.Presupuesto;
+import Clases.Tipo_de_Presupuesto;
 import DBMS.DBMS;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -20,12 +20,11 @@ import org.apache.struts.action.ActionMapping;
  *
  * @author juanpe
  */
-public class agregado extends org.apache.struts.action.Action {
+public class modificado extends org.apache.struts.action.Action {
 
     /* forward name="success" path="" */
     private static final String SUCCESS = "success";
     private static final String FAILURE = "failure";
-
     /**
      * This is the action called from the Struts framework.
      *
@@ -40,36 +39,37 @@ public class agregado extends org.apache.struts.action.Action {
     public ActionForward execute(ActionMapping mapping, ActionForm form,
             HttpServletRequest request, HttpServletResponse response)
             throws Exception {
-        Presupuesto u;
-        u = (Presupuesto) form;
+       Tipo_de_Presupuesto u;
+        u = (Tipo_de_Presupuesto) form;
         HttpSession session = request.getSession(true);
 
         ActionErrors error = new ActionErrors();
+        String msg_codigo = "";
         error = u.validate(mapping, request);
         boolean huboError = false;
-
-
+        msg_codigo = u.ValidarCampoCodigo();
         if (error.size() != 0) {
             huboError = true;
         }
-        
-  
+
         if (huboError) {
             saveErrors(request, error);
             u.resetearVariables();
-            
+            u.setError(msg_codigo);
             return mapping.findForward(FAILURE);
             //si los campos son validos
         } else {
-            boolean agrego = DBMS.getInstance().agregarDatos_Presupuesto(u);
+            Tipo_de_Presupuesto pre = DBMS.getInstance().seleccionarDatos_Tipo_de_presupuesto(Integer.parseInt(u.getCodigo()));
             u.resetearVariables();
-            if (agrego) {
+            if (pre != null) {
+         
+                request.setAttribute("datosPres", pre);
                 return mapping.findForward(SUCCESS);
             } else {
-                //u.setError("Codigo ya existe, indique otro valor");
-                //u.setError_tipo();
+                u.setError("***Codigo no existe o esta deshabilitado***");
                 return mapping.findForward(FAILURE);
             }
         }
     }
 }
+

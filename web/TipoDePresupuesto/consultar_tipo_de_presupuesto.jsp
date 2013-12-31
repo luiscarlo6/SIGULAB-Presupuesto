@@ -21,13 +21,16 @@
     <thead>
         <tr>
             <th width="50px" align="center">
-                <font size="2" >Código de Tipo de Presupuesto</font>
+                <font size="2" >Código</font>
             </th>
             <th width="70px" align="center">
-                <font size="2" >Código de Laboratorio</font>                
+                <font size="2" >Tipo</font>                
+            </th>
+            <th width="100px" align="center">
+                <font size="2" >Descripción</font>                                                
             </th>
             <th width="70px" align="center">
-                <font size="2" >Monto Asignado</font>                               
+                <font size="2" >Monto</font>                               
             </th>
             <th width="100px" align="center">
                 <font size="2" >Fecha</font>                                
@@ -38,25 +41,29 @@
         </tr>
     </thead>
     <div float:left>
-        <logic:iterate name="presupuesto" id="PresupuestoAsignado">
+        <logic:iterate name="presupuesto" id="Presupuesto">
             <tr>
                 <td width="50px" align="center">
-                    <font size="2" ><bean:write name="PresupuestoAsignado" property="codigo_TDP"/></font>
+                    <font size="2" ><bean:write name="Presupuesto" property="codigo"/></font>
                 </td>
                 <td width="70px" align="center">
-                    <font size="2" ><bean:write name="PresupuestoAsignado" property="codigo_lab"/></font>
-                </td>
-                <td width="70px" align="center">
-                    <font size="2" ><bean:write name="PresupuestoAsignado" property="monto_asignado"/></font>
+                    <font size="2" ><bean:write name="Presupuesto" property="tipo"/></font>
                 </td>
                 <td width="100px" align="center">
-                    <font size="2" ><bean:write name="PresupuestoAsignado" property="fecha"/></font> 
+                    <font size="2" ><bean:write name="Presupuesto" property="descripcion"/></font>
+                </td>
+                <td width="70px" align="center">
+                    <font size="2" ><bean:write name="Presupuesto" property="monto"/></font>
+                </td>
+                <td width="100px" align="center">
+                    <font size="2" ><bean:write name="Presupuesto" property="dia"/></font> /               
+                    <font size="2" ><bean:write name="Presupuesto" property="mes"/></font> /
+                    <font size="2" ><bean:write name="Presupuesto" property="ano"/></font>
                 </td>
                 <td width="30px" align="center">   
-                <font size="2" >
-                    <html:link action= "/construccion" >
-                        Modificar
-                    </html:link></font>
+                <font size="2" ><html:link action= "/construccion" >
+                    Modificar
+                </html:link></font>
                 </td>  
             </tr>                       
                 
