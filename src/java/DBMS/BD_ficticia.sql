@@ -17,7 +17,6 @@ insert into laboratorio values(50000005, 'Laboratorio E', 0.0);
 insert into laboratorio values(50000006, 'Laboratorio F', 0.0);
 insert into laboratorio values(50000007, 'Laboratorio G', 0.0);
 
-
 insert into presupuesto values(100001,50000001,'20000',1);
 insert into presupuesto values(100002,50000001,'50000',1);
 
@@ -42,8 +41,9 @@ insert into presupuesto values(100002,50000007,'60000',1);
 insert into presupuesto values(100001,50000000,'80000',1);
 insert into presupuesto values(100007,50000000,'100000',1);
 
-select * from presupuesto;
+insert into usuario values('juanpe','123456');
 
+select * from presupuesto;
 
 select distinct lab.codigo_laboratorio, lab.nombre, SUM(p.monto_asignado) as "Monto total asignado"
 from laboratorio lab, Presupuesto p 

@@ -21,11 +21,11 @@
     <thead>
         <tr>
             <th width="70px" align="center">
-                <font size="2" >Código de Tipo de Presupuesto</font>
-            </th>
-            <th width="70px" align="center">
                 <font size="2" >Código de Laboratorio</font>                
             </th>
+            <th width="70px" align="center">
+                <font size="2" >Código de Tipo de Presupuesto</font>
+            </th>            
             <th width="70px" align="center">
                 <font size="2" >Monto Asignado</font>                               
             </th>
@@ -41,11 +41,11 @@
         <logic:iterate name="presupuesto" id="PresupuestoAsignado">
             <tr>
                 <td width="70px" align="center">
-                    <font size="2" ><bean:write name="PresupuestoAsignado" property="codigo_TDP"/></font>
-                </td>
-                <td width="70px" align="center">
                     <font size="2" ><bean:write name="PresupuestoAsignado" property="codigo_lab"/></font>
                 </td>
+                <td width="70px" align="center">
+                    <font size="2" ><bean:write name="PresupuestoAsignado" property="codigo_TDP"/></font>
+                </td>                
                 <td width="70px" align="center">
                     <font size="2" ><bean:write name="PresupuestoAsignado" property="monto_asignado"/></font>
                 </td>

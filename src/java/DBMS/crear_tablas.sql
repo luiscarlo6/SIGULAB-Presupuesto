@@ -1,6 +1,7 @@
 drop table PRESUPUESTO;
 drop table TIPO_DE_PRESUPUESTO;
 drop table LABORATORIO;
+drop table USUARIO;
 /*drop table CHEQUE_OG;
 drop table ORDEN_GASTO;
 drop table CHEQUE;*/
@@ -8,7 +9,7 @@ drop table CHEQUE;*/
 create table TIPO_DE_PRESUPUESTO 
     (codigo int unique CHECK (codigo > 0), 
     tipo varchar(100) NOT NULL CHECK (tipo != ''), 
-    descripcion varchar(50), 
+    descripcion varchar(200), 
     status int NOT NULL CHECK  (status in (0,1)), 
     monto float NOT NULL CHECK (monto >= 0.0),
     dia int NOT NULL CHECK (dia > 0),
@@ -32,7 +33,10 @@ create table PRESUPUESTO
     CONSTRAINT FK_PRESUPUESTO_TIPO_DE_PRESUPUESTO FOREIGN KEY (codigo_TDP)  REFERENCES TIPO_DE_PRESUPUESTO (codigo),
     CONSTRAINT FK_PRESUPUESTO_LABORATORIO FOREIGN KEY (codigo_laboratorio)  REFERENCES LABORATORIO);
 
-
+create table USUARIO 
+    (usbid varchar(30) unique CHECK (usbid != ''), 
+    contrasena varchar(50) NOT NULL CHECK (contrasena != ''),
+    CONSTRAINT PK_USUARIO PRIMARY KEY (usbid));
 
 /*create table CHEQUE 
     (codigo int, 

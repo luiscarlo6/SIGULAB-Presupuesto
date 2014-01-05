@@ -11,6 +11,7 @@
         <form-bean name="Cheque" type="Clases.Cheque"/>
         <form-bean name="PresupuestoAsignado" type="Clases.Presupuesto"/>
         <form-bean name="Laboratorio" type="Clases.Laboratorio"/>
+        <form-bean name="Usuario" type="Clases.Usuario"/>
     </form-beans>
     
     <global-exceptions>
@@ -25,6 +26,11 @@
         
         <action path="/construccion" forward="/construccion.jsp"/>
         
+        <action input="/Login.jsp" name="Usuario" path="/form_login" type="Actions_Usuario.chequear" validate="false">
+            <forward name="success" path="InicioAdmin"/>
+            <forward name="failure" path="/Login.jsp"/>
+        </action>
+        
         <!-- Inicio -->
         <action path="/inicio" 
                 type="org.apache.struts.actions.ForwardAction" 
@@ -33,13 +39,6 @@
                 parameter="InicioAdmin"/>
         
 
-        
-        <!-- <action path="/presupuesto" 
-                type="org.apache.struts.actions.ForwardAction" 
-                scope="request" 
-                validate="false" 
-                parameter="/Presupuesto/vista_presupuesto.jsp"/>
-        -->
         <!--TIPO DE PRESUPUESTO -->
         <action path="/agregar_TDP" 
                 type="org.apache.struts.actions.ForwardAction" 
@@ -171,13 +170,8 @@
             <forward name="success" path="/Cheque/vista_modificado.jsp"/>
             <forward name="failure" path="/Cheque/vista_cheque.jsp"/>
         </action>
-                
+            
         
-        <!-- 
-        <action path="/a" type="Actions_Presupuesto.eliminado"/>
-        <action path="/consultar_laboratorio" type="Actions_Laboratorio.consultado"/>
-    <action input="/form_asignar_presupuesto" name="Presupuesto" path="/asignar_presupuesto" scope="session" type="Actions_Presupuesto.agregado"/>
-    -->    
         
         
         

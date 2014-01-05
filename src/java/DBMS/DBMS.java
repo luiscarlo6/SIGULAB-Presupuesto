@@ -10,6 +10,7 @@ import Clases.Tipo_de_Presupuesto;
 import Clases.Cheque;
 import Clases.Laboratorio;
 import Clases.Presupuesto;
+import Clases.Usuario;        
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -58,8 +59,35 @@ public class DBMS {
     }
 
     
-    // TIPO DE PRESUPUESTO
+    public boolean seleccionarDatos_Usuario(Usuario u){
+        PreparedStatement psConsultar = null;
+        try {
+            
+            psConsultar = conexion.prepareStatement("SELECT * FROM USUARIO WHERE usbid = ? and contrasena = ?;");            
+            psConsultar.setString(1, u.getUsbid());
+            psConsultar.setString(2, u.getContrasena());
+            
+            System.out.println(psConsultar.toString());
+            
+            ResultSet Rs = psConsultar.executeQuery();
+            
+            if (Rs.next()){
+                return true;
+            }
+            
+            
+            return false;
+
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            return false;
+        }
+        
+  
+    }
     
+    
+    // TIPO DE PRESUPUESTO
     public boolean agregarDatos_Tipo_de_presupuesto(Tipo_de_Presupuesto u) {
 
         PreparedStatement psAgregar = null;
