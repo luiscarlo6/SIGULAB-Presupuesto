@@ -10,7 +10,7 @@ create table TIPO_DE_PRESUPUESTO
     tipo varchar(100) NOT NULL CHECK (tipo != ''), 
     descripcion varchar(50), 
     status int NOT NULL CHECK  (status in (0,1)), 
-    monto float NOT NULL CHECK (monto > 0.0),
+    monto float NOT NULL CHECK (monto >= 0.0),
     dia int NOT NULL CHECK (dia > 0),
     mes varchar(15) NOT NULL CHECK (mes != ''),
     ano int NOT NULL CHECK (ano > 2000),
@@ -19,12 +19,14 @@ create table TIPO_DE_PRESUPUESTO
 create table LABORATORIO 
     (codigo_laboratorio int unique CHECK (codigo_laboratorio > 0), 
     nombre varchar(50) NOT NULL CHECK (nombre != ''), 
+    monto float NOT NULL CHECK (monto >= 0.0),
     CONSTRAINT PK_LABORATORIO PRIMARY KEY (codigo_laboratorio));
 
 create table PRESUPUESTO 
     (codigo_TDP int, 
     codigo_laboratorio int, 
-    monto_asignado float NOT NULL CHECK (monto_asignado > 0.0),
+    monto_asignado float NOT NULL CHECK (monto_asignado > 0.0),    
+    status int NOT NULL CHECK  (status in (0,1)),
     fecha Date Default current_date,
     CONSTRAINT PK_PRESUPUESTO PRIMARY KEY (codigo_TDP,codigo_laboratorio),
     CONSTRAINT FK_PRESUPUESTO_TIPO_DE_PRESUPUESTO FOREIGN KEY (codigo_TDP)  REFERENCES TIPO_DE_PRESUPUESTO (codigo),

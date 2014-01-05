@@ -25,9 +25,9 @@
                     <tbody>                        
                         <tr>                            
                             <td>
-                                <div>
-                                    <h1 style="color: black">Tipo de Presupuesto a modificar con codigo:</h1>
-                                 </div>
+                                
+                                <b><font size="2" >Tipo de Presupuesto a modificar con codigo:</font></b> <br />
+                                    
                                 <font size="2" style="color: blue">
                                     <bean:write name="datosPres" property="codigo"/>
                                     <html:hidden name="datosPres" property="codigo" />
@@ -42,22 +42,24 @@
                         </tr>                        
                             <td>
                                 <div>
-                                    <h1 style="color: black">Tipo Actual:
-                                    </h1>
+                                    <b><font size="2" >Tipo Actual:</font></b><br />                                    
                                     <font size="2" style="color: blue">
                                         <bean:write name="datosPres" property="tipo"/>
                                     </font>
+                                    
                                 </div>
                                     
-                                    
-                                <div><h1 style="color: black">Seleccione Tipo Nuevo:</h1></div>
-                                <html:select name="datosPres" property="tipo">
-                                    
+                                    <br />
+                                <div>
+                                        <b><font size="2" >Seleccione Tipo Nuevo:</font></b><br />
+                                
+                                <html:select name="datosPres" property="tipo">                                    
                                     <option value="FUNINDES">FUNINDES</option>
                                     <option value="FONACIT">FONACIT</option>
                                     <option value="Donacion">Donacion</option>
                                     <option value="Ordinario">Ordinario</option>
                                 </html:select>                                 
+                                </div>
                                 <!--< html:text name="datosPres" property="tipo" />-->
                             </td>
                         </tr>               
@@ -68,7 +70,9 @@
                         </tr>                                                
                         <tr>
                             <td>
-                                <div><h1 style="color: black">Descripcion:</h1></div>
+                                <div>
+                                    <b><font size="2" >Descripcion:</font></b><br />
+                                </div>
                                 <html:text name="datosPres" property="descripcion" />
                             </td>
                         </tr>               
@@ -79,9 +83,9 @@
                             </td>
                         </tr>
                         
-                        <tr>
-                            <td>Monto:</td>
-                        </tr>
+                        
+                        <td><b><font size="2" >Monto:</font></b></td>
+                        
                         <tr>
                             <td>
                                 <html:text name="datosPres" property="monto" />
@@ -97,8 +101,7 @@
                         
                         <tr>
                              <td>
-                             <h1 style="color: black">Fecha Actual:
-                             </h1>
+                             <b><font size="2" >Fecha Actual:</font></b><br />                             
                              <font size="2" style="color: blue">
                              <bean:write name="datosPres" property="dia"/> /
                              <bean:write name="datosPres" property="mes"/> /
@@ -109,11 +112,11 @@
                         
                         <tr>
                             <td>
-                                Seleccione Fecha:
+                                <b><font size="2" >Seleccione Fecha:</font></b>
                             </td>
                         </tr>    
                         <tr>
-                            <td>Dia:
+                            <td><font size="2" >Dia:
                             <html:select property="dia">
                                     <!--<option value=""></option> -->
                                     <option value="1">1</option>
@@ -171,6 +174,7 @@
                                     <option value="2014">2014</option>
                                                                                               
                             </html:select> 
+                            </font>
                             </td>
                         </tr>
                         <tr>

@@ -8,6 +8,7 @@ package DBMS;
 import java.util.ArrayList;
 import Clases.Tipo_de_Presupuesto;
 import Clases.Cheque;
+import Clases.Laboratorio;
 import Clases.Presupuesto;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -19,7 +20,7 @@ import java.util.logging.Logger;
 
 /**
  *
- * @author jidc28
+ * @author 
  */
 public class DBMS {
 
@@ -206,16 +207,44 @@ public class DBMS {
     public boolean agregarDatos_Presupuesto(Presupuesto u) {
 
         PreparedStatement psAgregar = null;
+        PreparedStatement psConsultar = null;
+        PreparedStatement psUpdate = null;
+        Integer codigo_TDP;
+        Float monto, monto_tdp, monto_final;
         try {
 
-            psAgregar = conexion.prepareStatement("INSERT INTO PRESUPUESTO VALUES (?,?,?);");
-
-            psAgregar.setInt(1, Integer.parseInt(u.getCodigo_TDP()));   
-            psAgregar.setInt(2, Integer.parseInt(u.getCodigo_lab()));
-            psAgregar.setFloat(3, Float.parseFloat(u.getMonto_asignado()));            
-            System.out.println(psAgregar.toString());
-            Integer i = psAgregar.executeUpdate();
-            return i > 0;
+            codigo_TDP = Integer.parseInt(u.getCodigo_TDP());
+            psConsultar = conexion.prepareStatement("SELECT * FROM TIPO_DE_PRESUPUESTO tdp WHERE tdp.codigo = ?;");
+            psConsultar.setInt(1, codigo_TDP);
+            ResultSet Rs = psConsultar.executeQuery();
+            Rs.next();
+            monto_tdp = Rs.getFloat("monto");
+            monto = Float.parseFloat(u.getMonto_asignado());
+            System.out.println("monto_tdp = "+monto_tdp+" monto = "+monto);
+            
+            
+            if (monto_tdp >= monto){
+                psAgregar = conexion.prepareStatement("INSERT INTO PRESUPUESTO VALUES (?,?,?,?);");
+                psAgregar.setInt(1, Integer.parseInt(u.getCodigo_TDP()));   
+                psAgregar.setInt(2, Integer.parseInt(u.getCodigo_lab()));
+                psAgregar.setFloat(3, Float.parseFloat(u.getMonto_asignado()));            
+                psAgregar.setInt(4, 1);
+                System.out.println(psAgregar.toString());
+                Integer i = psAgregar.executeUpdate();
+                if (i>0){
+                    psUpdate = conexion.prepareStatement("UPDATE TIPO_DE_PRESUPUESTO SET monto=? where codigo = ?;");
+                    monto_final = monto_tdp - monto;
+                    psUpdate.setFloat(1, monto_final);            
+                    psUpdate.setInt(2, codigo_TDP);
+                    i = psUpdate.executeUpdate();
+                    return i > 0;
+                }
+                return (i>0);
+            }else{
+                return false;
+            }
+            
+            
 
         } catch (SQLException ex) {
             ex.printStackTrace();
@@ -223,6 +252,48 @@ public class DBMS {
         }
     }
     
+    
+    
+    public boolean agregarDatosEquitativo_Presupuesto(Presupuesto u) {
+
+        PreparedStatement psAgregar = null;
+        PreparedStatement psConsultar = null, psConsultarLab = null;
+        PreparedStatement psUpdate = null;
+        Integer codigo_TDP, codigo_lab;
+        Float monto, monto_tdp, monto_final;
+        try {
+
+            codigo_TDP = Integer.parseInt(u.getCodigo_TDP());
+            psConsultar = conexion.prepareStatement("SELECT * FROM TIPO_DE_PRESUPUESTO tdp WHERE tdp.codigo = ?;");
+            psConsultar.setInt(1, codigo_TDP);
+            ResultSet Rs = psConsultar.executeQuery();
+            Rs.next();
+            monto_tdp = Rs.getFloat("monto");
+            monto = monto_tdp / 8;
+            
+            psConsultarLab = conexion.prepareStatement("SELECT * FROM LABORATORIO ORDER BY CODIGO_LABORATORIO;");
+            ResultSet RsLab = psConsultarLab.executeQuery();
+            Integer i = 1;
+            while (RsLab.next()) {
+                    codigo_lab = RsLab.getInt("codigo_laboratorio");
+                    psAgregar = conexion.prepareStatement("INSERT INTO PRESUPUESTO VALUES (?,?,?,?);");
+                    psAgregar.setInt(1, codigo_TDP);   
+                    psAgregar.setInt(2, codigo_lab);
+                    psAgregar.setFloat(3, monto);            
+                    psAgregar.setInt(4, 1);
+                    i = psAgregar.executeUpdate();
+            }
+            psUpdate = conexion.prepareStatement("UPDATE TIPO_DE_PRESUPUESTO SET monto = 0.0 where codigo = ?;");           
+            psUpdate.setInt(1, codigo_TDP);
+            psUpdate.executeUpdate();
+            return i > 0;
+                        
+
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            return false;
+        }
+    }
     
     public ArrayList<Presupuesto> consultarDatos_Presupuesto() {
 
@@ -234,12 +305,14 @@ public class DBMS {
             ResultSet Rs = psConsultar.executeQuery();
 
             while (Rs.next()) {
-                Presupuesto u = new Presupuesto();                                
+                Presupuesto u = new Presupuesto();
+                if (Rs.getInt("status") == 1){
                     u.setCodigo_TDP(""+Rs.getInt("codigo_TDP"));
                     u.setCodigo_lab(""+Rs.getInt("codigo_laboratorio"));
                     u.setMonto_asignado(""+Rs.getFloat("monto_asignado"));
                     u.setFecha(""+Rs.getString("fecha"));
                     Presupuestos.add(u);
+                }
             }
 
 
@@ -252,6 +325,83 @@ public class DBMS {
     }
     
     
+    public boolean CambiarStatus_Presupuesto(Presupuesto u) {
+
+        PreparedStatement psEliminar = null;
+        try {
+
+            psEliminar = conexion.prepareStatement("UPDATE PRESUPUESTO SET status=0 where codigo_laboratorio = ? and codigo_TDP=?;");
+
+            psEliminar.setInt(1, Integer.parseInt(u.getCodigo_lab()));
+            psEliminar.setInt(2, Integer.parseInt(u.getCodigo_TDP()));
+            System.out.println(psEliminar.toString());
+
+            Integer i = psEliminar.executeUpdate();
+            return i > 0;
+
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            return false;
+        }
+    }
+    
+    public ArrayList<Laboratorio> consultarDatosTotales_Presupuesto() {
+
+        ArrayList<Laboratorio> Laboratorios = new ArrayList<Laboratorio>();
+        PreparedStatement psConsultar = null;
+        try {
+
+            psConsultar = conexion.prepareStatement("select distinct lab.codigo_laboratorio as codigo_lab, lab.nombre as nombre, SUM(p.monto_asignado) as monto\n" +
+                                                    "from laboratorio lab, Presupuesto p \n" +
+                                                    "where lab.codigo_laboratorio = p.codigo_laboratorio and p.status = 1 \n" +
+                                                    "group by lab.codigo_laboratorio \n" +
+                                                    "order by lab.codigo_laboratorio;");
+            ResultSet Rs = psConsultar.executeQuery();
+
+            while (Rs.next()) {
+                Laboratorio u = new Laboratorio();
+                
+                    u.setCodigo_lab(""+Rs.getInt("codigo_lab"));
+                    u.setNombre(""+Rs.getString("nombre"));
+                    u.setMonto(""+Rs.getFloat("monto"));                    
+                    Laboratorios.add(u);
+                
+            }
+
+
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        
+        return Laboratorios;
+
+    }
+    
+    // LISTADO DE LABORATORIOS
+    public ArrayList<Laboratorio> consultarDatos_Laboratorio() {
+
+        ArrayList<Laboratorio> Laboratorios = new ArrayList<Laboratorio>();
+        PreparedStatement psConsultar = null;
+        try {
+
+            psConsultar = conexion.prepareStatement("SELECT * FROM LABORATORIO ORDER BY CODIGO_LABORATORIO;");
+            ResultSet Rs = psConsultar.executeQuery();
+
+            while (Rs.next()) {
+                Laboratorio u = new Laboratorio();                                
+                    u.setNombre(""+Rs.getString("nombre"));
+                    u.setCodigo_lab(""+Rs.getInt("codigo_laboratorio"));
+                    Laboratorios.add(u);
+            }
+
+
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        
+        return Laboratorios;
+
+    }
     
     
     

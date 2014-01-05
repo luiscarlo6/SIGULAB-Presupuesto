@@ -14,31 +14,46 @@
         <title>SIGU-LAB</title>
     </head>
     <body>
-        <h2>Introduzca el codigo del tipo de presupuesto al que se le cambiara el status</h2>
+        <h2>Introduzca el los siguientes datos:</h2>
 
-        <html:form action="/form_eliminar_TDP">            
+        <html:form action="/form_eliminar_presupuesto">            
             <div id="welcome">
                 <table border="0">
                     <tbody>
-                        <tr>Codigo:</tr>
+                        <td><font size="2" >Codigo de tipo de presupuesto:</font></td>
 
                         <tr>
                             <td>
-                                <html:text property="codigo" />
+                                <html:text name = "PresupuestoAsignado" property="codigo_TDP" />
                             </td>
                         </tr>               
                         <tr>
 
                             <td style="color: red">
-                                <font size="2" ><bean:write name = "Presupuesto" property="error" filter="false" /></font>
+                                <font size="2" ><bean:write name = "PresupuestoAsignado" property="error_codigo_TDP" filter="false" /></font>
                                 &nbsp;
                             </td>
                         </tr>
 
+                        
+                        <td><font size="2" >Codigo de laboratorio asociado:</font></td>
+
+                        <tr>
+                            <td>
+                                <html:text name = "PresupuestoAsignado" property="codigo_lab" />
+                            </td>
+                        </tr>               
+                        <tr>
+
+                            <td style="color: red">
+                                <font size="2" ><bean:write name = "PresupuestoAsignado" property="error_codigo_lab" filter="false" /></font>
+                                &nbsp;
+                            </td>
+                        </tr>
 
                     <td>
                         <html:submit onclick="javascript: return confirm('¿Está seguro de este cambio?\n***Estara desactivado a la vista***')">
-                            Camdiar Status Tipo de Presupuesto
+                            Camdiar Status Presupuesto
                         </html:submit>
                         <!---< html:reset value="Limpiar" /> -->
                     </td>
@@ -47,7 +62,7 @@
                 </table>   
             </div>     
         </html:form>
-        <html:link action= "/consultar_TDP" >
+        <html:link action= "/consultar_presupuesto" >
             <h2>
                 <font size="2" >Volver</font>
             </h2>

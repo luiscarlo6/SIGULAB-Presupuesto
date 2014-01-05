@@ -17,10 +17,10 @@
     <body>        
         <h2>Tipos de Presupuestos Existentes:</h2>
 
-    <table border="1" class="altrowstable" id="alternatecolor">
+    <table border="1" class="altrowstable" >
     <thead>
         <tr>
-            <th width="50px" align="center">
+            <th width="70px" align="center">
                 <font size="2" >Código de Tipo de Presupuesto</font>
             </th>
             <th width="70px" align="center">
@@ -29,10 +29,10 @@
             <th width="70px" align="center">
                 <font size="2" >Monto Asignado</font>                               
             </th>
-            <th width="100px" align="center">
+            <th width="40px" align="center">
                 <font size="2" >Fecha</font>                                
             </th>
-            <th width="30px" align="center">
+            <th width="20px" align="center">
                 <font size="2" >Accion</font>                                
             </th>
         </tr>
@@ -40,7 +40,7 @@
     <div float:left>
         <logic:iterate name="presupuesto" id="PresupuestoAsignado">
             <tr>
-                <td width="50px" align="center">
+                <td width="70px" align="center">
                     <font size="2" ><bean:write name="PresupuestoAsignado" property="codigo_TDP"/></font>
                 </td>
                 <td width="70px" align="center">
@@ -49,10 +49,10 @@
                 <td width="70px" align="center">
                     <font size="2" ><bean:write name="PresupuestoAsignado" property="monto_asignado"/></font>
                 </td>
-                <td width="100px" align="center">
+                <td width="40px" align="center">
                     <font size="2" ><bean:write name="PresupuestoAsignado" property="fecha"/></font> 
                 </td>
-                <td width="30px" align="center">   
+                <td width="20px" align="center">   
                 <font size="2" >
                     <html:link action= "/construccion" >
                         Modificar

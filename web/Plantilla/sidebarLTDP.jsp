@@ -25,6 +25,7 @@
             <li class="leaf"><html:link action="eliminar_TDP"><p> * Cambiar Status</p></html:link></li>
             
             <li class="first leaf"><html:link action="consultar_presupuesto"><p>Presupuesto</p></html:link></li>
+            <li class="first leaf"><html:link action="consultar_laboratorio"><p>Lista de Laboratorios</p></html:link></li>
             <li class="leaf"><html:link action="construccion"><p>Orden de Gastos</p></html:link></li>
             <li class="leaf"><html:link action="construccion"><p>Cheques</p></html:link></li>
         </ul>                    

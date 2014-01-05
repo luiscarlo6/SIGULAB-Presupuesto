@@ -18,6 +18,7 @@
             <li class="first leaf"><html:link action="inicio"><p>Inicio</p></html:link></li>            
             <li class="leaf"><html:link action="consultar_TDP"><p>Tipo de Presupuesto</p></html:link></li>                        
             <li class="first leaf"><html:link action="consultar_presupuesto"><p>Presupuesto</p></html:link></li>
+            <li class="first leaf"><html:link action="consultar_laboratorio"><p>Lista de Laboratorios</p></html:link></li>
             <li class="leaf"><html:link action="construccion"><p>Orden de Gastos</p></html:link></li>
             <li class="leaf"><html:link action="construccion"><p>Cheques</p></html:link></li>
         </ul>                    

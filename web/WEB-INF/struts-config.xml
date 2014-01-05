@@ -10,6 +10,7 @@
         <form-bean name="Presupuesto" type="Clases.Tipo_de_Presupuesto"/>
         <form-bean name="Cheque" type="Clases.Cheque"/>
         <form-bean name="PresupuestoAsignado" type="Clases.Presupuesto"/>
+        <form-bean name="Laboratorio" type="Clases.Laboratorio"/>
     </form-beans>
     
     <global-exceptions>
@@ -101,10 +102,41 @@
             <forward name="success" path="consultarPresupuesto"/>
         </action>
        
-              
+        <action path="/eliminar_presupuesto" 
+                type="org.apache.struts.actions.ForwardAction" 
+                scope="request" 
+                validate="false" 
+                parameter="eliminarPresupuesto"/>      
+       
+        <action input="/Presupuesto/eliminar_presupuesto.jsp" name="PresupuestoAsignado" path="/form_eliminar_presupuesto" type="Actions_Presupuesto.eliminado" validate="false">
+            <forward name="success" path="eliminadoPresupuestosatisfactoriamente"/>
+            <forward name="failure" path="eliminarPresupuesto"/>
+        </action>
+                
+        
+        <action path="/consulta_totales" type="Actions_Presupuesto.totales" validate="false">
+            <forward name="success" path="consultarPresupuestoTotales"/>
+        </action>            
+        
+        <action path="/asignar_presupuesto_equitativo" 
+                type="org.apache.struts.actions.ForwardAction" 
+                scope="request" 
+                validate="false" 
+                parameter="asignarPresupuestoEquitativo"/>
                                   
-                                              
+        <action input="/Presupuesto/asignar_presupuesto_equitativo.jsp" name="PresupuestoAsignado" path="/form_asignar_presupuesto_equitativo" type="Actions_Presupuesto.asignado_equitativo" validate="false">
+            <forward name="success" path="asignadoPresupuestosatisfactoriamente"/>
+            <forward name="failure" path="asignarPresupuestoEquitativo"/>
+        </action>                          
+        <!-- CONSULTA PARA LOS LABORATORIOS EXISTENTES
+                
+                
+                -->                                     
+        <action path="/consultar_laboratorio" type="Actions_Laboratorio.consultado" validate="false">
+            <forward name="success" path="consultarLaboratorio"/>
+        </action>
                                                                       
+                                                                                                                                                                                                  
         <!--CHEQUES-->
         <!--Esto es un adelanto.. no tiene funcionalidad aun porque no es para esta entrega
         razon por la que no creo que deba ser evaluada-->
@@ -139,8 +171,11 @@
             <forward name="success" path="/Cheque/vista_modificado.jsp"/>
             <forward name="failure" path="/Cheque/vista_cheque.jsp"/>
         </action>
+                
         
         <!-- 
+        <action path="/a" type="Actions_Presupuesto.eliminado"/>
+        <action path="/consultar_laboratorio" type="Actions_Laboratorio.consultado"/>
     <action input="/form_asignar_presupuesto" name="Presupuesto" path="/asignar_presupuesto" scope="session" type="Actions_Presupuesto.agregado"/>
     -->    
         

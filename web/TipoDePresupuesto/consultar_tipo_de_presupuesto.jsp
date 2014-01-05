@@ -12,7 +12,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Presupuestos</title>
+        <title>Tipos de Presupuestos</title>
     </head>
     <body>        
         <h2>Tipos de Presupuestos Existentes:</h2>
@@ -30,7 +30,7 @@
                 <font size="2" >Descripción</font>                                                
             </th>
             <th width="70px" align="center">
-                <font size="2" >Monto</font>                               
+                <font size="2" >Monto (por asignar)</font>                               
             </th>
             <th width="100px" align="center">
                 <font size="2" >Fecha</font>                                
