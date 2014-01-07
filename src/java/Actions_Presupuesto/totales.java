@@ -43,12 +43,13 @@ public class totales extends org.apache.struts.action.Action {
         
         HttpSession session = request.getSession(true);
         
-        ArrayList<Laboratorio> Laboratorios = DBMS.getInstance().consultarDatosTotales_Presupuesto();
-        
-        session.setAttribute(("presupuesto"), Laboratorios);
-
-        return mapping.findForward(SUCCESS);
-
+        ArrayList<Laboratorio> Laboratorios = DBMS.getInstance().consultarDatosTotales_Presupuesto();        
+        if (!Laboratorios.isEmpty()){
+            session.setAttribute(("presupuesto"), Laboratorios);
+            return mapping.findForward(SUCCESS);
+        }else{
+            return mapping.findForward(FAILURE);
+        }
 //        Recuerden que esto es una plantilla trabajada con condicionales
 //        dentro de su sistema ustedes deben modelar tal cual si fuera un programa
 //        comun y corriente, es decir, pueden usar IF, ELSE, WHILE, entre otras

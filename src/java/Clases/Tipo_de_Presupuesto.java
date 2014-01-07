@@ -258,7 +258,7 @@ public class Tipo_de_Presupuesto extends org.apache.struts.action.ActionForm {
                         }
                     }
 		}else{
-		    if ((dia > 30) && (dia < 1)){                  
+		    if ((dia > 30) || (dia < 1)){                  
                         throw new Exception();
                     }
 		}

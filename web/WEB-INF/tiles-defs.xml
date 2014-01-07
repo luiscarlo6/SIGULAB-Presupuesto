@@ -79,6 +79,10 @@
         <put name="body" value="/Presupuesto/consultar_presupuesto.jsp"/>
     </definition>
     
+    <definition name="asignarPresupuestoEquitativoOtro" extends="baseAdminPresupuesto"> <!-- asignacion de los Presupuestos satisfactoria -->
+        <put name="body" value="/Presupuesto/asignado_presupuesto_equitativo_otro.jsp"/>
+    </definition>
+    
     <definition name="NoPresupuestosAsignados" extends="baseAdminPresupuesto"> <!-- Consulta de los Presupuestos -->
         <put name="body" value="/Presupuesto/sin_presupuestos_asignados.jsp"/>
     </definition>
@@ -103,6 +107,10 @@
         <put name="body" value="/Presupuesto/consultar_presupuesto_totales.jsp"/>
     </definition>
         
+    <definition name="consultarPresupuestoTotalesVacio" extends="baseAdminPresupuesto"> <!-- Consulta de los totales de los Presupuestos -->
+        <put name="body" value="/Presupuesto/consultar_presupuesto_totales_vacio.jsp"/>
+    </definition>    
+                
     <definition name="asignarPresupuestoEquitativo" extends="baseAdminPresupuesto"> <!-- Asignacion de los Presupuestos Equitativamente -->
         <put name="body" value="/Presupuesto/asignar_presupuesto_equitativo.jsp"/>
     </definition>

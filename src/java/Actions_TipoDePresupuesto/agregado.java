@@ -51,7 +51,7 @@ public class agregado extends org.apache.struts.action.Action {
         error = u.validate(mapping, request);
         boolean huboError = false;
 
-        msg_codigo = u.ValidarCampoCodigo(); 
+        //msg_codigo = u.ValidarCampoCodigo(); 
         msg_monto = u.ValidarCampoMonto();
         msg_tipo = u.ValidarCampoTipo();
         msg_fecha = u.VerificarFecha();
@@ -59,19 +59,19 @@ public class agregado extends org.apache.struts.action.Action {
             huboError = true;
         }
         */
-        if ((!msg_codigo.equals("ok")) || (!msg_monto.equals("ok")) || (!msg_tipo.equals("ok")) || (!msg_fecha.equals("ok"))){
+        if (/*(!msg_codigo.equals("ok")) ||*/ (!msg_monto.equals("ok")) || (!msg_tipo.equals("ok")) || (!msg_fecha.equals("ok"))){
             huboError = true;
         }       
             
         if (huboError) {
             
-            if (!msg_codigo.equals("ok")){
+            /*if (!msg_codigo.equals("ok")){
                 if (msg_codigo.equals("Codigo errado, indique un Numero")){
                     error.add("codigo", new ActionMessage("error.codigo.numero"));
                 }else{
                     error.add("codigo", new ActionMessage("error.codigo.mayorquecero"));
                 }
-            }
+            }*/
             if (!msg_monto.equals("ok")){
                 if (msg_monto.equals("Indique un monto")){
                     error.add("monto", new ActionMessage("error.monto.required"));
@@ -95,8 +95,8 @@ public class agregado extends org.apache.struts.action.Action {
             if (agrego) {
                 return mapping.findForward(SUCCESS);
             } else {
-                error.add("codigo", new ActionMessage("error.codigo.existe"));
-                saveErrors(request, error);
+                //error.add("codigo", new ActionMessage("error.codigo.existe"));
+                //saveErrors(request, error);
                 //u.setError_tipo();
                 return mapping.findForward(FAILURE);
             }

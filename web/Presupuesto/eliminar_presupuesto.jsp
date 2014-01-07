@@ -28,11 +28,9 @@
                             </td>
                         </tr>               
                         <tr>
-
                             <td style="color: red">
-                                <font size="2" ><bean:write name = "PresupuestoAsignado" property="error_codigo_TDP" filter="false" /></font>
-                                &nbsp;
-                            </td>
+                                <html:errors property="codigo" /> 
+                            </td>                            
                         </tr>
 
                         
@@ -44,16 +42,14 @@
                             </td>
                         </tr>               
                         <tr>
-
                             <td style="color: red">
-                                <font size="2" ><bean:write name = "PresupuestoAsignado" property="error_codigo_lab" filter="false" /></font>
-                                &nbsp;
+                                <html:errors property="codigo_lab" /> 
                             </td>
                         </tr>
 
                     <td>
                         <html:submit onclick="javascript: return confirm('¿Está seguro de este cambio?\n***Estara desactivado a la vista***')">
-                            Camdiar Status Presupuesto
+                            Cambiar Status Presupuesto
                         </html:submit>
                         <!---< html:reset value="Limpiar" /> -->
                     </td>

@@ -20,7 +20,8 @@ public class Laboratorio extends org.apache.struts.action.ActionForm {
 
     /* forward name="success" path="" */
     private String nombre;
-    private String codigo_lab;   
+    private String codigo_lab; 
+    private String descripcion;
     private String monto;
     
 
@@ -28,7 +29,7 @@ public class Laboratorio extends org.apache.struts.action.ActionForm {
         this.nombre = "";
         this.codigo_lab = "";
         this.monto = "";
-        
+        this.descripcion = "";
 
     }    
 
@@ -56,7 +57,13 @@ public class Laboratorio extends org.apache.struts.action.ActionForm {
         this.monto = monto;
     }
 
-   
+    public String getDescripcion() {
+        return descripcion;
+    }
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
+    }
     
     /**
      * This is the action called from the Struts framework.

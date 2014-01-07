@@ -24,6 +24,8 @@ import org.apache.struts.action.ActionMessage;
 public class asignado_equitativo extends org.apache.struts.action.Action {
 
     /* forward name="success" path="" */
+    
+    private static final String OTHER = "other";
     private static final String SUCCESS = "success";
     private static final String FAILURE = "failure";
 
@@ -75,11 +77,15 @@ public class asignado_equitativo extends org.apache.struts.action.Action {
                 error.add("codigo", new ActionMessage("error.codigo.TDPNofound"));
                 saveErrors(request, error);            
                 return mapping.findForward(FAILURE);
+            }else if (msg_status.equals("El monto del presupuesto a asignar es cero")) {
+                error.add("check", new ActionMessage("error.check.NadaQueAgregar"));
+                saveErrors(request, error);            
+                return mapping.findForward(OTHER);
             } else if (msg_status.equals("Al menos un valor a insertar ya existia en los Presupuestos")) {
                 error.add("check", new ActionMessage("error.check.alert"));
-                saveErrors(request, error);            
+                //saveErrors(request, error);            
                 return mapping.findForward(SUCCESS);
-            }
+            } 
             return mapping.findForward(FAILURE);
         }
     }

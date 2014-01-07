@@ -47,8 +47,7 @@ public class consultado extends org.apache.struts.action.Action {
         if (!Presupuestos.isEmpty()){
             session.setAttribute(("presupuesto"), Presupuestos);
             return mapping.findForward(SUCCESS);
-        }
-        else {
+        }else {
             return mapping.findForward(FAILURE);
         }
             

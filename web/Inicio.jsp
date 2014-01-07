@@ -13,6 +13,10 @@
 
 <!DOCTYPE html>
 <html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>INICIO SIGU-LAB</title>
+    </head>
        
     <p></p>
         <FONT FACE="arial" SIZE=4 >Bienvenido al Sistema de Gestion Presupuestaria de ULAB</FONT>

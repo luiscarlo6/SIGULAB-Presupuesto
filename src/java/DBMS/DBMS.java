@@ -93,16 +93,16 @@ public class DBMS {
         PreparedStatement psAgregar = null;
         try {
 
-            psAgregar = conexion.prepareStatement("INSERT INTO TIPO_DE_PRESUPUESTO VALUES (?,?,?,?,?,?,?,?);");
+            psAgregar = conexion.prepareStatement("INSERT INTO TIPO_DE_PRESUPUESTO VALUES (default,?,?,?,?,?,?,?);");
             
-            psAgregar.setInt(1, Integer.parseInt(u.getCodigo()));
-            psAgregar.setString(2, u.getTipo());
-            psAgregar.setString(3, u.getDescripcion());
-            psAgregar.setInt(4, 1);            
-            psAgregar.setFloat(5, Float.parseFloat(u.getMonto()));
-            psAgregar.setInt(6, Integer.parseInt(u.getDia()));
-            psAgregar.setString(7, u.getMes());
-            psAgregar.setInt(8, Integer.parseInt(u.getAno()));
+           // psAgregar.setInt(1, Integer.parseInt(u.getCodigo()));
+            psAgregar.setString(1, u.getTipo());
+            psAgregar.setString(2, u.getDescripcion());
+            psAgregar.setInt(3, 1);            
+            psAgregar.setFloat(4, Float.parseFloat(u.getMonto()));
+            psAgregar.setInt(5, Integer.parseInt(u.getDia()));
+            psAgregar.setString(6, u.getMes());
+            psAgregar.setInt(7, Integer.parseInt(u.getAno()));
             
             
             System.out.println(psAgregar.toString());
@@ -231,6 +231,11 @@ public class DBMS {
     }
     
     // PRESUPUESTO 
+    // OJO AKI FALTA ACOMODAR EL AGREGAR
+    // POR SI CUANDO AGREGA UNO YA EXISTENTE
+    // SE DEBERIA ACTUALIZAR EL YA EXISTENTE
+    // O AGREGARLO DE NUEVO O BLOKEAR LA ACCION
+    // OJOOOOOOOOOOOOO
     
     public String agregarDatos_Presupuesto(Presupuesto u) {
 
@@ -256,7 +261,16 @@ public class DBMS {
 
 
                     if (monto_tdp >= monto){
-                        psAgregar = conexion.prepareStatement("INSERT INTO PRESUPUESTO VALUES (?,?,?,?);");
+                        psConsultar = conexion.prepareStatement("SELECT * FROM PRESUPUESTO WHERE codigo_tdp = ? and codigo_laboratorio = ? and status = 1;");
+                        psConsultar.setInt(1, codigo_TDP);
+                        psConsultar.setInt(2, Integer.parseInt(u.getCodigo_lab()));
+                        ResultSet RsPresupuesto = psConsultar.executeQuery();
+                        /*if (RsPresupuesto.next()) {
+                            // Esperando para  ver si se actualiza el ya 
+                            // existente o si se bloquea la accion
+                            return "Presupuesto a agregar ya existe";
+                        }*/
+                        psAgregar = conexion.prepareStatement("INSERT INTO PRESUPUESTO VALUES (default,?,?,?,?);");
                         psAgregar.setInt(1, Integer.parseInt(u.getCodigo_TDP()));   
                         psAgregar.setInt(2, Integer.parseInt(u.getCodigo_lab()));
                         psAgregar.setFloat(3, Float.parseFloat(u.getMonto_asignado()));            
@@ -293,7 +307,7 @@ public class DBMS {
     
     public String agregarDatosEquitativo_Presupuesto(Presupuesto u) {
 
-        PreparedStatement psAgregar = null;
+        PreparedStatement psAgregar = null, psConsultarLabExiste = null;
         PreparedStatement psConsultar = null, psConsultarLab = null;
         PreparedStatement psUpdate = null;
         Integer codigo_TDP, codigo_lab;
@@ -311,33 +325,67 @@ public class DBMS {
                 psConsultar.setInt(1, codigo_TDP);
                 ResultSet RsCount = psConsultar.executeQuery();
                 RsCount.next();
+                
                 Integer cuenta = RsCount.getInt("conteo");
-                monto_tdp = Rs.getFloat("monto");
-                monto = monto_tdp / (8-cuenta);
+                monto_tdp = Rs.getFloat("monto"); 
+                if (monto_tdp == 0) {
+                    return "El monto del presupuesto a asignar es cero";
+                }
+                monto = monto_tdp / 8;
                 String salida = "ok";
-                psConsultarLab = conexion.prepareStatement("SELECT * \n" +
-                                                        "FROM LABORATORIO \n" +
-                                                        "WHERE codigo_laboratorio NOT IN ("
-                                                          + "SELECT distinct tdp.codigo_laboratorio \n" +
+                psConsultarLab = conexion.prepareStatement("SELECT * FROM LABORATORIO;"); /*
+                                                          + "WHERE codigo_laboratorio NOT IN (SELECT distinct tdp.codigo_laboratorio \n" +
                                                         "    FROM PRESUPUESTO tdp \n" +
                                                         "    WHERE tdp.codigo_TDP = ? and tdp.status = 1) \n" +
-                                                        "ORDER BY CODIGO_LABORATORIO;");
-                psConsultarLab.setInt(1, codigo_TDP);
+                                                        "ORDER BY CODIGO_LABORATORIO;");*/                
+                //psConsultarLab.setInt(1, codigo_TDP);
+                System.out.println(psConsultarLab.toString());
                 ResultSet RsLab = psConsultarLab.executeQuery();
+                
+                
+                psConsultarLabExiste = conexion.prepareStatement("SELECT distinct tdp.codigo_laboratorio FROM PRESUPUESTO tdp WHERE tdp.codigo_TDP = ? and tdp.status = 1;");
+                                                        
+                psConsultarLabExiste.setInt(1, codigo_TDP);
+                ResultSet RsLabExiste = psConsultarLabExiste.executeQuery();
+                System.out.println(psConsultarLab.toString());
+                
                 Integer i = 1;                
                 while (RsLab.next()) {
-                        codigo_lab = RsLab.getInt("codigo_laboratorio");
-                        
-                        psAgregar = conexion.prepareStatement("INSERT INTO PRESUPUESTO VALUES (?,?,?,?);");
+                        codigo_lab = RsLab.getInt("codigo_laboratorio");                        
+                        psAgregar = conexion.prepareStatement("INSERT INTO PRESUPUESTO VALUES (default,?,?,?,?);");
                         psAgregar.setInt(1, codigo_TDP);   
                         psAgregar.setInt(2, codigo_lab);
                         psAgregar.setFloat(3, monto);            
                         psAgregar.setInt(4, 1);
                         i = psAgregar.executeUpdate();
-                        
-                        
-                        
+                        System.out.println(psAgregar.toString());
                 }
+                                   
+//                psConsultarLab = conexion.prepareStatement("SELECT * \n" +
+  //                                                      "FROM LABORATORIO \n" +
+    //                                                    "WHERE codigo_laboratorio IN ("
+      //                                                    + "SELECT distinct tdp.codigo_laboratorio \n" +
+        //                                                "    FROM PRESUPUESTO tdp \n" +
+          //                                              "    WHERE tdp.codigo_TDP = ? and tdp.status = 1) \n" +
+            //                                            "ORDER BY CODIGO_LABORATORIO;"); 
+                
+                
+                /*
+                System.out.println("monto = " +monto);
+                while (RsLabExiste.next()) {
+                        codigo_lab = RsLabExiste.getInt("codigo_laboratorio");                        
+                        psAgregar = conexion.prepareStatement("UPDATE PRESUPUESTO "
+                                                              +"SET monto_asignado = monto_asignado + ? "
+                                                              +"where codigo_TDP = ? and codigo_laboratorio = ?;");
+                        System.out.println("monto dentro del ciclo = " +monto);
+                        psAgregar.setFloat(1, monto);
+                        psAgregar.setInt(2, codigo_TDP);   
+                        psAgregar.setInt(3, codigo_lab);
+                        System.out.println(psAgregar.toString());
+                        i = psAgregar.executeUpdate();                                                                        
+                }
+                */
+                
                 psUpdate = conexion.prepareStatement("UPDATE TIPO_DE_PRESUPUESTO SET monto = 0.0 where codigo = ?;");                                           
                 psUpdate.setInt(1, codigo_TDP);
                 psUpdate.executeUpdate();
@@ -361,7 +409,7 @@ public class DBMS {
         PreparedStatement psConsultar = null;
         try {
 
-            psConsultar = conexion.prepareStatement("SELECT * FROM PRESUPUESTO ORDER BY CODIGO_LABORATORIO;");
+            psConsultar = conexion.prepareStatement("SELECT * FROM PRESUPUESTO where codigo_tdp in (select codigo from TIPO_DE_PRESUPUESTO where status = 1)ORDER BY CODIGO_LABORATORIO;");
             ResultSet Rs = psConsultar.executeQuery();
 
             while (Rs.next()) {
@@ -412,8 +460,8 @@ public class DBMS {
         try {
 
             psConsultar = conexion.prepareStatement("select distinct lab.codigo_laboratorio as codigo_lab, lab.nombre as nombre, SUM(p.monto_asignado) as monto\n" +
-                                                    "from laboratorio lab, Presupuesto p \n" +
-                                                    "where lab.codigo_laboratorio = p.codigo_laboratorio and p.status = 1 \n" +
+                                                    "from laboratorio lab, Presupuesto p, Tipo_de_Presupuesto tdp \n" +
+                                                    "where lab.codigo_laboratorio = p.codigo_laboratorio and p.status = 1 and tdp.codigo = p.codigo_tdp and tdp.status = 1\n" +
                                                     "group by lab.codigo_laboratorio \n" +
                                                     "order by lab.codigo_laboratorio;");
             ResultSet Rs = psConsultar.executeQuery();
@@ -443,24 +491,19 @@ public class DBMS {
         ArrayList<Laboratorio> Laboratorios = new ArrayList<Laboratorio>();
         PreparedStatement psConsultar = null;
         try {
-
             psConsultar = conexion.prepareStatement("SELECT * FROM LABORATORIO ORDER BY CODIGO_LABORATORIO;");
-            ResultSet Rs = psConsultar.executeQuery();
-
+            ResultSet Rs = psConsultar.executeQuery();            
             while (Rs.next()) {
-                Laboratorio u = new Laboratorio();                                
+                    Laboratorio u = new Laboratorio();                                
                     u.setNombre(""+Rs.getString("nombre"));
                     u.setCodigo_lab(""+Rs.getInt("codigo_laboratorio"));
+                    u.setDescripcion(""+Rs.getString("descripcion"));
                     Laboratorios.add(u);
-            }
-
-
+            }            
         } catch (SQLException ex) {
             ex.printStackTrace();
-        }
-        
+        }        
         return Laboratorios;
-
     }
     
     

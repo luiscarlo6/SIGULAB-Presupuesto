@@ -44,9 +44,11 @@ public class consultado extends org.apache.struts.action.Action {
        HttpSession session = request.getSession(true);
         
         ArrayList<Laboratorio> Laboratorios = DBMS.getInstance().consultarDatos_Laboratorio();
-        
-        session.setAttribute(("presupuesto"), Laboratorios);
-
-        return mapping.findForward(SUCCESS);
+        if (!Laboratorios.isEmpty()){                    
+            session.setAttribute(("presupuesto"), Laboratorios);
+            return mapping.findForward(SUCCESS);
+        }else{
+            return mapping.findForward(FAILURE);
+        }
     }
 }

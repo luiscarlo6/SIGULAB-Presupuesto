@@ -20,7 +20,7 @@
             <div id="welcome">
                 <table border="0">
                     <tbody>
-                        <td><font size="2" >Codigo:</font></td>
+                       <!-- <td><font size="2" >Codigo:</font></td>
                         <tr>
                             <td>
                                 <html:text property="codigo" />
@@ -30,7 +30,7 @@
                             <td style="color: red">
                                 <html:errors property="codigo" /> 
                             </td>
-                        </tr>
+                        </tr> -->
                         <tr>
                             <td><font size="2" >Tipo:
                                 <html:select property="tipo">

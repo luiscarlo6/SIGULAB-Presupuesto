@@ -27,6 +27,9 @@
             <th width="70px" align="center">
                 <font size="2" >Nombre</font>                               
             </th>
+            <th width="70px" align="center">
+                <font size="2" >Descripcion</font>                               
+            </th>
         </tr>
     </thead>
     <div float:left>
@@ -37,6 +40,9 @@
                 </td>
                 <td width="70px" align="center">
                     <font size="2" ><bean:write name="Laboratorio" property="nombre"/></font>
+                </td>
+                <td width="70px" align="center">
+                    <font size="2" ><bean:write name="Laboratorio" property="descripcion"/></font>
                 </td>
             </tr>                       
                 

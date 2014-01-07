@@ -1,49 +1,33 @@
+/* eejemplo para el auto generado
+insert into tipo_de_presupuesto(tipo, descripcion, status, monto, dia, mes, ano) values('FUNINDES', 'La Fundación de Investigación y Desarrollo', 1, '260000.00', '1','ENERO','2014');*/
 
-insert into tipo_de_presupuesto values(100001, 'FUNINDES', 'La Fundación de Investigación y Desarrollo', 1, '500000.00', '1','ENERO','2014');
-insert into tipo_de_presupuesto values(100002, 'FONACIT', 'Presupuesto para Proyecto 1', 1, '250000.00', '30','SEPTIEMBRE','2014');
-insert into tipo_de_presupuesto values(100003, 'Donacion', 'Donaciones a la Unidad de Laboratorios', 1, '400000.00', '7','OCTUBRE','2014');
-insert into tipo_de_presupuesto values(100004, 'Ordinario', 'Presupuesto Ordinario asignado', 1, '350000.00', '27','FEBRERO','2014');
-insert into tipo_de_presupuesto values(100005, 'Ordinario', 'Presupuesto Delegado de la DII', 1, '170000.00', '23','ABRIL','2014');
-insert into tipo_de_presupuesto values(100006, 'FONACIT', 'Presupuesto para Proyecto 3', 1, '280000.00', '21','ENERO','2014');
-insert into tipo_de_presupuesto values(100007, 'FONACIT', 'Presupuesto para Proyecto 2', 1, '135000.00', '18','NOVIEMBRE','2014');
-insert into tipo_de_presupuesto values(100008, 'FONACIT', 'Presupuesto para Proyecto 4', 1, '218000.00', '17','MARZO','2014');
+insert into tipo_de_presupuesto values(default, 'FUNINDES', 'La Fundación de Investigación y Desarrollo', 1, '260000.00', '1','ENERO','2014');
+insert into tipo_de_presupuesto values(default, 'FONACIT', 'Presupuesto para Proyecto 1', 1, '250000.00', '30','SEPTIEMBRE','2014');
+insert into tipo_de_presupuesto values(default, 'Donacion', 'Donaciones a la Unidad de Laboratorios', 1, '400000.00', '7','OCTUBRE','2014');
+insert into tipo_de_presupuesto values(default, 'Ordinario', 'Presupuesto Ordinario asignado', 1, '350000.00', '27','FEBRERO','2014');
+insert into tipo_de_presupuesto values(default, 'Ordinario', 'Presupuesto Delegado de la DII', 1, '170000.00', '23','ABRIL','2014');
+insert into tipo_de_presupuesto values(default, 'FONACIT', 'Presupuesto para Proyecto 3', 1, '280000.00', '21','ENERO','2014');
+insert into tipo_de_presupuesto values(default, 'FONACIT', 'Presupuesto para Proyecto 2', 1, '135000.00', '18','NOVIEMBRE','2014');
+insert into tipo_de_presupuesto values(default, 'FONACIT', 'Presupuesto para Proyecto 4', 1, '218000.00', '17','MARZO','2014');
 
-insert into laboratorio values(50000000, 'ULAB', 0.0);
-insert into laboratorio values(50000001, 'Laboratorio A', 0.0);
-insert into laboratorio values(50000002, 'Laboratorio B', 0.0);
-insert into laboratorio values(50000003, 'Laboratorio C', 0.0);
-insert into laboratorio values(50000004, 'Laboratorio D', 0.0);
-insert into laboratorio values(50000005, 'Laboratorio E', 0.0);
-insert into laboratorio values(50000006, 'Laboratorio F', 0.0);
-insert into laboratorio values(50000007, 'Laboratorio G', 0.0);
 
-insert into presupuesto values(100001,50000001,'20000',1);
-insert into presupuesto values(100002,50000001,'50000',1);
+insert into laboratorio values(01050301, 'ULAB', 'Administracion de laboratorios, Sartenejas',0.0);
+insert into laboratorio values(01050303, 'Laboratorio A', 'Investigacion en Ingenieria Aplicada', 0.0);
+insert into laboratorio values(01050304, 'Laboratorio B', 'Investigacion en Laboratorios de Biologia, Quimica y Polimeros',0.0);
+insert into laboratorio values(01050305, 'Laboratorio C', 'Investigacion en Laboratorios de Electronica', 0.0);
+insert into laboratorio values(01050306, 'Laboratorio D', 'Investigacion en Laboratorios de Fisica', 0.0);
+insert into laboratorio values(01050307, 'Laboratorio E', 'Investigacion en Laboratorios de Materiales y Procesos de Fabricacion', 0.0);
+insert into laboratorio values(01050308, 'Laboratorio F', 'Investigacion en Laboratorios de Tecnologia de la Informacion', 0.0);
+insert into laboratorio values(01050309, 'Laboratorio G', 'Apoyo Interdiciplinario a la Investicagion', 0.0);
 
-insert into presupuesto values(100003,50000002,'50000',1);
-insert into presupuesto values(100004,50000002,'80000',1);
+insert into presupuesto values(default,100001,01050303,'120000',1);
+insert into presupuesto values(default,100001,01050301,'120000',1);
 
-insert into presupuesto values(100001,50000003,'10000',1);
-insert into presupuesto values(100003,50000003,'40000',1);
-
-insert into presupuesto values(100004,50000004,'70000',1);
-insert into presupuesto values(100002,50000004,'60000',1);
-
-insert into presupuesto values(100006,50000005,'20000',1);
-insert into presupuesto values(100005,50000005,'20000',1);
-
-insert into presupuesto values(100007,50000006,'10000',1);
-insert into presupuesto values(100005,50000006,'10000',1);
-
-insert into presupuesto values(100008,50000007,'20000',1);
-insert into presupuesto values(100002,50000007,'60000',1);
-
-insert into presupuesto values(100001,50000000,'80000',1);
-insert into presupuesto values(100007,50000000,'100000',1);
-
+insert into usuario values('visit','123456');
+insert into usuario values('admin','123456');
 insert into usuario values('juanpe','123456');
 
-select * from presupuesto;
+/*select * from presupuesto;
 
 select distinct lab.codigo_laboratorio, lab.nombre, SUM(p.monto_asignado) as "Monto total asignado"
 from laboratorio lab, Presupuesto p 
@@ -61,3 +45,5 @@ WHERE codigo_laboratorio NOT IN (SELECT distinct tdp.codigo_laboratorio
     FROM PRESUPUESTO tdp 
     WHERE tdp.codigo_TDP = 100001 and tdp.status = 1) 
 ORDER BY CODIGO_LABORATORIO;
+*/
+

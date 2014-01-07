@@ -15,6 +15,7 @@ import org.apache.struts.action.ActionErrors;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
+import org.apache.struts.action.ActionMessage;
 
 /**
  *
@@ -45,12 +46,31 @@ public class eliminado extends org.apache.struts.action.Action {
 
         ActionErrors error = new ActionErrors();
         error = u.validate(mapping, request);
+        String msg_codigo_TDP = "",msg_codigo_lab="";
         boolean huboError = false;
-        if (error.size() != 0) {
+        
+        msg_codigo_TDP = u.ValidarCampoCodigoTDP();         
+        msg_codigo_lab = u.ValidarCampoCodigoLab(); 
+        
+        if ((!msg_codigo_TDP.equals("ok")) || (!msg_codigo_lab.equals("ok")) ){
             huboError = true;
-        }
+        } 
         
         if (huboError) {
+            if (!msg_codigo_TDP.equals("ok")){
+                if (msg_codigo_TDP.equals("Codigo errado, indique un Numero")){
+                    error.add("codigo", new ActionMessage("error.codigo.numero"));
+                }else{
+                    error.add("codigo", new ActionMessage("error.codigo.mayorquecero"));
+                }
+            }            
+            if (!msg_codigo_lab.equals("ok")){
+                if (msg_codigo_lab.equals("Codigo errado, indique un Numero")){
+                    error.add("codigo_lab", new ActionMessage("error.codigo.numero"));
+                }else{
+                    error.add("codigo_lab", new ActionMessage("error.codigo.mayorquecero"));
+                }
+            }
             saveErrors(request, error);
             u.resetearVariables();
             return mapping.findForward(FAILURE);
@@ -61,6 +81,8 @@ public class eliminado extends org.apache.struts.action.Action {
             if (elimino) {
                 return mapping.findForward(SUCCESS);
             } else {
+                error.add("codigo_lab", new ActionMessage("error.presupuesto.noexiste"));
+                saveErrors(request, error);
                 return mapping.findForward(FAILURE);
             }
         }

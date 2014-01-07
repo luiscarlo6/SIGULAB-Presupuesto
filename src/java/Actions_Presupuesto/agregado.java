@@ -88,7 +88,7 @@ public class agregado extends org.apache.struts.action.Action {
             String msg_status = DBMS.getInstance().agregarDatos_Presupuesto(u);
             
             
-            //u.resetearVariables();
+            u.resetearVariables();
             if (msg_status.equals("Codigo de Tipo de Presupuesto NO encontrado")) {
                 error.add("codigo", new ActionMessage("error.codigo.TDPNofound"));
                 saveErrors(request, error);
@@ -98,7 +98,7 @@ public class agregado extends org.apache.struts.action.Action {
                 saveErrors(request, error);
                 return mapping.findForward(FAILURE);
             } else if (msg_status.equals("Presupuesto a agregar ya existe")){
-                error.add("codigo_lab", new ActionMessage("error.codigo_lab.existe"));
+                error.add("monto", new ActionMessage("error.codigo_lab.existe"));
                 saveErrors(request, error);
                 return mapping.findForward(FAILURE);
             } else if (msg_status.equals("Codigo de Laboratorio NO encontrado")) {

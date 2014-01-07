@@ -121,6 +121,7 @@
         
         <action path="/consulta_totales" type="Actions_Presupuesto.totales" validate="false">
             <forward name="success" path="consultarPresupuestoTotales"/>
+            <forward name="failure" path="consultarPresupuestoTotalesVacio"/>
         </action>            
         
         <action path="/asignar_presupuesto_equitativo" 
@@ -132,6 +133,7 @@
         <action input="/Presupuesto/asignar_presupuesto_equitativo.jsp" name="PresupuestoAsignado" path="/form_asignar_presupuesto_equitativo" type="Actions_Presupuesto.asignado_equitativo" validate="false">
             <forward name="success" path="asignadoPresupuestosatisfactoriamente"/>
             <forward name="failure" path="asignarPresupuestoEquitativo"/>
+            <forward name="other" path="asignarPresupuestoEquitativoOtro"/>
         </action>                          
         <!-- CONSULTA PARA LOS LABORATORIOS EXISTENTES
                 

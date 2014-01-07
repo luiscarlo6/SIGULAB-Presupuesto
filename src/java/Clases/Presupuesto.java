@@ -7,7 +7,6 @@
 package Clases;
 
 import javax.servlet.http.HttpServletRequest;
-
 import org.apache.struts.action.ActionErrors;
 import org.apache.struts.action.ActionMapping;
 import org.apache.struts.action.ActionMessage;
@@ -22,13 +21,7 @@ public class Presupuesto extends org.apache.struts.action.ActionForm {
     private String codigo_TDP;
     private String codigo_lab;
     private String monto_asignado;  
-    private String fecha;
-    
-    private String error_codigo_TDP;
-    private String error_codigo_lab;
-    private String error_monto;
-    
-    
+    private String fecha;       
     
 
     public void resetearVariables() {
@@ -36,9 +29,6 @@ public class Presupuesto extends org.apache.struts.action.ActionForm {
         this.codigo_lab = "";
         this.monto_asignado="";
 
-        this.error_codigo_TDP="";
-        this.error_codigo_lab="";
-        this.error_monto="";
 
     }    
 
@@ -74,30 +64,7 @@ public class Presupuesto extends org.apache.struts.action.ActionForm {
         this.fecha = fecha;
     }        
 
-    public String getError_codigo_TDP() {
-        return error_codigo_TDP;
-    }
 
-    public void setError_codigo_TDP(String error_codigo_TDP) {
-        this.error_codigo_TDP = error_codigo_TDP;
-    }
-
-    public String getError_codigo_lab() {
-        return error_codigo_lab;
-    }
-
-    public void setError_codigo_lab(String error_codigo_lab) {
-        this.error_codigo_lab = error_codigo_lab;
-    }
-
-    public String getError_monto() {
-        return error_monto;
-    }
-
-    public void setError_monto(String error_monto) {
-        this.error_monto = error_monto;
-    }
-    
 
     
     /**
