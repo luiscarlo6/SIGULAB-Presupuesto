@@ -40,13 +40,7 @@
                         </tr>
                         <tr>
                             <td><html:text property="usbid" /></td>
-                        </tr>
-                        <tr>
-                            <td style="color: red">
-                                <font size="2" ><bean:write name = "Usuario" property="error_usbid" filter="false" /></font>
-                                &nbsp;
-                            </td>
-                        </tr>
+                        </tr>                        
                         <tr>
                             <td style="color: red">
                                 <html:errors property="usbid" /> 
@@ -57,24 +51,12 @@
                         </tr>
                         <tr>
                             <td><html:password property="contrasena" /></td>
-                        </tr>
-                        <tr>
-                            <td style="color: red">
-                                <font size="2" ><bean:write name = "Usuario" property="error_contrasena" filter="false" /></font>
-                                &nbsp;
-                            </td>
-                        </tr>
+                        </tr>                        
                         <tr>
                             <td style="color: red">
                                 <html:errors property="contrasena" /> 
                             </td>
-                        </tr>
-                        <tr>
-                            <td style="color: red">
-                                <font size="2" ><bean:write name = "Usuario" property="error_general" filter="false" /></font>
-                                &nbsp;
-                            </td>
-                        </tr>
+                        </tr>                        
                         <tr>
                             <td>
                                 <html:submit value="Login" />

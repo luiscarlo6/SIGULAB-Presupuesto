@@ -21,19 +21,11 @@ public class Usuario extends org.apache.struts.action.ActionForm {
     /* forward name="success" path="" */
     private String usbid;
     private String contrasena;   
-    
-    private String error_usbid;
-    private String error_contrasena;
-    private String error_general;
-    
-    
+       
 
     public void resetearVariables() {
         this.usbid = "";
         this.contrasena = "";
-        this.error_contrasena="";
-        this.error_usbid="";
-        this.error_general="";
     }    
 
     public String getUsbid() {
@@ -52,29 +44,7 @@ public class Usuario extends org.apache.struts.action.ActionForm {
         this.contrasena = contrasena;
     }
 
-    public String getError_usbid() {
-        return error_usbid;
-    }
 
-    public void setError_usbid(String error_usbid) {
-        this.error_usbid = error_usbid;
-    }
-
-    public String getError_contrasena() {
-        return error_contrasena;
-    }
-
-    public void setError_contrasena(String error_contrasena) {
-        this.error_contrasena = error_contrasena;
-    }
-
-    public String getError_general() {
-        return error_general;
-    }
-
-    public void setError_general(String error_general) {
-        this.error_general = error_general;
-    }
 
     
     /**
@@ -91,71 +61,19 @@ public class Usuario extends org.apache.struts.action.ActionForm {
     /**peos para comparar la entrada!!**///
     public ActionErrors validate(ActionMapping mapping, HttpServletRequest request) {
         ActionErrors errors = new ActionErrors();
-        Integer valor;
-        Float monto;
-        try {
-            /*valor=Integer.parseInt(getCodigo());
-            if (valor<=0){
-                throw new Exception();
-            }*/
-            //System.out.println(""+getMonto());
-            /*monto=Float.parseFloat(getMonto());
-            if (monto<=0.0){
-                throw new Exception();
-            }*/
-            /*valor = 0;
-            if (this.getCodigo_nuevo() != null){
-                valor=Integer.parseInt(getCodigo_nuevo());
-                if (valor<=0){
-                throw new Exception();
-                }
-            }*/
-            
-        } catch (Exception e) {
-            e.printStackTrace();
-            errors.add("codigo", new ActionMessage("error.codigo.errado"));
-
+        
+        if (getUsbid() == null || getUsbid().length() < 1) {
+            errors.add("usbid", new ActionMessage("error.usbid.required"));
+            // TODO: add 'error.name.required' key to your resources
         }
         
+        if (getContrasena() == null || getContrasena().length() < 1) {
+            errors.add("contrasena", new ActionMessage("error.contrasena.required"));
+            // TODO: add 'error.name.required' key to your resources
+        }
         return errors;
-        
-        
-        //return mapping.findForward("SUCCESS");
     }
-    
-    
-    public String ValidarCampoUsbid(){        
-        try{            
-            if (this.usbid.equals("")){
-                throw new Exception();
-            }
-        }catch (Exception e) {
-            return "USBID esta vacio, ingrese su USBID";
-        }        
-        return "ok";
-    }
-    
-    public String ValidarCampoContrasena(){
-        Integer codigo;
-        try{            
-            if (this.contrasena.equals("")){
-                throw new Exception();
-            }
-        }catch (Exception e) {
-            return "Contrasena vacia, ingrese contrasena";
-        }
-        
-        try{            
-            if (this.contrasena.length() < 6){
-                throw new Exception();
-            }
-        }catch (Exception e) {
-            return "Longitud de contrasena debe ser mayor a 5";
-        }
-        
-        return "ok";
-    }
-    
+            
     /*
     
     @Override

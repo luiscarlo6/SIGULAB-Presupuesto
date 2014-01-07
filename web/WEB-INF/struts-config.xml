@@ -26,10 +26,14 @@
         
         <action path="/construccion" forward="/construccion.jsp"/>
         
+        <!--Iniciar sesion -->
         <action input="/Login.jsp" name="Usuario" path="/form_login" type="Actions_Usuario.chequear" validate="false">
             <forward name="success" path="InicioAdmin"/>
             <forward name="failure" path="/Login.jsp"/>
         </action>
+        
+        <!--Cerrar Sesion -->
+        <action path="/cerrar_sesion" forward="/Login.jsp"/>
         
         <!-- Inicio -->
         <action path="/inicio" 
@@ -66,9 +70,9 @@
         
         <action input="/TipoDePresupuesto/listar_tipo_de_modificar.jsp" name="Presupuesto" path="/form_parametros_nuevos_TDP" type="Actions_TipoDePresupuesto.modificar_datos" validate="false">
             <forward name="success" path="modificadoTDPsatisfactoriamente"/>
-            <forward name="failure" path="consultarTDP"/>
+            <forward name="failure" path="modificarTDP"/>
         </action>
-        
+        <!--consultarTDP-->
         <action path="/eliminar_TDP" 
                 type="org.apache.struts.actions.ForwardAction" 
                 scope="request" 
@@ -82,6 +86,7 @@
         
         <action path="/consultar_TDP" type="Actions_TipoDePresupuesto.consultado" validate="false">
             <forward name="success" path="consultarTDP"/>
+            <forward name="failure" path="NoTDPAsignados"/>
         </action>
         
                       
@@ -99,6 +104,7 @@
         
         <action path="/consultar_presupuesto" type="Actions_Presupuesto.consultado" validate="false">
             <forward name="success" path="consultarPresupuesto"/>
+            <forward name="failure" path="NoPresupuestosAsignados"/>
         </action>
        
         <action path="/eliminar_presupuesto" 

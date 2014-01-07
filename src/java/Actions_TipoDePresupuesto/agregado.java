@@ -61,24 +61,32 @@ public class agregado extends org.apache.struts.action.Action {
         */
         if ((!msg_codigo.equals("ok")) || (!msg_monto.equals("ok")) || (!msg_tipo.equals("ok")) || (!msg_fecha.equals("ok"))){
             huboError = true;
-        }
+        }       
             
         if (huboError) {
-            saveErrors(request, error);
-            u.resetearVariables();
+            
             if (!msg_codigo.equals("ok")){
-                u.setError(msg_codigo);
+                if (msg_codigo.equals("Codigo errado, indique un Numero")){
+                    error.add("codigo", new ActionMessage("error.codigo.numero"));
+                }else{
+                    error.add("codigo", new ActionMessage("error.codigo.mayorquecero"));
+                }
             }
             if (!msg_monto.equals("ok")){
-                u.setError_monto(msg_monto);
+                if (msg_monto.equals("Indique un monto")){
+                    error.add("monto", new ActionMessage("error.monto.required"));
+                }else{
+                    error.add("monto", new ActionMessage("error.monto.mayorquecero"));
+                }
             }
             if (!msg_tipo.equals("ok")){
-                u.setError_tipo(msg_tipo);
+                error.add("tipo", new ActionMessage("error.tipo.required"));
             }
             if (!msg_fecha.equals("ok")){
-                u.setError_fecha(msg_fecha);
+                error.add("fecha", new ActionMessage("error.fecha.errada"));
             }
-            
+            u.resetearVariables();
+            saveErrors(request, error);
             return mapping.findForward(FAILURE);
             //si los campos son validos
         } else {
@@ -87,7 +95,8 @@ public class agregado extends org.apache.struts.action.Action {
             if (agrego) {
                 return mapping.findForward(SUCCESS);
             } else {
-                u.setError("Codigo ya existe, indique otro valor");
+                error.add("codigo", new ActionMessage("error.codigo.existe"));
+                saveErrors(request, error);
                 //u.setError_tipo();
                 return mapping.findForward(FAILURE);
             }

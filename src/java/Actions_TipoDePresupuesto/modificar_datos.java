@@ -15,6 +15,7 @@ import org.apache.struts.action.ActionErrors;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
+import org.apache.struts.action.ActionMessage;
 
 /**
  *
@@ -44,7 +45,7 @@ public class modificar_datos extends org.apache.struts.action.Action {
         Tipo_de_Presupuesto u;
         u = (Tipo_de_Presupuesto) form;
         HttpSession session = request.getSession(true);
-        String msg_codigo = "", msg_monto = "", msg_tipo = "";
+        String msg_fecha = "", msg_monto = "", msg_tipo = "";
         ActionErrors error = new ActionErrors();
 
         error = u.validate(mapping, request);
@@ -54,19 +55,19 @@ public class modificar_datos extends org.apache.struts.action.Action {
             huboError = true;
             
         }*/
-        msg_codigo = u.ValidarCampoCodigo(); 
+        msg_fecha = u.VerificarFecha(); 
         msg_monto = u.ValidarCampoMonto();
         msg_tipo = u.ValidarCampoTipo();
 
-        if ((!msg_codigo.equals("ok")) || (!msg_monto.equals("ok")) || (!msg_tipo.equals("ok"))){
+        if ((!msg_fecha.equals("ok")) || (!msg_monto.equals("ok")) || (!msg_tipo.equals("ok"))){
             huboError = true;
         }
         
         if (huboError) {
-            saveErrors(request, error);
-            u.resetearVariables();
-            if (!msg_codigo.equals("ok")){
-                u.setError(msg_codigo);
+            
+            //u.resetearVariables();
+            if (!msg_fecha.equals("ok")){
+                u.setError(msg_fecha);
             }
             if (!msg_monto.equals("ok")){
                 u.setError_monto(msg_monto);
@@ -74,20 +75,22 @@ public class modificar_datos extends org.apache.struts.action.Action {
             if (!msg_tipo.equals("ok")){
                 u.setError_tipo(msg_tipo);
             }
-            u.setError_modificando("No se pudo realizar la modificacion, verifique los datos ingresados");
+            error.add("codigo", new ActionMessage("error.codigo.modificando"));
+            saveErrors(request, error);
             return mapping.findForward(FAILURE);
             //si los campos son validos
         } else 
             
             {
                 boolean modifico = DBMS.getInstance().ModificarDatos_Tipo_de_presupuesto(u);
-                u.resetearVariables();
+                //u.resetearVariables();
                 if (modifico) {
                     //u.resetearVariables();
                     //request.setAttribute("datosPres", pre);
                     return mapping.findForward(SUCCESS);
                 } else {
-                    u.setError_modificando("No se pudo realizar la modificacion, verifique los datos ingresados");
+                    error.add("codigo", new ActionMessage("error.codigo.modificando"));
+                    saveErrors(request, error);
                     return mapping.findForward(FAILURE);
             }
         }

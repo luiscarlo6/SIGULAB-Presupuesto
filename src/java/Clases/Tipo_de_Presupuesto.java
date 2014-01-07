@@ -183,33 +183,7 @@ public class Tipo_de_Presupuesto extends org.apache.struts.action.ActionForm {
 
     /**peos para comparar la entrada!!**///
     public ActionErrors validate(ActionMapping mapping, HttpServletRequest request) {
-        ActionErrors errors = new ActionErrors();
-        Integer valor;
-        Float monto;
-        try {
-            valor=Integer.parseInt(getCodigo());
-            if (valor<=0){
-                throw new Exception();
-            }
-            //System.out.println(""+getMonto());
-            /*monto=Float.parseFloat(getMonto());
-            if (monto<=0.0){
-                throw new Exception();
-            }*/
-            /*valor = 0;
-            if (this.getCodigo_nuevo() != null){
-                valor=Integer.parseInt(getCodigo_nuevo());
-                if (valor<=0){
-                throw new Exception();
-                }
-            }*/
-            
-        } catch (Exception e) {
-            e.printStackTrace();
-            errors.add("codigo", new ActionMessage("error.codigo.errado"));
-
-        }
-        
+        ActionErrors errors = new ActionErrors();                    
         return errors;
         
         
@@ -290,7 +264,7 @@ public class Tipo_de_Presupuesto extends org.apache.struts.action.ActionForm {
 		}
                 
           }catch (Exception e){
-                return "La fecha indicada es errada ";
+                return "La fecha indicada es errada";
           }
           return "ok";      
     }

@@ -29,78 +29,86 @@
     
     <!--Para cuando le das click a Tipo de Presupuesto (para resumir esta frase
     se utilizaran las siglas: TDP)-->
-    <definition name="baseAdminTDP" extends="base"> <!-- BASE PARA ADMIN -->
+    <definition name="baseAdminTDP" extends="base"> <!-- BASE admin para TDP -->
         <put name="sidebarL" value="/Plantilla/sidebarLTDP.jsp"/>
     </definition>
     
-    <definition name="consultarTDP" extends="baseAdminTDP"> <!-- Vista administrador -->
+    <definition name="consultarTDP" extends="baseAdminTDP"> <!-- Consulta de TDP -->
         <put name="body" value="/TipoDePresupuesto/consultar_tipo_de_presupuesto.jsp"/>
     </definition>
     
-    <definition name="agregarTDP" extends="baseAdminTDP"> <!-- Crear Usuario -->
+    <definition name="NoTDPAsignados" extends="baseAdminTDP"> <!-- Consulta de TDP -->
+        <put name="body" value="/TipoDePresupuesto/sin_tipo_de_presupuestos_asignados.jsp"/>
+    </definition>
+    
+    <definition name="agregarTDP" extends="baseAdminTDP"> <!-- Agregacion de TDP -->
         <put name="body" value="/TipoDePresupuesto/agregar_tipo_de_presupuesto.jsp"/>
     </definition>
     
-    <definition name="agregadoTDPsatisfactoriamente" extends="baseAdminTDP"> <!-- Crear Usuario -->
+    <definition name="agregadoTDPsatisfactoriamente" extends="baseAdminTDP"> <!-- Agregacion de TDP exitosa -->
         <put name="body" value="/TipoDePresupuesto/agregado_tipo_de_presupuesto.jsp"/>
     </definition>
     
-    <definition name="eliminarTDP" extends="baseAdminTDP"> <!-- Crear Usuario -->
+    <definition name="eliminarTDP" extends="baseAdminTDP"> <!-- Eliminacion de TDP -->
         <put name="body" value="/TipoDePresupuesto/eliminar_tipo_de_presupuesto.jsp"/>
     </definition>
     
-    <definition name="eliminadoTDPsatisfactoriamente" extends="baseAdminTDP"> <!-- Crear Usuario -->
+    <definition name="eliminadoTDPsatisfactoriamente" extends="baseAdminTDP"> <!-- Eliminacion de TDP exitosa -->
         <put name="body" value="/TipoDePresupuesto/eliminado_tipo_de_presupuesto.jsp"/>
     </definition>
         
-    <definition name="modificarTDP" extends="baseAdminTDP"> <!-- Crear Usuario -->
+    <definition name="modificarTDP" extends="baseAdminTDP"> <!-- Modificacion de TDP -->
         <put name="body" value="/TipoDePresupuesto/modificar_tipo_de_presupuesto.jsp"/>
     </definition>
     
-    <definition name="nuevosDatosDeTDP" extends="baseAdminTDP"> <!-- Crear Usuario -->
+    <definition name="nuevosDatosDeTDP" extends="baseAdminTDP"> <!-- Datos para modificar un TDP -->
         <put name="body" value="/TipoDePresupuesto/listar_tipo_de_modificar.jsp"/>
     </definition>
     
-    <definition name="modificadoTDPsatisfactoriamente" extends="baseAdminTDP"> <!-- Crear Usuario -->
+    <definition name="modificadoTDPsatisfactoriamente" extends="baseAdminTDP"> <!-- Modificacion de TDP exitosa -->
         <put name="body" value="/TipoDePresupuesto/modificado_tipo_de_presupuesto.jsp"/>
     </definition>
     
     
     <!--Para cuando le das click a Presupuesto -->
-    <definition name="baseAdminPresupuesto" extends="base"> <!-- BASE PARA ADMIN -->
+    <definition name="baseAdminPresupuesto" extends="base"> <!-- BASE admin para presupuesto -->
         <put name="sidebarL" value="/Plantilla/sidebarLPresupuesto.jsp"/>
     </definition>
     
-    <definition name="consultarPresupuesto" extends="baseAdminPresupuesto"> <!-- Vista administrador -->
+    <definition name="consultarPresupuesto" extends="baseAdminPresupuesto"> <!-- Consulta de los Presupuestos -->
         <put name="body" value="/Presupuesto/consultar_presupuesto.jsp"/>
     </definition>
     
-    <definition name="asignarPresupuesto" extends="baseAdminPresupuesto"> <!-- Vista administrador -->
+    <definition name="NoPresupuestosAsignados" extends="baseAdminPresupuesto"> <!-- Consulta de los Presupuestos -->
+        <put name="body" value="/Presupuesto/sin_presupuestos_asignados.jsp"/>
+    </definition>
+    
+    <definition name="asignarPresupuesto" extends="baseAdminPresupuesto"> <!-- Asignacion de los Presupuestos -->
         <put name="body" value="/Presupuesto/asignar_presupuesto.jsp"/>
     </definition>
     
-    <definition name="asignadoPresupuestosatisfactoriamente" extends="baseAdminPresupuesto"> <!-- Vista administrador -->
+    <definition name="asignadoPresupuestosatisfactoriamente" extends="baseAdminPresupuesto"> <!-- asignacion de los Presupuestos satisfactoria -->
         <put name="body" value="/Presupuesto/asignado_presupuesto.jsp"/>
     </definition>
     
-    <definition name="eliminarPresupuesto" extends="baseAdminPresupuesto"> <!-- Vista administrador -->
+    <definition name="eliminarPresupuesto" extends="baseAdminPresupuesto"> <!-- Cambiar Status de los Presupuestos -->
         <put name="body" value="/Presupuesto/eliminar_presupuesto.jsp"/>
     </definition>
     
-    <definition name="eliminadoPresupuestosatisfactoriamente" extends="baseAdminPresupuesto"> <!-- Vista administrador -->
+    <definition name="eliminadoPresupuestosatisfactoriamente" extends="baseAdminPresupuesto"> <!-- eliminacion de los Presupuestos satisfactoria -->
         <put name="body" value="/Presupuesto/eliminado_presupuesto.jsp"/>
     </definition>
     
-    <definition name="consultarPresupuestoTotales" extends="baseAdminPresupuesto"> <!-- Vista administrador -->
+    <definition name="consultarPresupuestoTotales" extends="baseAdminPresupuesto"> <!-- Consulta de los totales de los Presupuestos -->
         <put name="body" value="/Presupuesto/consultar_presupuesto_totales.jsp"/>
     </definition>
         
-    <definition name="asignarPresupuestoEquitativo" extends="baseAdminPresupuesto"> <!-- Vista administrador -->
+    <definition name="asignarPresupuestoEquitativo" extends="baseAdminPresupuesto"> <!-- Asignacion de los Presupuestos Equitativamente -->
         <put name="body" value="/Presupuesto/asignar_presupuesto_equitativo.jsp"/>
     </definition>
     
     <!--Para consulta de los tipos de laboratorios existentes-->
-    <definition name="consultarLaboratorio" extends="baseAdmin"> <!-- BASE PARA ADMIN -->
+    <definition name="consultarLaboratorio" extends="baseAdmin"> <!-- Consulta de los laboratorios existentes -->
         <put name="body" value="/Laboratorio/consulta_laboratorios.jsp"/>
     </definition>
 

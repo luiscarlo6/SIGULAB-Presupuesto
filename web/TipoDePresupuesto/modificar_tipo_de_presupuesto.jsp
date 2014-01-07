@@ -20,7 +20,7 @@
             <div id="welcome">
                 <table border="0">
                     <tbody>
-                        <tr>Codigo:</tr>
+                        <td><font size="2" >Codigo:</font></td>
 
                         <tr>
                             <td>
@@ -29,11 +29,8 @@
                         </tr>               
                         <tr>
                             <td style="color: red">
-                                <font size="2" ><bean:write name = "Presupuesto" property="error" filter="false" /></font>
-                                &nbsp;
+                                <html:errors property="codigo" /> 
                             </td>
-
-                            
                         </tr>
                         
                        

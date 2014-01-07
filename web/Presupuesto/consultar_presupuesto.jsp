@@ -15,7 +15,7 @@
         <title>Presupuestos</title>
     </head>
     <body>        
-        <h2>Tipos de Presupuestos Existentes:</h2>
+        <h2>Presupuestos Existentes:</h2>
 
     <table border="1" class="altrowstable" >
     <thead>

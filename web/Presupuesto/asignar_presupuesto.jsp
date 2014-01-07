@@ -28,11 +28,9 @@
                         </tr>               
                         <tr>
                             <td style="color: red">
-                                <font size="2" ><bean:write name = "PresupuestoAsignado" property="error_codigo_TDP" filter="false" /></font>
-                                &nbsp;
+                                <html:errors property="codigo" /> 
                             </td>
-                        </tr>
-                        
+                        </tr>                        
                         <td><font size="2" >Codigo de Laboratorio:</font></td>
                         <tr>
                             <td>
@@ -41,8 +39,7 @@
                         </tr>               
                         <tr>
                             <td style="color: red">
-                                <font size="2" ><bean:write name = "PresupuestoAsignado" property="error_codigo_lab" filter="false" /></font>
-                                &nbsp;
+                                <html:errors property="codigo_lab" /> 
                             </td>
                         </tr>
                         
@@ -56,8 +53,7 @@
                         </tr>
                         <tr>
                             <td style="color: red">
-                                <font size="2" ><bean:write name = "PresupuestoAsignado" property="error_monto" filter="false" /></font>
-                                &nbsp;
+                                <html:errors property="monto" /> 
                             </td>
                         </tr>
                             

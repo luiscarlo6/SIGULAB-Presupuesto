@@ -28,8 +28,7 @@
                         </tr>               
                         <tr>
                             <td style="color: red">
-                                <font size="2" ><bean:write name = "PresupuestoAsignado" property="error_codigo_TDP" filter="false" /></font>
-                                &nbsp;
+                                <html:errors property="codigo" /> 
                             </td>
                         </tr>                                                
                     <td>

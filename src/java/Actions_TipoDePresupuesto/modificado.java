@@ -15,6 +15,7 @@ import org.apache.struts.action.ActionErrors;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
+import org.apache.struts.action.ActionMessage;
 
 /**
  *
@@ -48,25 +49,31 @@ public class modificado extends org.apache.struts.action.Action {
         error = u.validate(mapping, request);
         boolean huboError = false;
         msg_codigo = u.ValidarCampoCodigo();
-        if (error.size() != 0) {
+        
+        if (!msg_codigo.equals("ok")) {
             huboError = true;
         }
-
         if (huboError) {
-            saveErrors(request, error);
+            if (msg_codigo.equals("Codigo errado, indique un Numero")){
+                error.add("codigo", new ActionMessage("error.codigo.numero"));
+            }else{
+                error.add("codigo", new ActionMessage("error.codigo.mayorquecero"));
+            }
             u.resetearVariables();
-            u.setError(msg_codigo);
+            //u.setError(msg_codigo);
+            saveErrors(request, error);
             return mapping.findForward(FAILURE);
             //si los campos son validos
         } else {
             Tipo_de_Presupuesto pre = DBMS.getInstance().seleccionarDatos_Tipo_de_presupuesto(Integer.parseInt(u.getCodigo()));
             u.resetearVariables();
             if (pre != null) {
-         
                 request.setAttribute("datosPres", pre);
                 return mapping.findForward(SUCCESS);
             } else {
-                u.setError("***Codigo no existe o esta deshabilitado***");
+                error.add("codigo", new ActionMessage("error.codigo.noexiste_deshabilitado"));
+                saveErrors(request, error);
+                //u.setError("***Codigo no existe o esta deshabilitado***");
                 return mapping.findForward(FAILURE);
             }
         }

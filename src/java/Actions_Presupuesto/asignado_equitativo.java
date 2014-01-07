@@ -15,6 +15,7 @@ import org.apache.struts.action.ActionErrors;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
+import org.apache.struts.action.ActionMessage;
 
 /**
  *
@@ -47,28 +48,39 @@ public class asignado_equitativo extends org.apache.struts.action.Action {
         ActionErrors error = new ActionErrors();
         error = u.validate(mapping, request);
         boolean huboError = false;
+        String msg_codigo_TDP = "";
+                
+        msg_codigo_TDP = u.ValidarCampoCodigoTDP(); 
 
-
-        if (error.size() != 0) {
+        if (!msg_codigo_TDP.equals("ok")){
             huboError = true;
         }
   
         if (huboError) {
-            saveErrors(request, error);
             u.resetearVariables();
-            
+            if (msg_codigo_TDP.equals("Codigo errado, indique un Numero")){
+                error.add("codigo", new ActionMessage("error.codigo.numero"));
+            }else{
+                error.add("codigo", new ActionMessage("error.codigo.mayorquecero"));
+            }
+            saveErrors(request, error);            
             return mapping.findForward(FAILURE);
             //si los campos son validos
         } else {
-            boolean agrego = DBMS.getInstance().agregarDatosEquitativo_Presupuesto(u);
+            String msg_status = DBMS.getInstance().agregarDatosEquitativo_Presupuesto(u);
             u.resetearVariables();
-            if (agrego) {
+            if (msg_status.equals("ok")) {
                 return mapping.findForward(SUCCESS);
-            } else {
-                //u.setError("Codigo ya existe, indique otro valor");
-                //u.setError_tipo();
+            } else if (msg_status.equals("Tipo de Presupuesto NO encontrado")) {
+                error.add("codigo", new ActionMessage("error.codigo.TDPNofound"));
+                saveErrors(request, error);            
                 return mapping.findForward(FAILURE);
+            } else if (msg_status.equals("Al menos un valor a insertar ya existia en los Presupuestos")) {
+                error.add("check", new ActionMessage("error.check.alert"));
+                saveErrors(request, error);            
+                return mapping.findForward(SUCCESS);
             }
+            return mapping.findForward(FAILURE);
         }
     }
 }

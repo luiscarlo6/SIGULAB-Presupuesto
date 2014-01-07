@@ -15,6 +15,7 @@ import org.apache.struts.action.ActionErrors;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
+import org.apache.struts.action.ActionMessage;
 
 /**
  *
@@ -45,32 +46,17 @@ public class chequear extends org.apache.struts.action.Action {
         HttpSession session = request.getSession(true);
 
         ActionErrors error = new ActionErrors();
-        String msg_usbid = "", msg_contrasena = "";
+
         error = u.validate(mapping, request);
         boolean huboError = false;
 
-        msg_contrasena = u.ValidarCampoContrasena(); 
-        msg_usbid = u.ValidarCampoUsbid();
-        
-        /*if (error.size() != 0) {
-            huboError = true;
-        }
-        */
-        if ((!msg_usbid.equals("ok")) || (!msg_contrasena.equals("ok"))){
+        if (error.size() != 0) {
             huboError = true;
         }
             
         if (huboError) {
             saveErrors(request, error);
-            u.resetearVariables();
-            if (!msg_usbid.equals("ok")){
-                u.setError_usbid(msg_usbid);
-            }
-            if (!msg_contrasena.equals("ok")){
-                u.setError_contrasena(msg_contrasena);
-            }
-            
-            
+            u.resetearVariables();            
             return mapping.findForward(FAILURE);
             //si los campos son validos
         } else {
@@ -79,7 +65,9 @@ public class chequear extends org.apache.struts.action.Action {
             if (chequeo) {
                 return mapping.findForward(SUCCESS);
             } else {
-                u.setError_general("Combinacion de usbid y contrasena invalidos");
+                //u.setError_general("Combinacion de usbid y contrasena invalidos");
+                error.add("contrasena", new ActionMessage("error.contrasena.missmatch"));
+                saveErrors(request, error);
                 //u.setError_tipo();
                 return mapping.findForward(FAILURE);
             }

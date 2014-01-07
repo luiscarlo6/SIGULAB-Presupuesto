@@ -19,7 +19,7 @@
             <li class="first leaf"><html:link action="inicio"><p>Inicio</p></html:link></li>            
             <li class="leaf"><html:link action="consultar_TDP"><p>Tipo de Presupuesto</p></html:link></li>  
             
-            <li class="first leaf"><html:link action="consultar_presupuesto"><p>Presupuesto</p></html:link></li>
+            <li class="leaf"><html:link action="consultar_presupuesto"><p>Presupuesto</p></html:link></li>
                                 
             <li class="leaf"><html:link action="asignar_presupuesto"><p> * Asignar</p></html:link></li>
             <li class="leaf"><html:link action="asignar_presupuesto_equitativo"><p> * Asignacion Equitativa</p></html:link></li>
@@ -27,9 +27,10 @@
             <li class="leaf"><html:link action="eliminar_presupuesto"><p> * Cambiar Status</p></html:link></li>
             <li class="leaf"><html:link action="consulta_totales"><p> * Totales Asinados</p></html:link></li>
             
-            <li class="first leaf"><html:link action="consultar_laboratorio"><p>Lista de Laboratorios</p></html:link></li>
+            <li class="leaf"><html:link action="consultar_laboratorio"><p>Lista de Laboratorios</p></html:link></li>
             <li class="leaf"><html:link action="construccion"><p>Orden de Gastos</p></html:link></li>
             <li class="leaf"><html:link action="construccion"><p>Cheques</p></html:link></li>
+            <li class="leaf"><html:link action="cerrar_sesion"><p>Cerrar Sesion</p></html:link></li> 
         </ul>                    
     </div>
         

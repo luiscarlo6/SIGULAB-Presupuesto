@@ -145,6 +145,61 @@ public class Presupuesto extends org.apache.struts.action.ActionForm {
         
         //return mapping.findForward("SUCCESS");
     }
+    
+    
+    public String ValidarCampoCodigoTDP(){
+        Integer codigo ;
+        try{
+            try{
+                codigo = Integer.parseInt(this.getCodigo_TDP());
+            }catch (NumberFormatException e){
+                return "Codigo errado, indique un Numero";
+            }
+            if (codigo <= 0){
+                throw new Exception();
+            }
+        }catch (Exception e) {
+            return "Codigo errado, indique un Numero mayor a 0";
+        }        
+        return "ok";
+    }
+    
+    public String ValidarCampoCodigoLab(){
+        Integer codigo ;
+        try{
+            try{
+                codigo = Integer.parseInt(getCodigo_lab());
+            }catch (NumberFormatException e){
+                return "Codigo errado, indique un Numero";
+            }
+            if (codigo <= 0){
+                throw new Exception();
+            }
+        }catch (Exception e) {
+            return "Codigo errado, indique un Numero mayor a 0";
+        }        
+        return "ok";
+    }
+    
+    
+    public String ValidarCampoMonto(){
+        Float monto ;
+        try{
+            try{
+                monto = Float.parseFloat(getMonto_asignado());
+            }catch (Exception e){
+                return "Indique un monto";
+            }
+            if (monto <= 0.0){
+                throw new Exception();
+            }
+        }catch (Exception e) {
+            return "Indique un monto mayor que 0.0";
+        }        
+        return "ok";
+    }
+    
+    
     /*
     
     @Override

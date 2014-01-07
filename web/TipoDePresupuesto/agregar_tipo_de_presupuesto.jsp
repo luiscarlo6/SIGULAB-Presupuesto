@@ -28,8 +28,7 @@
                         </tr>               
                         <tr>
                             <td style="color: red">
-                                <font size="2" ><bean:write name = "Presupuesto" property="error" filter="false" /></font>
-                                &nbsp;
+                                <html:errors property="codigo" /> 
                             </td>
                         </tr>
                         <tr>
@@ -45,8 +44,7 @@
                         </tr>
                         <tr>
                             <td style="color: red">
-                                <font size="2" ><bean:write name = "Presupuesto" property="error_tipo" filter="false" /></font>
-                                &nbsp;
+                                <html:errors property="tipo" /> 
                             </td>
                         </tr>
 
@@ -73,8 +71,7 @@
                         </tr>
                         <tr>
                             <td style="color: red">
-                                <font size="2" ><bean:write name = "Presupuesto" property="error_monto" filter="false" /></font>
-                                &nbsp;
+                                <html:errors property="monto" /> 
                             </td>
                         </tr>
                             <td>
@@ -143,8 +140,7 @@
                         </tr>
                         <tr>
                             <td style="color: red">
-                                <font size="2" ><bean:write name = "Presupuesto" property="error_fecha" filter="false" /></font>
-                                &nbsp;
+                                <html:errors property="fecha" /> 
                             </td>
                         </tr>
                         

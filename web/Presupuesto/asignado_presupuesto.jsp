@@ -4,9 +4,7 @@
     Author     : juanpe
 --%>
 
-<%@page contentType="text/html"%>
-<%@page pageEncoding="UTF-8"%>
-
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://struts.apache.org/tags-bean" prefix="bean" %>
 <%@ taglib uri="http://struts.apache.org/tags-html" prefix="html" %>
 <%@ taglib uri="http://struts.apache.org/tags-logic" prefix="logic" %>
@@ -18,6 +16,11 @@
     </head>
     <body>
         <h1>Asignado Exitosamente!</h1>
+        <tr>
+            <td style="color: red">
+                <html:errors property="check"/> 
+            </td>
+        </tr>
         <html:link action= "/consultar_presupuesto" >
             <h2>
                 Volver

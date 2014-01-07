@@ -44,11 +44,14 @@ public class consultado extends org.apache.struts.action.Action {
         HttpSession session = request.getSession(true);
         
         ArrayList<Presupuesto> Presupuestos = DBMS.getInstance().consultarDatos_Presupuesto();
-        
-        session.setAttribute(("presupuesto"), Presupuestos);
-
-        return mapping.findForward(SUCCESS);
-
+        if (!Presupuestos.isEmpty()){
+            session.setAttribute(("presupuesto"), Presupuestos);
+            return mapping.findForward(SUCCESS);
+        }
+        else {
+            return mapping.findForward(FAILURE);
+        }
+            
 //        Recuerden que esto es una plantilla trabajada con condicionales
 //        dentro de su sistema ustedes deben modelar tal cual si fuera un programa
 //        comun y corriente, es decir, pueden usar IF, ELSE, WHILE, entre otras

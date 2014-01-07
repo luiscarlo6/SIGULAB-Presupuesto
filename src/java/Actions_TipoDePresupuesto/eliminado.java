@@ -14,6 +14,7 @@ import org.apache.struts.action.ActionErrors;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
+import org.apache.struts.action.ActionMessage;
 
 /**
  *
@@ -47,15 +48,21 @@ public class eliminado extends org.apache.struts.action.Action {
         String msg_codigo = "";
         error = u.validate(mapping, request);
         boolean huboError = false;
-        msg_codigo = u.ValidarCampoCodigo();
-        if (error.size() != 0) {
+        msg_codigo = u.ValidarCampoCodigo();        
+        
+        if (!msg_codigo.equals("ok")) {
             huboError = true;
         }
         
+        
         if (huboError) {
-            saveErrors(request, error);
-            u.resetearVariables();
-            u.setError(msg_codigo);
+            u.resetearVariables();            
+            if (msg_codigo.equals("Codigo errado, indique un Numero")){
+                error.add("codigo", new ActionMessage("error.codigo.numero"));
+            }else{
+                error.add("codigo", new ActionMessage("error.codigo.mayorquecero"));
+            }
+            saveErrors(request, error);            
             return mapping.findForward(FAILURE);
             //si los campos son validos
         } else {
@@ -64,7 +71,8 @@ public class eliminado extends org.apache.struts.action.Action {
             if (elimino) {
                 return mapping.findForward(SUCCESS);
             } else {
-                u.setError("Codigo indicado NO existe");
+                error.add("codigo", new ActionMessage("error.codigo.noexiste"));
+                saveErrors(request, error);
                 return mapping.findForward(FAILURE);
             }
         }
