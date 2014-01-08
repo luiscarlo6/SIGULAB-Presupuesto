@@ -135,10 +135,21 @@
             <forward name="failure" path="asignarPresupuestoEquitativo"/>
             <forward name="other" path="asignarPresupuestoEquitativoOtro"/>
         </action>                          
-        <!-- CONSULTA PARA LOS LABORATORIOS EXISTENTES
                 
-                
-                -->                                     
+        <action path="/consulta_individual" 
+                type="org.apache.struts.actions.ForwardAction" 
+                scope="request" 
+                validate="false" 
+                parameter="agregarDatosConsultaIndividualPresupuesto"/>
+        
+        <action input="/Presupuesto/consultar_presupuesto_individual.jsp" name="PresupuestoAsignado" path="/form_indicar_codlab_consulta_individual_presupuesto" type="Actions_Presupuesto.consulta_individual" validate="false">
+            <forward name="success" path="consultaExitosaPresupuestoIndividual"/>
+            <forward name="failure" path="agregarDatosConsultaIndividualPresupuesto"/>
+            <forward name="other" path="ConsultaExitosaPresupuestoIndividualNoHayValores"/>
+        </action>
+        
+        
+        <!-- CONSULTA PARA LOS LABORATORIOS EXISTENTES-->                                     
         <action path="/consultar_laboratorio" type="Actions_Laboratorio.consultado" validate="false">
             <forward name="success" path="consultarLaboratorio"/>
         </action>
@@ -178,6 +189,7 @@
             <forward name="success" path="/Cheque/vista_modificado.jsp"/>
             <forward name="failure" path="/Cheque/vista_cheque.jsp"/>
         </action>
+        <action path="/asa" type="Actions_Presupuesto.consulta_individual"/>
             
         
         

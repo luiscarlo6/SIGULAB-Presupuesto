@@ -15,7 +15,9 @@
         <title>Presupuestos</title>
     </head>
     <body>        
-        <h2>Presupuestos Existentes:</h2>
+        <h2>Presupuestos Existentes para el laboratorio:
+            <bean:write name="PresupuestoAsignado" property="codigo_lab"/>
+        </h2>
 
     <table border="1" class="altrowstable" >
     <thead>
@@ -34,10 +36,7 @@
             </th>
             <th width="40px" align="center">
                 <font size="2" >Fecha</font>                                
-            </th>
-            <th width="20px" align="center">
-                <font size="2" >Accion</font>                                
-            </th>                        
+            </th>                              
         </tr>
     </thead>
     <div float:left>
@@ -57,13 +56,7 @@
                 </td>
                 <td width="40px" align="center">
                     <font size="2" ><bean:write name="PresupuestoAsignado" property="fecha"/></font> 
-                </td>
-                <td width="20px" align="center">   
-                <font size="2" >
-                    <html:link action= "/construccion" >
-                        Modificar
-                    </html:link></font>
-                </td>                
+                </td>                                
             </tr>                       
                 
         </logic:iterate>

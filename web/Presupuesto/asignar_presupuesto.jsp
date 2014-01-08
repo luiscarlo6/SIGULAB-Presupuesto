@@ -34,7 +34,17 @@
                         <td><font size="2" >Codigo de Laboratorio:</font></td>
                         <tr>
                             <td>
-                                <html:text name = "PresupuestoAsignado" property="codigo_lab" />
+                                <html:select name = "PresupuestoAsignado" property="codigo_lab">
+                                    <option value=" "></option>
+                                    <option value="01050301">01050301 ULAB</option>
+                                    <option value="01050303">01050303 Lab A</option>
+                                    <option value="01050304">01050304 Lab B</option>
+                                    <option value="01050305">01050305 Lab C</option>
+                                    <option value="01050306">01050306 Lab D</option>
+                                    <option value="01050307">01050307 Lab E</option>
+                                    <option value="01050308">01050308 Lab F</option>
+                                    <option value="01050309">01050309 Lab G</option>                                                                        
+                                </html:select> 
                             </td>
                         </tr>               
                         <tr>
@@ -57,8 +67,14 @@
                             </td>
                         </tr>
                             
+                        <tr>
+                            <td><font size="2" >Observaciones:</font></td>
                         </tr>
-                        
+                        <tr>
+                            <td>
+                                <html:text name = "PresupuestoAsignado" property="descripcion" />
+                            </td>
+                        </tr>
                         
                         
                     <td>

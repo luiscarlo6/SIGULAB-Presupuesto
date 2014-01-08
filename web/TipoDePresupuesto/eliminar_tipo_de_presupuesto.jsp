@@ -36,7 +36,7 @@
 
                     <td>
                         <html:submit onclick="javascript: return confirm('¿Está seguro de este cambio?\n***Estara desactivado a la vista***')">
-                            Camdiar Status Tipo de Presupuesto
+                            Cambiar Status Tipo de Presupuesto
                         </html:submit>
                         <!---< html:reset value="Limpiar" /> -->
                     </td>

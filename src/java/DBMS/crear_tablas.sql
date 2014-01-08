@@ -45,6 +45,7 @@ create table PRESUPUESTO
     monto_asignado float NOT NULL CHECK (monto_asignado > 0.0),    
     status int NOT NULL CHECK  (status in (0,1)),
     fecha Date Default current_date,
+    descripcion varchar(100) Default '',
     CONSTRAINT PK_PRESUPUESTO PRIMARY KEY (id,codigo_TDP,codigo_laboratorio),
     CONSTRAINT FK_PRESUPUESTO_TIPO_DE_PRESUPUESTO FOREIGN KEY (codigo_TDP)  REFERENCES TIPO_DE_PRESUPUESTO (codigo),
     CONSTRAINT FK_PRESUPUESTO_LABORATORIO FOREIGN KEY (codigo_laboratorio)  REFERENCES LABORATORIO);

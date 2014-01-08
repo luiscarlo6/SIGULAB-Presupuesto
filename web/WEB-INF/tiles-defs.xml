@@ -115,6 +115,22 @@
         <put name="body" value="/Presupuesto/asignar_presupuesto_equitativo.jsp"/>
     </definition>
     
+    <definition name="agregarDatosConsultaIndividualPresupuesto" extends="baseAdminPresupuesto"> <!-- Consulta de presupuesto Individual -->
+        <put name="body" value="/Presupuesto/indicar_datos_presupuesto_individual.jsp"/>
+    </definition>
+        
+    <definition name="consultaExitosaPresupuestoIndividual" extends="baseAdminPresupuesto"> <!-- Consulta de presupuesto Individual Exitosa -->
+        <put name="body" value="/Presupuesto/consultar_presupuesto_individual.jsp"/>
+    </definition>
+    
+    <definition name="ConsultaExitosaPresupuestoIndividualNoHayValores" extends="baseAdminPresupuesto"> <!-- Consulta de presupuesto Individual Exitosa sin Valores -->
+        <put name="body" value="/Presupuesto/consultar_presupuesto_individual_sin_valores.jsp"/>
+    </definition>
+    
+    
+    
+    
+    
     <!--Para consulta de los tipos de laboratorios existentes-->
     <definition name="consultarLaboratorio" extends="baseAdmin"> <!-- Consulta de los laboratorios existentes -->
         <put name="body" value="/Laboratorio/consulta_laboratorios.jsp"/>

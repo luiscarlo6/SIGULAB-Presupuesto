@@ -31,6 +31,14 @@
                                 <html:errors property="codigo" /> 
                             </td>
                         </tr>                                                
+                        <tr>
+                            <td><font size="2" >Observaciones:</font></td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <html:text name = "PresupuestoAsignado" property="descripcion" />
+                            </td>
+                        </tr>
                     <td>
                         <html:submit onclick="javascript: return confirm('¿Está seguro de que los datos son correctos?')">
                             Asignar Presupuesto Equitativamente

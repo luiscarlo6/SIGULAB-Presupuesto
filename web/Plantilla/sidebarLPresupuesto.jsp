@@ -26,6 +26,7 @@
             <li class="leaf"><html:link action="construccion"><p> * Modificar</p></html:link></li>
             <li class="leaf"><html:link action="eliminar_presupuesto"><p> * Cambiar Status</p></html:link></li>
             <li class="leaf"><html:link action="consulta_totales"><p> * Totales Asinados</p></html:link></li>
+            <li class="leaf"><html:link action="consulta_individual"><p> * Consulta Individual</p></html:link></li>
             
             <li class="leaf"><html:link action="consultar_laboratorio"><p>Lista de Laboratorios</p></html:link></li>
             <li class="leaf"><html:link action="construccion"><p>Orden de Gastos</p></html:link></li>
