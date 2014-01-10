@@ -11,7 +11,7 @@ insert into tipo_de_presupuesto values(default, 'FONACIT', 'Presupuesto para Pro
 insert into tipo_de_presupuesto values(default, 'FONACIT', 'Presupuesto para Proyecto 4', 1, '218000.00', '17','MARZO','2014');
 
 
-insert into laboratorio values(01050301, 'ULAB', 'Administracion de laboratorios, Sartenejas',0.0);
+/*insert into laboratorio values(01050301, 'ULAB', 'Administracion de laboratorios, Sartenejas',0.0);
 insert into laboratorio values(01050303, 'Laboratorio A', 'Investigacion en Ingenieria Aplicada', 0.0);
 insert into laboratorio values(01050304, 'Laboratorio B', 'Investigacion en Laboratorios de Biologia, Quimica y Polimeros',0.0);
 insert into laboratorio values(01050305, 'Laboratorio C', 'Investigacion en Laboratorios de Electronica', 0.0);
@@ -19,7 +19,7 @@ insert into laboratorio values(01050306, 'Laboratorio D', 'Investigacion en Labo
 insert into laboratorio values(01050307, 'Laboratorio E', 'Investigacion en Laboratorios de Materiales y Procesos de Fabricacion', 0.0);
 insert into laboratorio values(01050308, 'Laboratorio F', 'Investigacion en Laboratorios de Tecnologia de la Informacion', 0.0);
 insert into laboratorio values(01050309, 'Laboratorio G', 'Apoyo Interdiciplinario a la Investicagion', 0.0);
-
+*/
 insert into presupuesto values(default,100001,01050303,'120000',1);
 insert into presupuesto values(default,100001,01050301,'120000',1);
 
