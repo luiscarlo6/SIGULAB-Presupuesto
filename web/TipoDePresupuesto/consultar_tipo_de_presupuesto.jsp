@@ -4,6 +4,7 @@
     Author     : luiscarlo
 --%>
 <link rel="stylesheet" type="text/css" href="css/estilo.css">
+<link rel="stylesheet" type="text/css" href="css/bootstrap.css">
 <%@ taglib uri="http://struts.apache.org/tags-bean" prefix="bean" %>
 <%@ taglib uri="http://struts.apache.org/tags-html" prefix="html" %>
 <%@ taglib uri="http://struts.apache.org/tags-logic" prefix="logic" %>
@@ -34,7 +35,7 @@
         </logic:present>
         
         <logic:present name="modificacion_fallida">
-            <div align="center" class="alert alert-success" id="alert">
+            <div align="center" class="alert alert-danger" id="alert">
                 Modificacion de Tipo de Presupuesto Fallida, intente de nuevo.
             </div>
         </logic:present>
@@ -54,7 +55,7 @@
                 <font size="2" >Descripción</font>                                                
             </th>
             <th width="70px" align="center">
-                <font size="2" >Monto <br /> (por asignar)</font>                               
+                <font size="2" >Monto<br />(por asignar)</font>                               
             </th>
             <th width="100px" align="center">
                 <font size="2" >Fecha</font>                                
@@ -92,7 +93,7 @@
                         <html:form action="/cambiar_status_TDP" onsubmit="return(this)" style="margin: 0px;">
                                <html:hidden name="Presupuesto" property="codigo" />
                                <center>
-                               <html:submit styleClass="btn btn-success" style="margin: 5px; padding: 3px; padding-left: 5px; padding-right: 5px;"
+                               <html:submit style="margin: 5px; padding: 3px; padding-left: 5px; padding-right: 5px;"
                                             onclick="javascript: return confirm('¿Está seguro de este cambio?\n***Estara desactivado a la vista***')">
                                     Desactivar
                                </html:submit>
@@ -105,7 +106,7 @@
                         <html:form action="/modificar_TDP" onsubmit="return(this)" style="margin: 0px;">
                                <html:hidden name="Presupuesto" property="codigo" />
                                <center>
-                               <html:submit styleClass="btn btn-success" style="margin: 5px; padding: 3px; padding-left: 5px; padding-right: 5px;">
+                               <html:submit style="margin: 5px; padding: 3px; padding-left: 5px; padding-right: 5px;">
                                     Modificar
                                </html:submit>
                                </center>

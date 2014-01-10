@@ -426,12 +426,13 @@ public class DBMS {
 
             while (Rs.next()) {
                 Presupuesto u = new Presupuesto();
-                if (Rs.getInt("status") == 1){
+                if (Rs.getInt("status") == 1){                    
                     u.setCodigo_TDP(""+Rs.getInt("codigo_TDP"));
                     u.setCodigo_lab(""+Rs.getInt("codigo_laboratorio"));
                     u.setMonto_asignado(""+Rs.getFloat("monto_asignado"));
                     u.setFecha(""+Rs.getString("fecha"));
                     u.setDescripcion(""+Rs.getString("descripcion"));
+                    u.setId(""+Rs.getInt("id"));
                     Presupuestos.add(u);
                 }
             }
@@ -482,10 +483,11 @@ public class DBMS {
         PreparedStatement psEliminar = null;
         try {
 
-            psEliminar = conexion.prepareStatement("UPDATE PRESUPUESTO SET status=0 where codigo_laboratorio = ? and codigo_TDP=?;");
-
+            psEliminar = conexion.prepareStatement("UPDATE PRESUPUESTO SET status=0 where codigo_laboratorio = ? and codigo_TDP=? and id = ?;");
+            
             psEliminar.setInt(1, Integer.parseInt(u.getCodigo_lab()));
             psEliminar.setInt(2, Integer.parseInt(u.getCodigo_TDP()));
+            psEliminar.setInt(3, Integer.parseInt(u.getId()));
             System.out.println(psEliminar.toString());
 
             Integer i = psEliminar.executeUpdate();

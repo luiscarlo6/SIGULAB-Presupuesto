@@ -30,11 +30,7 @@ public class Tipo_de_Presupuesto extends org.apache.struts.action.ActionForm {
     private String mes;
     private String ano;
     
-    private String error;
-    private String error_tipo;
-    private String error_monto;
-    private String error_modificando;
-    private String error_fecha;
+
     
     
     public String getMonto() {

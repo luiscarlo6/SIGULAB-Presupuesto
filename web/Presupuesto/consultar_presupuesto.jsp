@@ -4,6 +4,7 @@
     Author     : luiscarlo
 --%>
 <link rel="stylesheet" type="text/css" href="css/estilo.css">
+<link rel="stylesheet" type="text/css" href="css/bootstrap.css">
 <%@ taglib uri="http://struts.apache.org/tags-bean" prefix="bean" %>
 <%@ taglib uri="http://struts.apache.org/tags-html" prefix="html" %>
 <%@ taglib uri="http://struts.apache.org/tags-logic" prefix="logic" %>
@@ -40,7 +41,7 @@
         </logic:present>
         
         <logic:present name="modificacion_fallida">
-            <div align="center" class="alert alert-success" id="alert">
+            <div align="center" class="alert alert-danger" id="alert">
                 Modificacion de Presupuesto Fallida, intente de nuevo.
             </div>
         </logic:present>
@@ -51,10 +52,10 @@
     <table border="1" class="altrowstable" >
     <thead>
         <tr>
-            <th width="70px" align="center">
+            <th width="50px" align="center">
                 <font size="2" >Código de Laboratorio</font>                
             </th>
-            <th width="70px" align="center">
+            <th width="50px" align="center">
                 <font size="2" >Código de Tipo de Presupuesto</font>
             </th>            
             <th width="70px" align="center">
@@ -63,7 +64,7 @@
             <th width="40px" align="center">
                 <font size="2" >Observaciones</font>                                
             </th>
-            <th width="40px" align="center">
+            <th width="70px" align="center">
                 <font size="2" >Fecha</font>                                
             </th>
             <th width="20px" align="center">
@@ -74,10 +75,10 @@
     <div float:left>
         <logic:iterate name="presupuesto" id="PresupuestoAsignado">
             <tr>
-                <td width="70px" align="center">
+                <td width="50px" align="center">
                     <font size="2" ><bean:write name="PresupuestoAsignado" property="codigo_lab"/></font>
                 </td>
-                <td width="70px" align="center">
+                <td width="50px" align="center">
                     <font size="2" ><bean:write name="PresupuestoAsignado" property="codigo_TDP"/></font>
                 </td>                
                 <td width="70px" align="center">
@@ -86,7 +87,7 @@
                 <td width="40px" align="center">
                     <font size="2" ><bean:write name="PresupuestoAsignado" property="descripcion"/></font> 
                 </td>
-                <td width="40px" align="center">
+                <td width="70px" align="center">
                     <font size="2" ><bean:write name="PresupuestoAsignado" property="fecha"/></font> 
                 </td>  
                 <td width="20px" align="center">   
@@ -94,8 +95,9 @@
                         <html:form action="/cambiar_status_presupuesto" onsubmit="return(this)" style="margin: 0px;">
                                <html:hidden name="PresupuestoAsignado" property="codigo_TDP" />
                                <html:hidden name="PresupuestoAsignado" property="codigo_lab" />
+                               <html:hidden name="PresupuestoAsignado" property="id" />
                                <center>
-                               <html:submit styleClass="btn btn-success" style="margin: 5px; padding: 3px; padding-left: 5px; padding-right: 5px;"
+                               <html:submit style="margin: 5px; padding: 3px; padding-left: 5px; padding-right: 5px;"
                                             onclick="javascript: return confirm('¿Está seguro de este cambio?\n***Estara desactivado a la vista***')">
                                     Desactivar
                                </html:submit>

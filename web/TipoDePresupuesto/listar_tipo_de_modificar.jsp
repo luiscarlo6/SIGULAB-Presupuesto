@@ -7,6 +7,7 @@
 <% Object codOri = request.getAttribute("codigo");%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<link rel="stylesheet" type="text/css" href="css/bootstrap.css">
 <%@ taglib uri="http://struts.apache.org/tags-bean" prefix="bean" %>
 <%@ taglib uri="http://struts.apache.org/tags-html" prefix="html" %>
 <%@ taglib uri="http://struts.apache.org/tags-logic" prefix="logic" %>
@@ -195,7 +196,7 @@
 
         <html:link action= "/consultar_TDP" >
             <h2>
-                Volver
+                <font size="2" >Volver</font>
             </h2>
         </html:link>
     </body>

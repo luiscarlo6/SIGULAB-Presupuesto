@@ -18,6 +18,7 @@ import org.apache.struts.action.ActionMessage;
 public class Presupuesto extends org.apache.struts.action.ActionForm {
 
     /* forward name="success" path="" */
+    private String id;
     private String codigo_TDP;
     private String codigo_lab;
     private String monto_asignado;  
@@ -71,6 +72,14 @@ public class Presupuesto extends org.apache.struts.action.ActionForm {
 
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     
