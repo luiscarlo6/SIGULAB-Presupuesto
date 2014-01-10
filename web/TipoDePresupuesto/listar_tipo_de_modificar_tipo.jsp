@@ -19,7 +19,7 @@
     </head>
     <body>
         <h2>Introduzca los datos del presupuesto a modificar:</h2>
-        <html:form action="/form_parametros_nuevos_TDP">            
+        <html:form action="/form_parametros_nuevos_TDP_tipo">            
             <div id="welcome">
                 <table border="0">
                     <tbody>                        

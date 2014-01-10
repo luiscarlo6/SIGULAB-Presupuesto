@@ -1,7 +1,7 @@
 <%-- 
     Document   : sideLAdmin
     Created on : 15/10/2013, 06:38:44 PM
-    Author     : jidc28
+    Author     : 
 --%>
 
 <%@ taglib uri="http://struts.apache.org/tags-bean" prefix="bean" %>
@@ -23,8 +23,7 @@
                                 
             <li class="leaf"><html:link action="asignar_presupuesto"><p> * Asignar</p></html:link></li>
             <li class="leaf"><html:link action="asignar_presupuesto_equitativo"><p> * Asignacion Equitativa</p></html:link></li>
-            <li class="leaf"><html:link action="construccion"><p> * Modificar</p></html:link></li>
-            <li class="leaf"><html:link action="eliminar_presupuesto"><p> * Cambiar Status</p></html:link></li>
+            <!-- <li class="leaf"><html:link action="construccion"><p> * Modificar</p></html:link></li> -->
             <li class="leaf"><html:link action="consulta_totales"><p> * Totales Asinados</p></html:link></li>
             <li class="leaf"><html:link action="consulta_individual"><p> * Consulta Individual</p></html:link></li>
             

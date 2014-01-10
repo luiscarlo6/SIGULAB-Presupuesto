@@ -89,7 +89,7 @@
                 </td>
                 <td width="30px" align="center">   
                     <font size="2" >
-                        <html:form action="/cambiar_status_TDP" onsubmit="return(this)" style="margin: 0px;">
+                        <html:form action="/cambiar_status_TDP_tipo" onsubmit="return(this)" style="margin: 0px;">
                                <html:hidden name="Presupuesto" property="codigo" />
                                <center>
                                <html:submit styleClass="btn btn-success" style="margin: 5px; padding: 3px; padding-left: 5px; padding-right: 5px;"
@@ -102,7 +102,7 @@
                 </td>
                 <td width="30px" align="center">   
                     <font size="2" >
-                        <html:form action="/modificar_TDP" onsubmit="return(this)" style="margin: 0px;">
+                        <html:form action="/modificar_TDP_tipo" onsubmit="return(this)" style="margin: 0px;">
                                <html:hidden name="Presupuesto" property="codigo" />
                                <center>
                                <html:submit styleClass="btn btn-success" style="margin: 5px; padding: 3px; padding-left: 5px; padding-right: 5px;">
@@ -119,8 +119,8 @@
     
 </table>
     <div align="center">
-        <html:link  action="agregar_TDP"><font size="3" >Agregar Nuevo </font></html:link>    <font size="3" > | </font>           
-        <html:link  action="consultar_TDP_tipo"><font size="3" >Ordenar por tipo</font></html:link>
+        <html:link  action="agregar_TDP"><font size="3" >Agregar Nuevo </font></html:link>   <font size="3" > | </font>                    
+        <html:link  action="consultar_TDP"><font size="3" >Vista Original</font></html:link>
     </div>
     
     <br />

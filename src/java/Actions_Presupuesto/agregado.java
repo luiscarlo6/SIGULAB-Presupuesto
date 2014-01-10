@@ -8,6 +8,7 @@ package Actions_Presupuesto;
 
 import Clases.Presupuesto;
 import DBMS.DBMS;
+import java.util.ArrayList;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -106,7 +107,9 @@ public class agregado extends org.apache.struts.action.Action {
                 saveErrors(request, error);
                 return mapping.findForward(FAILURE);
             } else if (msg_status.equals("ok")){
-                u.resetearVariables();
+                ArrayList<Presupuesto> Presupuestos = DBMS.getInstance().consultarDatos_Presupuesto();
+                session.setAttribute(("presupuesto"), Presupuestos);
+                request.setAttribute("agregado_exitoso",SUCCESS);
                 return mapping.findForward(SUCCESS);
             }
             

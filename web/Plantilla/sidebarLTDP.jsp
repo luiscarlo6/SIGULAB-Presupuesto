@@ -1,7 +1,7 @@
 <%-- 
     Document   : sideLAdmin
     Created on : 15/10/2013, 06:38:44 PM
-    Author     : jidc28
+    Author     : 
 --%>
 
 <%@ taglib uri="http://struts.apache.org/tags-bean" prefix="bean" %>
@@ -21,8 +21,7 @@
             <li class="leaf"><html:link action="consultar_TDP"><p>Tipo de Presupuesto</p></html:link></li>
             
             <li class="leaf"><html:link  action="agregar_TDP"><p> * Agregar Nuevo</p></html:link></li>
-            <li class="leaf"><html:link action="modificar_TDP"><p> * Modificar</p></html:link></li>
-            <li class="leaf"><html:link action="eliminar_TDP"><p> * Cambiar Status</p></html:link></li>
+            <li class="leaf"><html:link  action="consultar_TDP_tipo"> * Ordenar por tipo</html:link></li>
             
             <li class="leaf"><html:link action="consultar_presupuesto"><p>Presupuesto</p></html:link></li>
             <li class="leaf"><html:link action="consultar_laboratorio"><p>Lista de Laboratorios</p></html:link></li>

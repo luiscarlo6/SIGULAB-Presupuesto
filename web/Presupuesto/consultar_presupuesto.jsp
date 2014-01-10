@@ -14,7 +14,38 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Presupuestos</title>
     </head>
-    <body>        
+    <body>
+        <logic:present name="agregado_equitativo_exitoso">
+            <div align="center" class="alert alert-success" id="alert">
+                Asignacion de Presupuesto de forma Equitativa Exitosa.
+            </div>
+        </logic:present>
+        
+        <logic:present name="agregado_exitoso">
+            <div align="center" class="alert alert-success" id="alert">
+                Presupuesto Agregado Exitosamente.
+            </div>
+        </logic:present>
+        
+        <logic:present name="desactivacion_exitosa">
+            <div align="center" class="alert alert-success" id="alert">
+                Desactivacion de Presupuesto Exitoso.
+            </div>
+        </logic:present>
+        
+        <logic:present name="modificacion_exitosa">
+            <div align="center" class="alert alert-success" id="alert">
+                Modificacion de Presupuesto Exitoso.
+            </div>
+        </logic:present>
+        
+        <logic:present name="modificacion_fallida">
+            <div align="center" class="alert alert-success" id="alert">
+                Modificacion de Presupuesto Fallida, intente de nuevo.
+            </div>
+        </logic:present>
+        
+        
         <h2>Presupuestos Existentes:</h2>
 
     <table border="1" class="altrowstable" >
@@ -57,18 +88,37 @@
                 </td>
                 <td width="40px" align="center">
                     <font size="2" ><bean:write name="PresupuestoAsignado" property="fecha"/></font> 
-                </td>
+                </td>  
                 <td width="20px" align="center">   
-                <font size="2" >
-                    <html:link action= "/construccion" >
-                        Modificar
-                    </html:link></font>
-                </td>                
+                    <font size="2" >
+                        <html:form action="/cambiar_status_presupuesto" onsubmit="return(this)" style="margin: 0px;">
+                               <html:hidden name="PresupuestoAsignado" property="codigo_TDP" />
+                               <html:hidden name="PresupuestoAsignado" property="codigo_lab" />
+                               <center>
+                               <html:submit styleClass="btn btn-success" style="margin: 5px; padding: 3px; padding-left: 5px; padding-right: 5px;"
+                                            onclick="javascript: return confirm('¿Está seguro de este cambio?\n***Estara desactivado a la vista***')">
+                                    Desactivar
+                               </html:submit>
+                               </center>
+                        </html:form>                   
+                    </font>
+                </td>             
             </tr>                       
                 
         </logic:iterate>
     </div>
 </table>
+   <div align="center">     
+        <html:link action="asignar_presupuesto"><font size="3" > Asignar </font></html:link> <font size="3" > | </font>
+        <html:link action="asignar_presupuesto_equitativo"> <font size="3" >Asignacion Equitativa</font></html:link> <font size="3" > | </font>
+        <!-- <html:link action="construccion"><font size="3" > Modificar</font></html:link> <font size="3" > | </font> --> 
+        <html:link action="consulta_totales"><font size="3" > Totales Asinados</font></html:link> <font size="3" > | </font>
+        <html:link action="consulta_individual"><font size="3" > Consulta Individual</font></html:link> 
+        <br />
+        <br />
+        <br />
+        <br />
+    </div>
 </body>
 
 </html>

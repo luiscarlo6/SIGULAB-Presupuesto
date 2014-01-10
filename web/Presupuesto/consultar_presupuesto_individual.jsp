@@ -62,6 +62,17 @@
         </logic:iterate>
     </div>
 </table>
+    <div align="center">   
+        <html:link action="consultar_presupuesto"><font size="3" >Presupuesto</font></html:link> <font size="3" > | </font>
+        <html:link action="asignar_presupuesto"><font size="3" > Asignar </font></html:link> <font size="3" > | </font>
+        <html:link action="asignar_presupuesto_equitativo"> <font size="3" >Asignacion Equitativa</font></html:link> <font size="3" > | </font>
+        <!-- <html:link action="construccion"><font size="3" > Modificar</font></html:link> <font size="3" > | </font> -->
+        <html:link action="consulta_totales"><font size="3" > Totales Asinados</font></html:link>
+        <br />
+        <br />
+        <br />
+        <br />
+    </div>
 </body>
 
 </html>

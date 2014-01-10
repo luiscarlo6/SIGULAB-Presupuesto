@@ -8,6 +8,7 @@ package Actions_TipoDePresupuesto;
 import Clases.Tipo_de_Presupuesto;
 
 import DBMS.DBMS;
+import java.util.ArrayList;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -93,6 +94,9 @@ public class agregado extends org.apache.struts.action.Action {
             boolean agrego = DBMS.getInstance().agregarDatos_Tipo_de_presupuesto(u);
             u.resetearVariables();
             if (agrego) {
+                ArrayList<Tipo_de_Presupuesto> Presupuestos = DBMS.getInstance().consultarDatos_Tipo_de_presupuesto();
+                session.setAttribute(("presupuesto"), Presupuestos);
+                request.setAttribute("agregado_exitoso",SUCCESS);
                 return mapping.findForward(SUCCESS);
             } else {
                 //error.add("codigo", new ActionMessage("error.codigo.existe"));

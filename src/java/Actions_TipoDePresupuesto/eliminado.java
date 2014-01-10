@@ -7,6 +7,7 @@ package Actions_TipoDePresupuesto;
 
 import Clases.Tipo_de_Presupuesto;
 import DBMS.DBMS;
+import java.util.ArrayList;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -69,6 +70,9 @@ public class eliminado extends org.apache.struts.action.Action {
             boolean elimino = DBMS.getInstance().CambiarStatus_Tipo_de_presupuesto(u);
             u.resetearVariables();
             if (elimino) {
+                ArrayList<Tipo_de_Presupuesto> Presupuestos = DBMS.getInstance().consultarDatos_Tipo_de_presupuesto();
+                session.setAttribute(("presupuesto"), Presupuestos);
+                request.setAttribute("desactivacion_exitosa",SUCCESS);
                 return mapping.findForward(SUCCESS);
             } else {
                 error.add("codigo", new ActionMessage("error.codigo.noexiste_deshabilitado"));

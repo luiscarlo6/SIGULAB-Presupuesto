@@ -18,6 +18,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 
 /**
  *
@@ -132,8 +134,9 @@ public class DBMS {
             pre.setCodigo(""+Rs.getInt("codigo"));
             pre.setDescripcion(Rs.getString("descripcion"));
             pre.setTipo(Rs.getString("tipo"));
-            
-            pre.setMonto(""+Rs.getFloat("monto"));
+            NumberFormat monto = new DecimalFormat("#############.###");		
+            String s = monto.format(Rs.getFloat("monto"));
+            pre.setMonto(""+s);
             pre.setDia(""+Rs.getInt("dia"));
             pre.setMes(Rs.getString("mes"));
             pre.setAno(""+Rs.getInt("ano"));
@@ -221,7 +224,9 @@ public class DBMS {
                     u.setCodigo(""+Rs.getInt("codigo"));
                     u.setDescripcion(Rs.getString("descripcion"));
                     u.setTipo(Rs.getString("tipo"));
-                    u.setMonto(""+Rs.getFloat("monto"));
+                    NumberFormat monto = new DecimalFormat("#############.###");		
+                    String s = monto.format(Rs.getFloat("monto"));
+                    u.setMonto(""+s);
                     u.setDia(""+Rs.getInt("dia"));
                     u.setMes(Rs.getString("mes"));
                     u.setAno(""+Rs.getInt("ano"));
@@ -240,12 +245,43 @@ public class DBMS {
 
     }
     
-    // PRESUPUESTO 
-    // OJO AKI FALTA ACOMODAR EL AGREGAR
-    // POR SI CUANDO AGREGA UNO YA EXISTENTE
-    // SE DEBERIA ACTUALIZAR EL YA EXISTENTE
-    // O AGREGARLO DE NUEVO O BLOKEAR LA ACCION
-    // OJOOOOOOOOOOOOO
+
+    public ArrayList<Tipo_de_Presupuesto> consultarDatos_Tipo_de_presupuesto_ordenTipo() {
+
+        ArrayList<Tipo_de_Presupuesto> Presupuestos = new ArrayList<Tipo_de_Presupuesto>();
+        PreparedStatement psConsultar = null;
+        try {
+
+            psConsultar = conexion.prepareStatement("SELECT * FROM TIPO_DE_PRESUPUESTO ORDER BY TIPO;");
+            ResultSet Rs = psConsultar.executeQuery();
+
+            while (Rs.next()) {
+                Tipo_de_Presupuesto u = new Tipo_de_Presupuesto();
+                
+                if (Rs.getInt("status") == 1) {
+                    u.setCodigo(""+Rs.getInt("codigo"));
+                    u.setDescripcion(Rs.getString("descripcion"));
+                    u.setTipo(Rs.getString("tipo"));
+                    NumberFormat monto = new DecimalFormat("#############.###");		
+                    String s = monto.format(Rs.getFloat("monto"));
+                    u.setMonto(""+s);
+                    u.setDia(""+Rs.getInt("dia"));
+                    u.setMes(Rs.getString("mes"));
+                    u.setAno(""+Rs.getInt("ano"));
+                    Presupuestos.add(u);
+                }
+                
+                
+            }
+
+
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        
+        return Presupuestos;
+
+    }
     
     public String agregarDatos_Presupuesto(Presupuesto u) {
 

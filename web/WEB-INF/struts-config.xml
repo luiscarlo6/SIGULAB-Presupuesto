@@ -56,12 +56,28 @@
         </action>
         
         
-        <action path="/modificar_TDP" 
+        <!-- <action path="/modificar_TDP" 
                 name = "Presupuesto" 
                 type="org.apache.struts.actions.ForwardAction" 
                 scope="request" 
                 validate="false" 
                 parameter="modificarTDP"/>
+        -->
+        
+        <action input="/TipoDePresupuesto/consultar_tipo_de_presupuesto.jsp" name="Presupuesto" path="/modificar_TDP" scope="request" type="Actions_TipoDePresupuesto.modificado" validate="false">
+            <forward name="success" path="nuevosDatosDeTDP"/>
+            <forward name="failure" path="consultarTDP"/>
+        </action>
+        
+        <action input="/TipoDePresupuesto/consultar_tipo_de_presupuesto_portipo.jsp" name="Presupuesto" path="/modificar_TDP_tipo" scope="request" type="Actions_TipoDePresupuesto.modificado" validate="false">
+            <forward name="success" path="nuevosDatosDeTDPportipo"/>
+            <forward name="failure" path="consultarTDP"/>
+        </action>
+        
+        <action input="/TipoDePresupuesto/listar_tipo_de_modificar_tipo.jsp" name="Presupuesto" path="/form_parametros_nuevos_TDP_tipo" scope="request" type="Actions_TipoDePresupuesto.modificar_datos_tipo" validate="false">
+            <forward name="success" path="consultarTDPtipo"/>
+            <forward name="failure" path="consultarTDPtipo"/>
+        </action>
         
         <action input="/TipoDePresupuesto/modificar_tipo_de_presupuesto.jsp" name="Presupuesto" path="/form_indicar_codigoTDP" scope="request" type="Actions_TipoDePresupuesto.modificado" validate="false">
             <forward name="success" path="nuevosDatosDeTDP"/>
@@ -69,8 +85,8 @@
         </action>    
         
         <action input="/TipoDePresupuesto/listar_tipo_de_modificar.jsp" name="Presupuesto" path="/form_parametros_nuevos_TDP" type="Actions_TipoDePresupuesto.modificar_datos" validate="false">
-            <forward name="success" path="modificadoTDPsatisfactoriamente"/>
-            <forward name="failure" path="modificarTDP"/>
+            <forward name="success" path="consultarTDP"/>
+            <forward name="failure" path="consultarTDP"/>
         </action>
         <!--consultarTDP-->
         <action path="/eliminar_TDP" 
@@ -78,7 +94,7 @@
                 scope="request" 
                 validate="false" 
                 parameter="eliminarTDP"/>
-        
+                        
         <action input="/TipoDePresupuesto/eliminar_tipo_de_presupuesto.jsp" name="Presupuesto" path="/form_eliminar_TDP" type="Actions_TipoDePresupuesto.eliminado" validate="false">
             <forward name="success" path="eliminadoTDPsatisfactoriamente"/>
             <forward name="failure" path="eliminarTDP"/>
@@ -89,6 +105,20 @@
             <forward name="failure" path="NoTDPAsignados"/>
         </action>
         
+        <action input="/TipoDePresupuesto/consultar_tipo_de_presupuesto.jsp" name="Presupuesto" path="/cambiar_status_TDP" type="Actions_TipoDePresupuesto.eliminado" validate="false">
+            <forward name="success" path="eliminadoTDPsatisfactoriamente"/>
+            <forward name="failure" path="eliminadoTDPsatisfactoriamente"/>
+        </action>
+        
+        <action input="/TipoDePresupuesto/consultar_tipo_de_presupuesto_portipo.jsp" name="Presupuesto" path="/cambiar_status_TDP_tipo" type="Actions_TipoDePresupuesto.eliminado_tipo" validate="false">
+            <forward name="success" path="consultarTDPtipo"/>
+            <forward name="failure" path="consultarTDPtipo"/>
+        </action>
+        
+        <action path="/consultar_TDP_tipo" type="Actions_TipoDePresupuesto.consultado_tipo" validate="false">
+            <forward name="success" path="consultarTDPtipo"/>
+            <forward name="failure" path="consultarTDP"/>
+        </action>
                       
         <!-- PRESUPUESTO --> 
         <action path="/asignar_presupuesto" 
@@ -98,7 +128,7 @@
                 parameter="asignarPresupuesto"/>
         
         <action input="/Presupuesto/asignar_presupuesto.jsp" name="PresupuestoAsignado" path="/form_asignar_presupuesto" type="Actions_Presupuesto.agregado" validate="false">
-            <forward name="success" path="asignadoPresupuestosatisfactoriamente"/>
+            <forward name="success" path="consultarPresupuesto"/>
             <forward name="failure" path="asignarPresupuesto"/>
         </action>
         
@@ -112,7 +142,12 @@
                 scope="request" 
                 validate="false" 
                 parameter="eliminarPresupuesto"/>      
-       
+        
+        <action input="/Presupuesto/consultar_presupuesto.jsp" name="PresupuestoAsignado" path="/cambiar_status_presupuesto" type="Actions_Presupuesto.eliminado" validate="false">
+            <forward name="success" path="consultarPresupuesto"/>
+            <forward name="failure" path="consultarPresupuesto"/>
+        </action>
+        
         <action input="/Presupuesto/eliminar_presupuesto.jsp" name="PresupuestoAsignado" path="/form_eliminar_presupuesto" type="Actions_Presupuesto.eliminado" validate="false">
             <forward name="success" path="eliminadoPresupuestosatisfactoriamente"/>
             <forward name="failure" path="eliminarPresupuesto"/>
@@ -131,9 +166,8 @@
                 parameter="asignarPresupuestoEquitativo"/>
                                   
         <action input="/Presupuesto/asignar_presupuesto_equitativo.jsp" name="PresupuestoAsignado" path="/form_asignar_presupuesto_equitativo" type="Actions_Presupuesto.asignado_equitativo" validate="false">
-            <forward name="success" path="asignadoPresupuestosatisfactoriamente"/>
+            <forward name="success" path="consultarPresupuesto"/>
             <forward name="failure" path="asignarPresupuestoEquitativo"/>
-            <forward name="other" path="asignarPresupuestoEquitativoOtro"/>
         </action>                          
                 
         <action path="/consulta_individual" 
@@ -189,8 +223,8 @@
             <forward name="success" path="/Cheque/vista_modificado.jsp"/>
             <forward name="failure" path="/Cheque/vista_cheque.jsp"/>
         </action>
-        <action path="/asa" type="Actions_Presupuesto.consulta_individual"/>
-            
+        <action path="/ass" type="Actions_TipoDePresupuesto.modificar_datos_tipo"/>
+        <action path="/1" type="Actions_TipoDePresupuesto.eliminado_tipo"/>
         
         
         

@@ -1,7 +1,7 @@
 <%-- 
     Document   : sideLAdmin
     Created on : 15/10/2013, 06:38:44 PM
-    Author     : jidc28
+    Author     : 
 --%>
 
 <%@ taglib uri="http://struts.apache.org/tags-bean" prefix="bean" %>

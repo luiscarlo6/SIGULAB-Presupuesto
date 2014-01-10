@@ -1,11 +1,12 @@
 /*
- * To change this template, choose Tools | Templates
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Actions_Presupuesto;
+package Actions_TipoDePresupuesto;
 
+import Clases.Tipo_de_Presupuesto;
 import DBMS.DBMS;
-import Clases.Presupuesto;
 import java.util.ArrayList;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -18,15 +19,14 @@ import org.apache.struts.action.ActionMessage;
 
 /**
  *
- * @author 
+ * @author juanpe
  */
-public class consulta_individual extends org.apache.struts.action.Action {
-    /* forward name="success" path="" */
+public class eliminado_tipo extends org.apache.struts.action.Action {
 
+    /* forward name="success" path="" */
     private static final String SUCCESS = "success";
     private static final String FAILURE = "failure";
-    private static final String OTHER = "other";
-    
+
     /**
      * This is the action called from the Struts framework.
      *
@@ -41,44 +41,44 @@ public class consulta_individual extends org.apache.struts.action.Action {
     public ActionForward execute(ActionMapping mapping, ActionForm form,
             HttpServletRequest request, HttpServletResponse response)
             throws Exception {
-        
+        Tipo_de_Presupuesto u;
+        u = (Tipo_de_Presupuesto) form;
         HttpSession session = request.getSession(true);
-        Presupuesto u;
-        u = (Presupuesto) form;
-        
+
         ActionErrors error = new ActionErrors();
-        String msg_codigo_lab = "";
+        String msg_codigo = "";
         error = u.validate(mapping, request);
         boolean huboError = false;
-
-        msg_codigo_lab = u.ValidarCampoCodigoLab(); 
+        msg_codigo = u.ValidarCampoCodigo();        
         
-        if (!msg_codigo_lab.equals("ok")){
+        if (!msg_codigo.equals("ok")) {
             huboError = true;
-        } 
-        
-        if (huboError) {            
-            if (msg_codigo_lab.equals("Codigo errado, indique un Numero")){
-                error.add("codigo", new ActionMessage("error.codigo.vacio"));
-            }else{
-                error.add("codigo", new ActionMessage("error.codigo.mayorquecero"));               
-            }     
-            u.resetearVariables();
-            saveErrors(request, error);
-            return mapping.findForward(FAILURE);
-            
-        } else {
-            ArrayList<Presupuesto> Presupuestos = DBMS.getInstance().consultarDatosIndividual_Presupuesto(u);
-            u.resetearVariables();
-            if (!Presupuestos.isEmpty()){
-                session.setAttribute(("presupuesto"), Presupuestos);
-                return mapping.findForward(SUCCESS);
-            }else {
-                return mapping.findForward(OTHER);
-            }            
-            
-            
         }
-    }                        
         
+        
+        if (huboError) {
+            u.resetearVariables();            
+            if (msg_codigo.equals("Codigo errado, indique un Numero")){
+                error.add("codigo", new ActionMessage("error.codigo.numero"));
+            }else{
+                error.add("codigo", new ActionMessage("error.codigo.mayorquecero"));
+            }
+            saveErrors(request, error);            
+            return mapping.findForward(FAILURE);
+            //si los campos son validos
+        } else {
+            boolean elimino = DBMS.getInstance().CambiarStatus_Tipo_de_presupuesto(u);
+            u.resetearVariables();
+            if (elimino) {
+                ArrayList<Tipo_de_Presupuesto> Presupuestos = DBMS.getInstance().consultarDatos_Tipo_de_presupuesto_ordenTipo();
+                session.setAttribute(("presupuesto"), Presupuestos);
+                request.setAttribute("desactivacion_exitosa",SUCCESS);
+                return mapping.findForward(SUCCESS);
+            } else {
+                error.add("codigo", new ActionMessage("error.codigo.noexiste_deshabilitado"));
+                saveErrors(request, error);
+                return mapping.findForward(FAILURE);
+            }
+        }
+    }
 }

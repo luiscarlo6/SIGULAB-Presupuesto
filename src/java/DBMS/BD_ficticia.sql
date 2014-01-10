@@ -45,5 +45,9 @@ WHERE codigo_laboratorio NOT IN (SELECT distinct tdp.codigo_laboratorio
     FROM PRESUPUESTO tdp 
     WHERE tdp.codigo_TDP = 100001 and tdp.status = 1) 
 ORDER BY CODIGO_LABORATORIO;
+
+
+select distinct t1.* from tipo_de_presupuesto t1 order by t1.tipo;
+
 */
 

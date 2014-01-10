@@ -19,18 +19,7 @@
         <html:form action="/form_agregar_TDP">            
             <div id="welcome">
                 <table border="0">
-                    <tbody>
-                       <!-- <td><font size="2" >Codigo:</font></td>
-                        <tr>
-                            <td>
-                                <html:text property="codigo" />
-                            </td>
-                        </tr>               
-                        <tr>
-                            <td style="color: red">
-                                <html:errors property="codigo" /> 
-                            </td>
-                        </tr> -->
+                    <tbody>                       
                         <tr>
                             <td><font size="2" >Tipo:
                                 <html:select property="tipo">

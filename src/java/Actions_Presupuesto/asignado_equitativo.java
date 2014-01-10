@@ -8,6 +8,7 @@ package Actions_Presupuesto;
 
 import Clases.Presupuesto;
 import DBMS.DBMS;
+import java.util.ArrayList;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -72,6 +73,9 @@ public class asignado_equitativo extends org.apache.struts.action.Action {
             String msg_status = DBMS.getInstance().agregarDatosEquitativo_Presupuesto(u);
             u.resetearVariables();
             if (msg_status.equals("ok")) {
+                ArrayList<Presupuesto> Presupuestos = DBMS.getInstance().consultarDatos_Presupuesto();
+                session.setAttribute(("presupuesto"), Presupuestos);
+                request.setAttribute("agregado_equitativo_exitoso",SUCCESS);
                 return mapping.findForward(SUCCESS);
             } else if (msg_status.equals("Tipo de Presupuesto NO encontrado")) {
                 error.add("codigo", new ActionMessage("error.codigo.TDPNofound"));
@@ -80,10 +84,13 @@ public class asignado_equitativo extends org.apache.struts.action.Action {
             }else if (msg_status.equals("El monto del presupuesto a asignar es cero")) {
                 error.add("check", new ActionMessage("error.check.NadaQueAgregar"));
                 saveErrors(request, error);            
-                return mapping.findForward(OTHER);
+                return mapping.findForward(FAILURE);
             } else if (msg_status.equals("Al menos un valor a insertar ya existia en los Presupuestos")) {
-                error.add("check", new ActionMessage("error.check.alert"));
-                //saveErrors(request, error);            
+                //error.add("check", new ActionMessage("error.check.alert"));
+                //saveErrors(request, error);     
+                ArrayList<Presupuesto> Presupuestos = DBMS.getInstance().consultarDatos_Presupuesto();
+                session.setAttribute(("presupuesto"), Presupuestos);
+                request.setAttribute("agregado_equitativo_exitoso",SUCCESS);
                 return mapping.findForward(SUCCESS);
             } 
             return mapping.findForward(FAILURE);

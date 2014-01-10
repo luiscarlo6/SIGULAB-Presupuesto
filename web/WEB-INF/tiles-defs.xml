@@ -36,6 +36,10 @@
     <definition name="consultarTDP" extends="baseAdminTDP"> <!-- Consulta de TDP -->
         <put name="body" value="/TipoDePresupuesto/consultar_tipo_de_presupuesto.jsp"/>
     </definition>
+        
+    <definition name="consultarTDPtipo" extends="baseAdminTDP"> <!-- Consulta de TDP -->
+        <put name="body" value="/TipoDePresupuesto/consultar_tipo_de_presupuesto_portipo.jsp"/>
+    </definition>
     
     <definition name="NoTDPAsignados" extends="baseAdminTDP"> <!-- Consulta de TDP -->
         <put name="body" value="/TipoDePresupuesto/sin_tipo_de_presupuestos_asignados.jsp"/>
@@ -46,7 +50,7 @@
     </definition>
     
     <definition name="agregadoTDPsatisfactoriamente" extends="baseAdminTDP"> <!-- Agregacion de TDP exitosa -->
-        <put name="body" value="/TipoDePresupuesto/agregado_tipo_de_presupuesto.jsp"/>
+        <put name="body" value="/TipoDePresupuesto/consultar_tipo_de_presupuesto.jsp"/>
     </definition>
     
     <definition name="eliminarTDP" extends="baseAdminTDP"> <!-- Eliminacion de TDP -->
@@ -54,7 +58,7 @@
     </definition>
     
     <definition name="eliminadoTDPsatisfactoriamente" extends="baseAdminTDP"> <!-- Eliminacion de TDP exitosa -->
-        <put name="body" value="/TipoDePresupuesto/eliminado_tipo_de_presupuesto.jsp"/>
+        <put name="body" value="/TipoDePresupuesto/consultar_tipo_de_presupuesto.jsp"/>
     </definition>
         
     <definition name="modificarTDP" extends="baseAdminTDP"> <!-- Modificacion de TDP -->
@@ -63,6 +67,10 @@
     
     <definition name="nuevosDatosDeTDP" extends="baseAdminTDP"> <!-- Datos para modificar un TDP -->
         <put name="body" value="/TipoDePresupuesto/listar_tipo_de_modificar.jsp"/>
+    </definition>
+    
+    <definition name="nuevosDatosDeTDPportipo" extends="baseAdminTDP"> <!-- Datos para modificar un TDP -->
+        <put name="body" value="/TipoDePresupuesto/listar_tipo_de_modificar_tipo.jsp"/>
     </definition>
     
     <definition name="modificadoTDPsatisfactoriamente" extends="baseAdminTDP"> <!-- Modificacion de TDP exitosa -->

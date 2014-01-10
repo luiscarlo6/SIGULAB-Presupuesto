@@ -78,47 +78,6 @@ public class Tipo_de_Presupuesto extends org.apache.struts.action.ActionForm {
     }
 
     
-    public String getError_monto() {
-        return error_monto;
-    }
-   
-    
-    public String getError_tipo() {
-        return error_tipo;
-    }
-
-    public String getError() {
-        return error;
-    }
-
-    public String getError_modificando() {
-        return error_modificando;
-    }
-
-    public String getError_fecha() {
-        return error_fecha;
-    }
-
-    public void setError_fecha(String error_fecha) {
-        this.error_fecha = error_fecha;
-    }
-    
-    public void setError(String error) {
-        this.error = error;
-    }
-
-    public void setError_tipo(String error_tipo) {
-        this.error_tipo = error_tipo;
-    }
-
-    public void setError_monto(String error_monto) {
-        this.error_monto = error_monto;
-    }
-    
-    
-    public void setError_modificando(String error_modificando) {
-        this.error_modificando = error_modificando;
-    }
 
 
     public void resetearVariables() {
@@ -130,11 +89,7 @@ public class Tipo_de_Presupuesto extends org.apache.struts.action.ActionForm {
         this.mes="";
         this.ano="";
         //this.codigo_nuevo = "";
-        this.error="";
-        this.error_tipo="";
-        this.error_monto="";
-        this.error_modificando = "";        
-        this.error_fecha = "";  
+
     }    
     
     public String getCodigo() {

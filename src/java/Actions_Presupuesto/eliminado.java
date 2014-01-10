@@ -8,6 +8,7 @@ package Actions_Presupuesto;
 
 import Clases.Presupuesto;
 import DBMS.DBMS;
+import java.util.ArrayList;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -79,6 +80,9 @@ public class eliminado extends org.apache.struts.action.Action {
             boolean elimino = DBMS.getInstance().CambiarStatus_Presupuesto(u);
             u.resetearVariables();
             if (elimino) {
+                ArrayList<Presupuesto> Presupuestos = DBMS.getInstance().consultarDatos_Presupuesto();
+                session.setAttribute(("presupuesto"), Presupuestos);
+                request.setAttribute("desactivacion_exitosa",SUCCESS);
                 return mapping.findForward(SUCCESS);
             } else {
                 error.add("codigo_lab", new ActionMessage("error.presupuesto.noexiste"));

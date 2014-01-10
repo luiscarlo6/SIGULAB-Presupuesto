@@ -14,7 +14,7 @@
         <title>SIGU-LAB</title>
     </head>
     <body>
-        <h2>Introduzca los datos del presupuesto:</h2>
+        <h2>Introduzca el codigo del <i><u>tipo de presupuesto</u></i> para asignacion equitativa:</h2>
 
         <html:form action="/form_asignar_presupuesto_equitativo">            
             <div id="welcome">
