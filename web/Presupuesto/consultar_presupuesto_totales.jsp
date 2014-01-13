@@ -19,17 +19,17 @@
     <body>        
         <h2>Presupuesto Asignado por Laboratorios:</h2>
 
-    <table border="1" class="altrowstable" id="alternatecolor">
+    <table border="1">
     <thead>
         <tr>
             <th width="70px" align="center">
-                <font size="2" >Código</font>                
+                <b><font size="2" >Código</font></b>                
             </th>
             <th width="70px" align="center">
-                <font size="2" >Nombre</font>                               
+                <b><font size="2" >Nombre</font></b>                               
             </th>
             <th width="70px" align="center">
-                <font size="2" >Monto total asignado</font>                               
+                <b><font size="2" >Monto total asignado</font></b>                               
             </th>            
         </tr>
     </thead>
@@ -53,7 +53,7 @@
     <div align="center">   
         <html:link action="consultar_presupuesto"><font size="3" >Presupuesto</font></html:link> <font size="3" > | </font>
         <html:link action="asignar_presupuesto"><font size="3" > Asignar </font></html:link> <font size="3" > | </font>
-        <html:link action="asignar_presupuesto_equitativo"> <font size="3" >Asignacion Equitativa</font></html:link> <font size="3" > | </font>
+        <html:link action="asignar_presupuesto_equitativo"> <font size="3" >Asignación Equitativa</font></html:link> <font size="3" > | </font>
         <!-- <html:link action="construccion"><font size="3" > Modificar</font></html:link> <font size="3" > | </font> -->         
         <html:link action="consulta_individual"><font size="3" > Consulta Individual</font></html:link> 
         <br />

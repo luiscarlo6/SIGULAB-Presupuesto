@@ -15,13 +15,13 @@
         <title>SIGU-LAB</title>
     </head>
     <body>
-        <h2>Introduzca el codigo del <i><u>tipo de presupuesto</u></i> para asignacion equitativa:</h2>
+        <h2>Introduzca el código del <i><u>tipo de presupuesto</u></i> para asignacion equitativa:</h2>
 
         <html:form action="/form_asignar_presupuesto_equitativo">            
             <div id="welcome">
                 <table border="0">
                     <tbody>
-                        <td><font size="2" >Codigo de Tipo de Presupuesto:</font></td>
+                        <td><font size="2" >* Código de Tipo de Presupuesto:</font></td>
                         <tr>
                             <td>
                                 <html:text name = "PresupuestoAsignado" property="codigo_TDP" />
@@ -52,6 +52,8 @@
             </div>     
         </html:form>
 
+        <font size="1" >*Campos Obligatorios</font>
+        
         <html:link action= "/consultar_presupuesto" >
             <h2>
                 <font size="2" >Volver</font>

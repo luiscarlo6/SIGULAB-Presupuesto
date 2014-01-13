@@ -46,7 +46,7 @@ public class modificar_datos extends org.apache.struts.action.Action {
         Tipo_de_Presupuesto u;
         u = (Tipo_de_Presupuesto) form;
         HttpSession session = request.getSession(true);
-        String msg_fecha = "", msg_monto = "", msg_tipo = "";
+        String msg_fecha = "ok", msg_monto = "", msg_tipo = "";
         ActionErrors error = new ActionErrors();
 
         error = u.validate(mapping, request);
@@ -56,11 +56,16 @@ public class modificar_datos extends org.apache.struts.action.Action {
             huboError = true;
             
         }*/
-        msg_fecha = u.VerificarFecha(); 
+        //msg_fecha = u.VerificarFecha(); 
         msg_monto = u.ValidarCampoMonto();
         msg_tipo = u.ValidarCampoTipo();
-
-        if ((!msg_fecha.equals("ok")) || (!msg_monto.equals("ok")) || (!msg_tipo.equals("ok"))){
+        msg_fecha = request.getParameter("datepicker");
+        System.out.println("la fecha es en moificar_datos = "+msg_fecha);
+        if ((msg_fecha.equals("null")) || (msg_fecha.equals(""))){
+            huboError = true;
+        }
+            
+        if (/*(!msg_fecha.equals("ok")) || */(!msg_monto.equals("ok")) || (!msg_tipo.equals("ok"))){
             huboError = true;
         }
         
@@ -72,9 +77,8 @@ public class modificar_datos extends org.apache.struts.action.Action {
             request.setAttribute("modificacion_fallida",SUCCESS);
             return mapping.findForward(FAILURE);
             //si los campos son validos
-        } else 
-            
-            {
+        } else {
+                u.setFecha(msg_fecha);
                 boolean modifico = DBMS.getInstance().ModificarDatos_Tipo_de_presupuesto(u);
                 u.resetearVariables();
                 if (modifico) {

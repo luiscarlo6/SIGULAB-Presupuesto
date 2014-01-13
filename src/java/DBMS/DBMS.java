@@ -20,6 +20,12 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
+import java.text.SimpleDateFormat;
+import java.io.*;
+import java.sql.Date;
+import java.lang.String;
+import java.sql.Timestamp; 
+import java.util.StringTokenizer; 
 
 /**
  *
@@ -95,17 +101,38 @@ public class DBMS {
         PreparedStatement psAgregar = null;
         try {
 
-            psAgregar = conexion.prepareStatement("INSERT INTO TIPO_DE_PRESUPUESTO VALUES (default,?,?,?,?,?,?,?);");
+            psAgregar = conexion.prepareStatement("INSERT INTO TIPO_DE_PRESUPUESTO VALUES (default,?,?,?,?,?);");
             
            // psAgregar.setInt(1, Integer.parseInt(u.getCodigo()));
             psAgregar.setString(1, u.getTipo());
             psAgregar.setString(2, u.getDescripcion());
             psAgregar.setInt(3, 1);            
-            psAgregar.setFloat(4, Float.parseFloat(u.getMonto()));
-            psAgregar.setInt(5, Integer.parseInt(u.getDia()));
-            psAgregar.setString(6, u.getMes());
-            psAgregar.setInt(7, Integer.parseInt(u.getAno()));
+            psAgregar.setFloat(4, Float.parseFloat(u.getMonto()));                                    
+            System.out.println("Fecha en agregar "+u.getFecha());
             
+            
+            StringTokenizer st = new StringTokenizer(u.getFecha(),"/");             
+            int j = 1;
+            int dia= 0 , mes=0, anio=0;
+            while(st.hasMoreTokens()) {
+            String palabra = st.nextToken();
+            if (j == 1){
+              dia = Integer.parseInt(palabra);
+            }else if (j==2) {
+              mes = Integer.parseInt(palabra) - 1;
+            }else{
+              anio = Integer.parseInt(palabra) - 1900;
+            }
+            j++;
+            System.out.println(palabra); //esto nadamas es para ver como funciona te imprime tu balabra
+            } 
+
+            System.out.println("la fecha es " + dia +"/"+ mes +"/"+ anio);
+            java.sql.Date  DateSistema=new java.sql.Date(anio,mes,dia);
+            System.out.println("El date generado es: "+DateSistema);
+            
+            
+            psAgregar.setDate(5, DateSistema);
             
             System.out.println(psAgregar.toString());
 
@@ -134,12 +161,10 @@ public class DBMS {
             pre.setCodigo(""+Rs.getInt("codigo"));
             pre.setDescripcion(Rs.getString("descripcion"));
             pre.setTipo(Rs.getString("tipo"));
-            NumberFormat monto = new DecimalFormat("#############.###");		
+            NumberFormat monto = new DecimalFormat("#############.##");		
             String s = monto.format(Rs.getFloat("monto"));
             pre.setMonto(""+s);
-            pre.setDia(""+Rs.getInt("dia"));
-            pre.setMes(Rs.getString("mes"));
-            pre.setAno(""+Rs.getInt("ano"));
+            pre.setFecha(""+Rs.getString("fecha"));
             
             
             return pre;
@@ -156,16 +181,14 @@ public class DBMS {
         PreparedStatement psConsultar = null;
         try {
             
-            psConsultar = conexion.prepareStatement("UPDATE TIPO_DE_PRESUPUESTO SET descripcion=?, tipo=?, monto=?, dia=?, mes=?, ano=? where codigo = ?;");
+            psConsultar = conexion.prepareStatement("UPDATE TIPO_DE_PRESUPUESTO SET descripcion=?, tipo=?, monto=?, fecha=? where codigo = ?;");
 
             //psConsultar.setInt(1, Integer.parseInt(u.getCodigo_nuevo()));
             psConsultar.setString(1, u.getDescripcion());
             psConsultar.setString(2, u.getTipo());
             psConsultar.setFloat(3, Float.parseFloat(u.getMonto()));
-            psConsultar.setInt(4, Integer.parseInt(u.getDia()));
-            psConsultar.setString(5, u.getMes());
-            psConsultar.setInt(6, Integer.parseInt(u.getAno()));
-            psConsultar.setInt(7, Integer.parseInt(u.getCodigo()));
+            psConsultar.setString(4, u.getFecha());
+            psConsultar.setInt(5, Integer.parseInt(u.getCodigo()));
             
             System.out.println(psConsultar.toString());
 
@@ -224,12 +247,11 @@ public class DBMS {
                     u.setCodigo(""+Rs.getInt("codigo"));
                     u.setDescripcion(Rs.getString("descripcion"));
                     u.setTipo(Rs.getString("tipo"));
-                    NumberFormat monto = new DecimalFormat("#############.###");		
+                    NumberFormat monto = new DecimalFormat("#############.##");		
                     String s = monto.format(Rs.getFloat("monto"));
                     u.setMonto(""+s);
-                    u.setDia(""+Rs.getInt("dia"));
-                    u.setMes(Rs.getString("mes"));
-                    u.setAno(""+Rs.getInt("ano"));
+                    //u.setMonto(""+Rs.getFloat("monto"));
+                    u.setFecha(""+Rs.getString("fecha"));
                     Presupuestos.add(u);
                 }
                 
@@ -262,12 +284,11 @@ public class DBMS {
                     u.setCodigo(""+Rs.getInt("codigo"));
                     u.setDescripcion(Rs.getString("descripcion"));
                     u.setTipo(Rs.getString("tipo"));
-                    NumberFormat monto = new DecimalFormat("#############.###");		
-                    String s = monto.format(Rs.getFloat("monto"));
+                    NumberFormat monto = new DecimalFormat("#############.##");		
+                    String s = monto.format(Rs.getFloat("monto"));                    
                     u.setMonto(""+s);
-                    u.setDia(""+Rs.getInt("dia"));
-                    u.setMes(Rs.getString("mes"));
-                    u.setAno(""+Rs.getInt("ano"));
+                    u.setFecha(""+Rs.getString("fecha"));
+                    
                     Presupuestos.add(u);
                 }
                 
@@ -282,6 +303,150 @@ public class DBMS {
         return Presupuestos;
 
     }
+
+    public ArrayList<Tipo_de_Presupuesto> consultarDatos_Tipo_de_presupuesto_ordenTipo_descendente() {
+
+        ArrayList<Tipo_de_Presupuesto> Presupuestos = new ArrayList<Tipo_de_Presupuesto>();
+        PreparedStatement psConsultar = null;
+        try {
+
+            psConsultar = conexion.prepareStatement("SELECT * FROM TIPO_DE_PRESUPUESTO ORDER BY TIPO DESC;");
+            ResultSet Rs = psConsultar.executeQuery();
+
+            while (Rs.next()) {
+                Tipo_de_Presupuesto u = new Tipo_de_Presupuesto();
+                
+                if (Rs.getInt("status") == 1) {
+                    u.setCodigo(""+Rs.getInt("codigo"));
+                    u.setDescripcion(Rs.getString("descripcion"));
+                    u.setTipo(Rs.getString("tipo"));
+                    NumberFormat monto = new DecimalFormat("#############.##");		
+                    String s = monto.format(Rs.getFloat("monto"));                    
+                    u.setMonto(""+s);
+                    u.setFecha(""+Rs.getString("fecha"));
+                    
+                    Presupuestos.add(u);
+                }
+                
+                
+            }
+
+
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        
+        return Presupuestos;
+
+    }    
+    
+        public ArrayList<Tipo_de_Presupuesto> consultarDatos_Tipo_de_presupuesto_ordenCodigoDescendente() {
+
+        ArrayList<Tipo_de_Presupuesto> Presupuestos = new ArrayList<Tipo_de_Presupuesto>();
+        PreparedStatement psConsultar = null;
+        try {
+
+            psConsultar = conexion.prepareStatement("SELECT * FROM TIPO_DE_PRESUPUESTO ORDER BY CODIGO DESC;");
+            ResultSet Rs = psConsultar.executeQuery();
+
+            while (Rs.next()) {
+                Tipo_de_Presupuesto u = new Tipo_de_Presupuesto();
+                
+                if (Rs.getInt("status") == 1) {
+                    u.setCodigo(""+Rs.getInt("codigo"));
+                    u.setDescripcion(Rs.getString("descripcion"));
+                    u.setTipo(Rs.getString("tipo"));
+                    NumberFormat monto = new DecimalFormat("#############.##");		
+                    String s = monto.format(Rs.getFloat("monto"));                    
+                    u.setMonto(""+s);
+                    u.setFecha(""+Rs.getString("fecha"));
+                    
+                    Presupuestos.add(u);
+                }
+                
+                
+            }
+
+
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        
+        return Presupuestos;
+
+    }
+
+    public ArrayList<Tipo_de_Presupuesto> consultarDatos_Tipo_de_presupuesto_ordenMonto() {
+
+        ArrayList<Tipo_de_Presupuesto> Presupuestos = new ArrayList<Tipo_de_Presupuesto>();
+        PreparedStatement psConsultar = null;
+        try {
+
+            psConsultar = conexion.prepareStatement("SELECT * FROM TIPO_DE_PRESUPUESTO ORDER BY MONTO DESC;");
+            ResultSet Rs = psConsultar.executeQuery();
+
+            while (Rs.next()) {
+                Tipo_de_Presupuesto u = new Tipo_de_Presupuesto();
+                
+                if (Rs.getInt("status") == 1) {
+                    u.setCodigo(""+Rs.getInt("codigo"));
+                    u.setDescripcion(Rs.getString("descripcion"));
+                    u.setTipo(Rs.getString("tipo"));
+                    NumberFormat monto = new DecimalFormat("#############.##");		
+                    String s = monto.format(Rs.getFloat("monto"));                    
+                    u.setMonto(""+s);
+                    u.setFecha(""+Rs.getString("fecha"));
+                    
+                    Presupuestos.add(u);
+                }
+                
+                
+            }
+
+
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        
+        return Presupuestos;
+
+    }    
+
+        public ArrayList<Tipo_de_Presupuesto> consultarDatos_Tipo_de_presupuesto_ordenMontoDescendente() {
+
+        ArrayList<Tipo_de_Presupuesto> Presupuestos = new ArrayList<Tipo_de_Presupuesto>();
+        PreparedStatement psConsultar = null;
+        try {
+
+            psConsultar = conexion.prepareStatement("SELECT * FROM TIPO_DE_PRESUPUESTO ORDER BY MONTO;");
+            ResultSet Rs = psConsultar.executeQuery();
+
+            while (Rs.next()) {
+                Tipo_de_Presupuesto u = new Tipo_de_Presupuesto();
+                
+                if (Rs.getInt("status") == 1) {
+                    u.setCodigo(""+Rs.getInt("codigo"));
+                    u.setDescripcion(Rs.getString("descripcion"));
+                    u.setTipo(Rs.getString("tipo"));
+                    NumberFormat monto = new DecimalFormat("#############.##");		
+                    String s = monto.format(Rs.getFloat("monto"));                    
+                    u.setMonto(""+s);
+                    u.setFecha(""+Rs.getString("fecha"));
+                    
+                    Presupuestos.add(u);
+                }
+                
+                
+            }
+
+
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        
+        return Presupuestos;
+
+    } 
     
     public String agregarDatos_Presupuesto(Presupuesto u) {
 

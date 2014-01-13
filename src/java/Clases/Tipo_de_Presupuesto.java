@@ -30,6 +30,7 @@ public class Tipo_de_Presupuesto extends org.apache.struts.action.ActionForm {
     private String mes;
     private String ano;
     
+    private String fecha;
 
     
     
@@ -73,6 +74,14 @@ public class Tipo_de_Presupuesto extends org.apache.struts.action.ActionForm {
         this.codigo_nuevo = codigo_nuevo;
     }
 
+    public String getFecha() {
+        return fecha;
+    }
+
+    public void setFecha(String fecha) {
+        this.fecha = fecha;
+    }
+
     
 
 
@@ -84,6 +93,7 @@ public class Tipo_de_Presupuesto extends org.apache.struts.action.ActionForm {
         this.dia="";
         this.mes="";
         this.ano="";
+        this.fecha="";
         //this.codigo_nuevo = "";
 
     }    
@@ -132,9 +142,8 @@ public class Tipo_de_Presupuesto extends org.apache.struts.action.ActionForm {
      * @return
      */
 
-    /**peos para comparar la entrada!!**///
     public ActionErrors validate(ActionMapping mapping, HttpServletRequest request) {
-        ActionErrors errors = new ActionErrors();                    
+        ActionErrors errors = new ActionErrors();   
         return errors;
         
         

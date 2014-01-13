@@ -21,7 +21,6 @@
             <li class="leaf"><html:link action="consultar_TDP"><p>Tipo de Presupuesto</p></html:link></li>
             
             <li class="leaf"><html:link  action="agregar_TDP"><p> * Agregar Nuevo</p></html:link></li>
-            <li class="leaf"><html:link  action="consultar_TDP_tipo"> * Ordenar por tipo</html:link></li>
             
             <li class="leaf"><html:link action="consultar_presupuesto"><p>Presupuesto</p></html:link></li>
             <li class="leaf"><html:link action="consultar_laboratorio"><p>Lista de Laboratorios</p></html:link></li>

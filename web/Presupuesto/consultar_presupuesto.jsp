@@ -18,7 +18,7 @@
     <body>
         <logic:present name="agregado_equitativo_exitoso">
             <div align="center" class="alert alert-success" id="alert">
-                Asignacion de Presupuesto de forma Equitativa Exitosa.
+                Asignación de Presupuesto de forma Equitativa Exitosa.
             </div>
         </logic:present>
         
@@ -30,19 +30,19 @@
         
         <logic:present name="desactivacion_exitosa">
             <div align="center" class="alert alert-success" id="alert">
-                Desactivacion de Presupuesto Exitoso.
+                Desactivación de Presupuesto Exitoso.
             </div>
         </logic:present>
         
         <logic:present name="modificacion_exitosa">
             <div align="center" class="alert alert-success" id="alert">
-                Modificacion de Presupuesto Exitoso.
+                Modificación de Presupuesto Exitoso.
             </div>
         </logic:present>
         
         <logic:present name="modificacion_fallida">
             <div align="center" class="alert alert-danger" id="alert">
-                Modificacion de Presupuesto Fallida, intente de nuevo.
+                Modificación de Presupuesto Fallida, intente de nuevo.
             </div>
         </logic:present>
         
@@ -53,22 +53,22 @@
     <thead>
         <tr>
             <th width="50px" align="center">
-                <font size="2" >Código de Laboratorio</font>                
+                <b><font size="2" >Código de Laboratorio</font></b>                
             </th>
             <th width="50px" align="center">
-                <font size="2" >Código de Tipo de Presupuesto</font>
+                <b><font size="2" >Código de Tipo de Presupuesto</font></b>
             </th>            
             <th width="70px" align="center">
-                <font size="2" >Monto Asignado</font>                               
+                <b><font size="2" >Monto Asignado</font></b>                               
             </th>
             <th width="40px" align="center">
-                <font size="2" >Observaciones</font>                                
+                <b><font size="2" >Observaciones</font></b>                                
             </th>
             <th width="70px" align="center">
-                <font size="2" >Fecha</font>                                
+                <b><font size="2" >Fecha</font></b>                                
             </th>
             <th width="20px" align="center">
-                <font size="2" >Accion</font>                                
+                <b><font size="2" >Desactivación</font></b>                                
             </th>                        
         </tr>
     </thead>
@@ -112,7 +112,7 @@
 </table>
    <div align="center">     
         <html:link action="asignar_presupuesto"><font size="3" > Asignar </font></html:link> <font size="3" > | </font>
-        <html:link action="asignar_presupuesto_equitativo"> <font size="3" >Asignacion Equitativa</font></html:link> <font size="3" > | </font>
+        <html:link action="asignar_presupuesto_equitativo"> <font size="3" >Asignación Equitativa</font></html:link> <font size="3" > | </font>
         <!-- <html:link action="construccion"><font size="3" > Modificar</font></html:link> <font size="3" > | </font> --> 
         <html:link action="consulta_totales"><font size="3" > Totales Asinados</font></html:link> <font size="3" > | </font>
         <html:link action="consulta_individual"><font size="3" > Consulta Individual</font></html:link> 

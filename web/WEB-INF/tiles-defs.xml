@@ -33,13 +33,29 @@
         <put name="sidebarL" value="/Plantilla/sidebarLTDP.jsp"/>
     </definition>
     
+    <definition name="consultarTDPDescendente" extends="baseAdminTDP"> <!-- Consulta de TDP -->
+        <put name="body" value="/TipoDePresupuesto/consultar_tipo_de_presupuesto_descendente.jsp"/>
+    </definition>
+    
     <definition name="consultarTDP" extends="baseAdminTDP"> <!-- Consulta de TDP -->
         <put name="body" value="/TipoDePresupuesto/consultar_tipo_de_presupuesto.jsp"/>
     </definition>
-        
+            
+    <definition name="consultarTDPmonto" extends="baseAdminTDP"> <!-- Consulta de TDP -->
+        <put name="body" value="/TipoDePresupuesto/consultar_tipo_de_presupuesto_pormonto.jsp"/>
+    </definition>    
+       
+    <definition name="consultarTDPmontoDescendente" extends="baseAdminTDP"> <!-- Consulta de TDP -->
+        <put name="body" value="/TipoDePresupuesto/consultar_tipo_de_presupuesto_pormonto_descendente.jsp"/>
+    </definition>
+                                                  
     <definition name="consultarTDPtipo" extends="baseAdminTDP"> <!-- Consulta de TDP -->
         <put name="body" value="/TipoDePresupuesto/consultar_tipo_de_presupuesto_portipo.jsp"/>
     </definition>
+    
+    <definition name="consultarTDPtipoDescendente" extends="baseAdminTDP"> <!-- Consulta de TDP -->
+        <put name="body" value="/TipoDePresupuesto/consultar_tipo_de_presupuesto_portipo_descendente.jsp"/>
+    </definition>    
     
     <definition name="NoTDPAsignados" extends="baseAdminTDP"> <!-- Consulta de TDP -->
         <put name="body" value="/TipoDePresupuesto/sin_tipo_de_presupuestos_asignados.jsp"/>
@@ -71,6 +87,10 @@
     
     <definition name="nuevosDatosDeTDPportipo" extends="baseAdminTDP"> <!-- Datos para modificar un TDP -->
         <put name="body" value="/TipoDePresupuesto/listar_tipo_de_modificar_tipo.jsp"/>
+    </definition>
+    
+    <definition name="nuevosDatosDeTDPpormonto" extends="baseAdminTDP"> <!-- Datos para modificar un TDP -->
+        <put name="body" value="/TipoDePresupuesto/listar_tipo_de_modificar_monto.jsp"/>
     </definition>
     
     <definition name="modificadoTDPsatisfactoriamente" extends="baseAdminTDP"> <!-- Modificacion de TDP exitosa -->

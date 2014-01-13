@@ -20,7 +20,7 @@
             <div id="welcome">
                 <table border="0">
                     <tbody>
-                        <td><font size="2" >Codigo de Laboratorio:</font></td>
+                        <td><font size="2" >* Código de Laboratorio:</font></td>
                         <tr>
                             <td>
                                 <html:select name = "PresupuestoAsignado" property="codigo_lab">
@@ -54,6 +54,8 @@
             </div>     
         </html:form>
 
+        <font size="1" >*Campos Obligatorios</font>
+        
         <html:link action= "/consultar_presupuesto" >
             <h2>
                 <font size="2" >Volver</font>

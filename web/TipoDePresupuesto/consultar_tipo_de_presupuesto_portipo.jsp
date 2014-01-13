@@ -24,19 +24,19 @@
         
         <logic:present name="desactivacion_exitosa">
             <div align="center" class="alert alert-success" id="alert">
-                Desactivacion de Tipo de Presupuesto Exitoso.
+                Desactivación de Tipo de Presupuesto Exitoso.
             </div>
         </logic:present>
         
         <logic:present name="modificacion_exitosa">
             <div align="center" class="alert alert-success" id="alert">
-                Modificacion de Tipo de Presupuesto Exitoso.
+                Modificación de Tipo de Presupuesto Exitoso.
             </div>
         </logic:present>
         
         <logic:present name="modificacion_fallida">
             <div align="center" class="alert alert-danger" id="alert">
-                Modificacion de Tipo de Presupuesto Fallida, intente de nuevo.
+                Modificación de Tipo de Presupuesto Fallida, intente de nuevo.
             </div>
         </logic:present>
 
@@ -46,25 +46,25 @@
     <thead>
         <tr>
             <th width="30px" align="center">
-                <font size="2" >Código</font>
+                <b><html:link  action="consultar_TDP"><font size="2" >Código</font> </html:link></b>
             </th>
-            <th width="70px" align="center">
-                <font size="2" >Tipo</font>                
-            </th>
-            <th width="100px" align="center">
-                <font size="2" >Descripción</font>                                                
-            </th>
-            <th width="70px" align="center">
-                <font size="2" >Monto <br /> (por asignar)</font>                               
+            <th width="60px" align="center">
+                <b><html:link  action="consultar_TDP_tipo_descendente"><font size="2" >Tipo</font> </html:link></b>                 
             </th>
             <th width="100px" align="center">
-                <font size="2" >Fecha</font>                                
+                <b><font size="2" >Descripción</font></b>                                                
+            </th>
+            <th width="80px" align="center">
+                <b><html:link  action="consultar_TDP_monto"><font size="2" >Monto<br /></html:link>(por asignar)</font></b>                               
+            </th>
+            <th width="100px" align="center">
+                <b><font size="2" >Fecha</font></b>                                
             </th>
             <th width="30px" align="center">
-                <font size="2" >Desactivacion</font>                                
+                <b><font size="2" >Desactivación</font></b>                                
             </th>
             <th width="30px" align="center">
-                <font size="2" >Modificacion</font>                                
+                <b><font size="2" >Modificación</font></b>                                
             </th>
         </tr>
     </thead>
@@ -74,19 +74,17 @@
                 <td width="30px" align="center">
                     <font size="2" ><bean:write name="Presupuesto" property="codigo"/></font>
                 </td>
-                <td width="70px" align="center">
+                <td width="60px" align="center">
                     <font size="2" ><bean:write name="Presupuesto" property="tipo"/></font>
                 </td>
                 <td width="100px" align="center">
                     <font size="2" ><bean:write name="Presupuesto" property="descripcion"/></font>
                 </td>
-                <td width="70px" align="center">
+                <td width="80px" align="center">
                     <font size="2" ><bean:write name="Presupuesto" property="monto"/></font>
                 </td>
                 <td width="100px" align="center">
-                    <font size="2" ><bean:write name="Presupuesto" property="dia"/></font> /               
-                    <font size="2" ><bean:write name="Presupuesto" property="mes"/></font> /
-                    <font size="2" ><bean:write name="Presupuesto" property="ano"/></font>
+                    <font size="2" ><bean:write name="Presupuesto" property="fecha"/></font>
                 </td>
                 <td width="30px" align="center">   
                     <font size="2" >
@@ -120,8 +118,7 @@
     
 </table>
     <div align="center">
-        <html:link  action="agregar_TDP"><font size="3" >Agregar Nuevo </font></html:link>   <font size="3" > | </font>                    
-        <html:link  action="consultar_TDP"><font size="3" >Vista Original</font></html:link>
+        <html:link  action="agregar_TDP"><font size="3" >Agregar Nuevo </font></html:link>  
     </div>
     
     <br />

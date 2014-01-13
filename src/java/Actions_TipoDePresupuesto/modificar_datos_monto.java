@@ -3,13 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+
 package Actions_TipoDePresupuesto;
 
 import Clases.Tipo_de_Presupuesto;
-
 import DBMS.DBMS;
 import java.util.ArrayList;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -23,7 +22,7 @@ import org.apache.struts.action.ActionMessage;
  *
  * @author juanpe
  */
-public class agregado extends org.apache.struts.action.Action {
+public class modificar_datos_monto extends org.apache.struts.action.Action {
 
     /* forward name="success" path="" */
     private static final String SUCCESS = "success";
@@ -43,66 +42,61 @@ public class agregado extends org.apache.struts.action.Action {
     public ActionForward execute(ActionMapping mapping, ActionForm form,
             HttpServletRequest request, HttpServletResponse response)
             throws Exception {
+        
         Tipo_de_Presupuesto u;
         u = (Tipo_de_Presupuesto) form;
         HttpSession session = request.getSession(true);
-
+        String msg_fecha = "", msg_monto = "", msg_tipo = "";
         ActionErrors error = new ActionErrors();
-        String msg_codigo = "", msg_monto = "", msg_tipo = "", msg_fecha= "";
+
         error = u.validate(mapping, request);
         boolean huboError = false;
 
-        //msg_codigo = u.ValidarCampoCodigo(); 
+        /*if (error.size() != 0) {
+            huboError = true;
+            
+        }*/
+        //msg_fecha = u.VerificarFecha(); 
         msg_monto = u.ValidarCampoMonto();
         msg_tipo = u.ValidarCampoTipo();
         msg_fecha = request.getParameter("datepicker");
-        /*if (error.size() != 0) {
+        System.out.println("la fecha es en modificar_datos = "+msg_fecha);
+        if ((msg_fecha.equals("null")) || (msg_fecha.equals(""))){            
             huboError = true;
         }
-        
-        */
-        
-        System.out.println("fechaaa: "+request.getParameter("datepicker"));
-        
-        if ((msg_fecha.equals("null")) || (msg_fecha.equals(""))){
-            error.add("fecha", new ActionMessage("error.fecha.required"));
-            huboError = true;
+        if (/*(!msg_fecha.equals("ok")) ||*/ (!msg_monto.equals("ok")) || (!msg_tipo.equals("ok"))){
+            huboError = true;            
         }
-        if (/*(!msg_codigo.equals("ok")) ||*/ (!msg_monto.equals("ok")) || (!msg_tipo.equals("ok")) /*|| (!msg_fecha.equals("ok"))*/){
-            huboError = true;
-        }       
-            
-        if (huboError) {                        
-            if (!msg_monto.equals("ok")){
-                if (msg_monto.equals("Indique un monto")){
-                    error.add("monto", new ActionMessage("error.monto.required"));
-                }else{
-                    error.add("monto", new ActionMessage("error.monto.mayorquecero"));
-                }
-            }
-            if (!msg_tipo.equals("ok")){
-                error.add("tipo", new ActionMessage("error.tipo.required"));
-            }
+        
+        if (huboError) {
             
             u.resetearVariables();
+            error.add("codigo", new ActionMessage("error.codigo.modificando"));
             saveErrors(request, error);
+            request.setAttribute("modificacion_fallida",SUCCESS);
             return mapping.findForward(FAILURE);
             //si los campos son validos
-        } else {
-            u.setFecha(msg_fecha);
-            boolean agrego = DBMS.getInstance().agregarDatos_Tipo_de_presupuesto(u);
-            u.resetearVariables();
-            if (agrego) {
-                ArrayList<Tipo_de_Presupuesto> Presupuestos = DBMS.getInstance().consultarDatos_Tipo_de_presupuesto();
-                session.setAttribute(("presupuesto"), Presupuestos);
-                request.setAttribute("agregado_exitoso",SUCCESS);
-                return mapping.findForward(SUCCESS);
-            } else {
-                //error.add("codigo", new ActionMessage("error.codigo.existe"));
-                //saveErrors(request, error);
-                //u.setError_tipo();
-                return mapping.findForward(FAILURE);
+        } else 
+            
+            {
+                u.setFecha(msg_fecha);
+                boolean modifico = DBMS.getInstance().ModificarDatos_Tipo_de_presupuesto(u);
+                u.resetearVariables();
+                if (modifico) {
+                    //u.resetearVariables();
+                    ArrayList<Tipo_de_Presupuesto> Presupuestos = DBMS.getInstance().consultarDatos_Tipo_de_presupuesto_ordenMonto();
+                    session.setAttribute(("presupuesto"), Presupuestos);
+                    request.setAttribute("modificacion_exitosa",SUCCESS);
+                    return mapping.findForward(SUCCESS);
+                } else {
+                    //u.resetearVariables();
+                    error.add("codigo", new ActionMessage("error.codigo.modificando"));
+                    saveErrors(request, error);
+                    request.setAttribute("modificacion_fallida",SUCCESS);
+                    return mapping.findForward(FAILURE);
             }
         }
+        
+        
     }
 }

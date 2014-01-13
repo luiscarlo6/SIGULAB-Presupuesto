@@ -6,6 +6,7 @@ drop table USUARIO;
 drop table ORDEN_GASTO;
 drop table CHEQUE;*/
 drop sequence codigo_seq;
+SET DATESTYLE TO 'European';
 CREATE SEQUENCE codigo_seq Start with 100000;
 /*
   drop sequence codigo_seq;
@@ -24,16 +25,14 @@ create table TIPO_DE_PRESUPUESTO
     descripcion varchar(200), 
     status int NOT NULL CHECK  (status in (0,1)), 
     monto float NOT NULL CHECK (monto >= 0.0),
-    dia int NOT NULL CHECK (dia > 0),
-    mes varchar(15) NOT NULL CHECK (mes != ''),
-    ano int NOT NULL CHECK (ano > 2000),
+    fecha Date,
     CONSTRAINT PK_TIPO_DE_PRESUPUESTO PRIMARY KEY (codigo,tipo));
 
 
 create table LABORATORIO 
     (codigo_laboratorio int unique CHECK (codigo_laboratorio > 0), 
     nombre varchar(50) NOT NULL CHECK (nombre != ''),
-    descripcion varchar(150),
+    descripcion varchar(200),
     monto float NOT NULL CHECK (monto >= 0.0),
     CONSTRAINT PK_LABORATORIO PRIMARY KEY (codigo_laboratorio));
 
@@ -45,7 +44,7 @@ create table PRESUPUESTO
     monto_asignado float NOT NULL CHECK (monto_asignado > 0.0),    
     status int NOT NULL CHECK  (status in (0,1)),
     fecha Date Default current_date,
-    descripcion varchar(100) Default '',
+    descripcion varchar(200) Default '',
     CONSTRAINT PK_PRESUPUESTO PRIMARY KEY (id,codigo_TDP,codigo_laboratorio),
     CONSTRAINT FK_PRESUPUESTO_TIPO_DE_PRESUPUESTO FOREIGN KEY (codigo_TDP)  REFERENCES TIPO_DE_PRESUPUESTO (codigo),
     CONSTRAINT FK_PRESUPUESTO_LABORATORIO FOREIGN KEY (codigo_laboratorio)  REFERENCES LABORATORIO);

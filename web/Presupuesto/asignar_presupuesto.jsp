@@ -21,7 +21,7 @@
             <div id="welcome">
                 <table border="0">
                     <tbody>
-                        <td><font size="2" >Codigo de Tipo de Presupuesto:</font></td>
+                        <td><font size="2" >* Código de Tipo de Presupuesto:</font></td>
                         <tr>
                             <td>
                                 <html:text name = "PresupuestoAsignado" property="codigo_TDP" />
@@ -32,7 +32,7 @@
                                 <html:errors property="codigo" /> 
                             </td>
                         </tr>                        
-                        <td><font size="2" >Codigo de Laboratorio:</font></td>
+                        <td><font size="2" >* Código de Laboratorio:</font></td>
                         <tr>
                             <td>
                                 <html:select name = "PresupuestoAsignado" property="codigo_lab">
@@ -55,7 +55,7 @@
                         </tr>
                         
                         <tr>
-                            <td><font size="2" >Monto Asignado:</font></td>
+                            <td><font size="2" >* Monto Asignado:</font></td>
                         </tr>
                         <tr>
                             <td>
@@ -90,6 +90,8 @@
             </div>     
         </html:form>
 
+        <font size="1" >*Campos Obligatorios</font>
+        
         <html:link action= "/consultar_presupuesto" >
             <h2>
                 <font size="2" >Volver</font>
