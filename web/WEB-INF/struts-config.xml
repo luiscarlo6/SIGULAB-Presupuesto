@@ -43,7 +43,13 @@
                 parameter="InicioAdmin"/>
         
 
-        <!--TIPO DE PRESUPUESTO -->
+        <!--
+        -
+        -
+        **** TIPO DE PRESUPUESTO ****
+        -        
+        -        
+        -->
         <action path="/agregar_TDP" 
                 type="org.apache.struts.actions.ForwardAction" 
                 scope="request" 
@@ -146,7 +152,24 @@
             <forward name="failure" path="consultarTDP"/>
         </action>
                                     
-        <!-- PRESUPUESTO --> 
+        <action path="/buscar_TDP" 
+                type="org.apache.struts.actions.ForwardAction" 
+                scope="request" 
+                validate="false" 
+                parameter="buscarTDP"/>
+
+        <action input="/TipoDePresupuesto/buscar_tipo_de_presupuesto.jsp" name="Presupuesto" path="/form_buscar_TDP" type="Actions_TipoDePresupuesto.busqueda" validate="false">
+            <forward name="success" path="buscarTDP"/>
+            <forward name="failure" path="consultarTDP"/>
+        </action>                                            
+                                    
+        <!-- 
+        -
+        -
+         **** PRESUPUESTO **** 
+        -
+        -
+        --> 
         <action path="/asignar_presupuesto" 
                 type="org.apache.struts.actions.ForwardAction" 
                 scope="request" 
@@ -249,15 +272,7 @@
             <forward name="success" path="/Cheque/vista_modificado.jsp"/>
             <forward name="failure" path="/Cheque/vista_cheque.jsp"/>
         </action>
-        <action path="/dsfsd" type="Actions_TipoDePresupuesto.modificar_datos_monto"/>
-        <action path="/sadasd" type="Actions_TipoDePresupuesto.eliminado_monto"/>
-        <action path="/fg" type="Actions_TipoDePresupuesto.consultado_monto_descendente"/>
-        <action path="/ds" type="Actions_TipoDePresupuesto.consultado_monto"/>
-        <action path="/asdsadasd" type="Actions_TipoDePresupuesto.consultado_tipo_descendente"/>
-        <action path="/sadssa" type="Actions_TipoDePresupuesto.consultado_descendente"/>
-        <action path="/ass" type="Actions_TipoDePresupuesto.modificar_datos_tipo"/>
-        <action path="/1" type="Actions_TipoDePresupuesto.eliminado_tipo"/>
-        
+        <action path="/asdasdasdasdadasd" type="Actions_TipoDePresupuesto.busqueda"/>
         
         
         

@@ -27,8 +27,12 @@
         <put name="body" value="/Inicio.jsp"/>
     </definition>
     
-    <!--Para cuando le das click a Tipo de Presupuesto (para resumir esta frase
-    se utilizaran las siglas: TDP)-->
+    <!--
+    -
+    Para cuando le das click a Tipo de Presupuesto (para resumir esta frase
+    se utilizaran las siglas: TDP)
+    -
+    -->
     <definition name="baseAdminTDP" extends="base"> <!-- BASE admin para TDP -->
         <put name="sidebarL" value="/Plantilla/sidebarLTDP.jsp"/>
     </definition>
@@ -97,8 +101,15 @@
         <put name="body" value="/TipoDePresupuesto/modificado_tipo_de_presupuesto.jsp"/>
     </definition>
     
+    <definition name="buscarTDP" extends="baseAdminTDP"> <!-- Modificacion de TDP exitosa -->
+        <put name="body" value="/TipoDePresupuesto/buscar_tipo_de_presupuesto.jsp"/>
+    </definition>
     
-    <!--Para cuando le das click a Presupuesto -->
+    <!--
+    -
+    Para cuando le das click a Presupuesto 
+    -
+    -->
     <definition name="baseAdminPresupuesto" extends="base"> <!-- BASE admin para presupuesto -->
         <put name="sidebarL" value="/Plantilla/sidebarLPresupuesto.jsp"/>
     </definition>
