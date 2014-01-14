@@ -9,7 +9,7 @@
 <%@ taglib uri="http://struts.apache.org/tags-tiles" prefix="tiles" %>  
 <html>
 <div id="footer">
-    <p>Copyright © 2013 Lantech. All rights reserved.</p>                                        
+    <p>Copyright © 2013 One Systems. All rights reserved.</p>                                        
 </div>    
 </html>
 
