@@ -31,7 +31,7 @@ public class Tipo_de_Presupuesto extends org.apache.struts.action.ActionForm {
     private String ano;
     
     private String fecha;
-
+    private String status;
     
     
     public String getMonto() {
@@ -128,6 +128,14 @@ public class Tipo_de_Presupuesto extends org.apache.struts.action.ActionForm {
 
     public void setMonto_restante(String monto_restante) {
         this.monto_restante = monto_restante;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 
     

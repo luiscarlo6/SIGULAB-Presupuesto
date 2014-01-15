@@ -64,92 +64,99 @@
      <div>   
     <logic:present name="consulta_realizada">           
             
-    <h2>Tipos de Presupuestos Existentes:</h2>
+            <h2>Presupuestos Existentes:</h2>
 
-    <table border="1" cellpadding="0" cellspacing="0" width="40%">
+    <table border="1" class="altrowstable" >
     <thead>
         <tr>
-            <th width="30px" align="center">
-                <b><font size="2" >Código</font></b>
+            <th width="50px" align="center">
+                <b><font size="2" >Código de Laboratorio</font></b>                
             </th>
-            <th width="60px" align="center">                
-                <b><font size="2" >Tipo</font></b>               
+            <th width="50px" align="center">
+                <b><font size="2" >Código de Tipo de Presupuesto</font></b>
+            </th>            
+            <th width="70px" align="center">
+                <b><font size="2" >Monto Asignado</font></b>                               
             </th>
-            <th width="100px" align="center">
-                <b><font size="2" >Descripción</font></b>                                                
+            <th width="40px" align="center">
+                <b><font size="2" >Observaciones</font></b>                                
             </th>
-            <th width="80px" align="center">
-                <b><font size="2" >Monto<br />(por asignar)</font></b>                               
-            </th>
-            <th width="100px" align="center">
+            <th width="70px" align="center">
                 <b><font size="2" >Fecha</font></b>                                
-            </th>           
+            </th>                                  
             <th width="100px" align="center">
                 <b><font size="2" >Estado</font></b>                                
-            </th>           
-            
+            </th>
         </tr>
     </thead>
     <div float:left>
-        <logic:iterate name="presupuesto" id="Presupuesto">
+        <logic:iterate name="presupuesto" id="PresupuestoAsignado">
             <tr>
-                <td width="30px" align="center">
-                    <font size="2" ><bean:write name="Presupuesto" property="codigo"/></font>
+                <td width="50px" align="center">
+                    <font size="2" ><bean:write name="PresupuestoAsignado" property="codigo_lab"/></font>
                 </td>
-                <td width="60px" align="center">
-                    <font size="2" ><bean:write name="Presupuesto" property="tipo"/></font>
+                <td width="50px" align="center">
+                    <font size="2" ><bean:write name="PresupuestoAsignado" property="codigo_TDP"/></font>
+                </td>                
+                <td width="70px" align="center">
+                    <font size="2" ><bean:write name="PresupuestoAsignado" property="monto_asignado"/></font>
                 </td>
-                <td width="100px" align="center">
-                    <font size="2" ><bean:write name="Presupuesto" property="descripcion"/></font>
+                <td width="40px" align="center">
+                    <font size="2" ><bean:write name="PresupuestoAsignado" property="descripcion"/></font> 
                 </td>
+                <td width="70px" align="center">
+                    <font size="2" ><bean:write name="PresupuestoAsignado" property="fecha"/></font> 
+                </td>         
                 <td width="80px" align="center">
-                    <font size="2" ><bean:write name="Presupuesto" property="monto"/></font>
+                    <font size="2" ><bean:write name="PresupuestoAsignado" property="status"/></font>
                 </td>
-                <td width="80px" align="center">
-                    <font size="2" ><bean:write name="Presupuesto" property="fecha"/></font>
-                </td>
-                <td width="80px" align="center">
-                    <font size="2" ><bean:write name="Presupuesto" property="status"/></font>
-                </td>
-                
             </tr>                       
                 
         </logic:iterate>
-            
-    
     </div>
-    
 </table>    
 </logic:present>        
         
 
         <br />
-        <h2>Introduzca los datos del Tipo de Presupuesto para una Busqueda</h2>
+        <h2>Introduzca los datos del Presupuesto para una Busqueda</h2>
         
-        <html:form action="/form_buscar_TDP" method="get">            
+        <html:form action="/form_buscar_presupuesto" method="get">            
             <div id="welcome">
                 <table border="0">                   
                             
                         
                     <tbody>                               
                         <tr>
-                            <td><font size="2" >Tipo:</font>                                
+                            <td><font size="2" >Código de Laboratorio</font>                                
                             </td>                                            
                         
                         </tr>
                         <tr>
                             <td>                          
-                            <input type="checkbox" name="tipo1" id="tipo1" value="FUNINDES">FUNINDES
+                            <input type="checkbox" name="ulab" id="ulab" value="01050301">01050301 ULAB
                             <br>
-                            <input type="checkbox" name="tipo2" id="tipo2" value="FONACIT">FONACIT
+                            <input type="checkbox" name="laba" id="laba" value="01050303">01050303 Lab A
                             <br>
-                            <input type="checkbox" name="tipo3" id="tipo3" value="Donacion">Donación
+                            <input type="checkbox" name="labb" id="labb" value="01050304">01050304 Lab B
                             <br>
-                            <input type="checkbox" name="tipo4" id="tipo4" value="Ordinario">Ordinario
-                                    
+                            <input type="checkbox" name="labc" id="labc" value="01050305">01050305 Lab C
+                            <br>
+                            <input type="checkbox" name="labd" id="labd" value="01050306">01050306 Lab D
+                            <br>
+                            <input type="checkbox" name="labe" id="labe" value="01050307">01050307 Lab E
+                            <br>
+                            <input type="checkbox" name="labf" id="labf" value="01050308">01050308 Lab F
+                            <br>
+                            <input type="checkbox" name="labg" id="labg" value="01050309">01050309 Lab G
+                            
+                            
                             </td>
                         </tr>                        
 
+                        
+                        
+                        
                         <tr>
                             <td>
                                 <font size="2" >Fecha (desde): </font><br />                                

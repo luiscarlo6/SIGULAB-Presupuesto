@@ -47,14 +47,21 @@ public class agregado extends org.apache.struts.action.Action {
         HttpSession session = request.getSession(true);
 
         ActionErrors error = new ActionErrors();
-        String msg_codigo_TDP = "", msg_monto = "", msg_codigo_lab = "";
+        String msg_codigo_TDP = "", msg_monto = "", msg_codigo_lab = "", msg_fecha="";
         error = u.validate(mapping, request);
         boolean huboError = false;
 
         msg_codigo_TDP = u.ValidarCampoCodigoTDP(); 
         msg_monto = u.ValidarCampoMonto();
         msg_codigo_lab = u.ValidarCampoCodigoLab(); 
+
+        msg_fecha = request.getParameter("datepicker");               
+        //System.out.println("fechaaa: "+request.getParameter("datepicker"));
         
+        if ((msg_fecha.equals("null")) || (msg_fecha.equals(""))){
+            error.add("fecha", new ActionMessage("error.fecha.required"));
+            huboError = true;
+        }
         if ((!msg_codigo_TDP.equals("ok")) || (!msg_monto.equals("ok")) || (!msg_codigo_lab.equals("ok"))){
             huboError = true;
         } 
@@ -86,6 +93,7 @@ public class agregado extends org.apache.struts.action.Action {
             return mapping.findForward(FAILURE);
             //si los campos son validos
         } else {
+            u.setFecha(msg_fecha);
             String msg_status = DBMS.getInstance().agregarDatos_Presupuesto(u);
             
             
@@ -110,6 +118,8 @@ public class agregado extends org.apache.struts.action.Action {
                 ArrayList<Presupuesto> Presupuestos = DBMS.getInstance().consultarDatos_Presupuesto();
                 session.setAttribute(("presupuesto"), Presupuestos);
                 request.setAttribute("agregado_exitoso",SUCCESS);
+                session.setAttribute(("busqueda"), null);
+
                 return mapping.findForward(SUCCESS);
             }
             

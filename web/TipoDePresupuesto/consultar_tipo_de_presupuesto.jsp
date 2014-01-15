@@ -120,7 +120,8 @@
     
 </table>
     <div align="center">
-        <html:link  action="agregar_TDP"><font size="3" >Agregar Nuevo </font></html:link>   
+        <html:link  action="agregar_TDP"><font size="3" >Agregar Nuevo </font></html:link> <font size="3" > | </font>   
+        <html:link  action="buscar_TDP"><font size="3" >Busqueda Especifica</font></html:link>
     </div>
     
     <br />

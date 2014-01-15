@@ -24,8 +24,9 @@
             <li class="leaf"><html:link action="asignar_presupuesto"><p> * Asignar</p></html:link></li>
             <li class="leaf"><html:link action="asignar_presupuesto_equitativo"><p> * Asignación Equitativa</p></html:link></li>
             <!-- <li class="leaf"><html:link action="construccion"><p> * Modificar</p></html:link></li> -->
-            <li class="leaf"><html:link action="consulta_totales"><p> * Totales Asinados</p></html:link></li>
-            <li class="leaf"><html:link action="consulta_individual"><p> * Consulta Individual</p></html:link></li>
+            <li class="leaf"><html:link action="consulta_totales"><p> * Totales Disponibles</p></html:link></li>
+            <!-- <li class="leaf"><html:link action="consulta_individual"><p> * Consulta Individual</p></html:link></li> -->
+            <li class="leaf"><html:link action="buscar_presupuesto"><p> * Busqueda Especifica</p></html:link></li>
             
             <li class="leaf"><html:link action="consultar_laboratorio"><p>Lista de Laboratorios</p></html:link></li>
             <li class="leaf"><html:link action="construccion"><p>Orden de Gastos</p></html:link></li>

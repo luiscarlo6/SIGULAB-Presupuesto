@@ -166,7 +166,9 @@
         <put name="body" value="/Presupuesto/consultar_presupuesto_individual_sin_valores.jsp"/>
     </definition>
     
-    
+    <definition name="buscarPresupuesto" extends="baseAdminPresupuesto"> <!-- Asignacion de los Presupuestos Equitativamente -->
+        <put name="body" value="/Presupuesto/buscar_presupuesto.jsp"/>
+    </definition>
     
     
     

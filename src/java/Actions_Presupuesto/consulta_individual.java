@@ -70,12 +70,12 @@ public class consulta_individual extends org.apache.struts.action.Action {
         } else {
             ArrayList<Presupuesto> Presupuestos = DBMS.getInstance().consultarDatosIndividual_Presupuesto(u);
             u.resetearVariables();
-            if (!Presupuestos.isEmpty()){
+
                 session.setAttribute(("presupuesto"), Presupuestos);
+                request.setAttribute("consulta_realizada",SUCCESS);
                 return mapping.findForward(SUCCESS);
-            }else {
-                return mapping.findForward(OTHER);
-            }            
+ 
+         
             
             
         }

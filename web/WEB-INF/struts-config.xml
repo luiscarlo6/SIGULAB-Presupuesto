@@ -181,6 +181,10 @@
             <forward name="failure" path="asignarPresupuesto"/>
         </action>
         
+        <action input="/Presupuesto/asignar_presupuesto.jsp" name="PresupuestoAsignado" path="/form_buscar_TDP_Presupuesto" type="Actions_Presupuesto.busqueda" validate="false">
+            <forward name="success" path="asignarPresupuesto"/>
+        </action>
+        
         <action path="/consultar_presupuesto" type="Actions_Presupuesto.consultado" validate="false">
             <forward name="success" path="consultarPresupuesto"/>
             <forward name="failure" path="NoPresupuestosAsignados"/>
@@ -213,6 +217,10 @@
                 scope="request" 
                 validate="false" 
                 parameter="asignarPresupuestoEquitativo"/>
+        
+        <action input="/Presupuesto/asignar_presupuesto.jsp" name="PresupuestoAsignado" path="/form_buscar_TDP_Presupuesto_equitativo" type="Actions_Presupuesto.busqueda" validate="false">
+            <forward name="success" path="asignarPresupuestoEquitativo"/>
+        </action>
                                   
         <action input="/Presupuesto/asignar_presupuesto_equitativo.jsp" name="PresupuestoAsignado" path="/form_asignar_presupuesto_equitativo" type="Actions_Presupuesto.asignado_equitativo" validate="false">
             <forward name="success" path="consultarPresupuesto"/>
@@ -226,10 +234,22 @@
                 parameter="agregarDatosConsultaIndividualPresupuesto"/>
         
         <action input="/Presupuesto/consultar_presupuesto_individual.jsp" name="PresupuestoAsignado" path="/form_indicar_codlab_consulta_individual_presupuesto" type="Actions_Presupuesto.consulta_individual" validate="false">
-            <forward name="success" path="consultaExitosaPresupuestoIndividual"/>
+            <forward name="success" path="agregarDatosConsultaIndividualPresupuesto"/>
             <forward name="failure" path="agregarDatosConsultaIndividualPresupuesto"/>
-            <forward name="other" path="ConsultaExitosaPresupuestoIndividualNoHayValores"/>
+            <forward name="other" path="agregarDatosConsultaIndividualPresupuesto"/>
         </action>
+        
+        <action path="/buscar_presupuesto" 
+                type="org.apache.struts.actions.ForwardAction" 
+                scope="request" 
+                validate="false" 
+                parameter="buscarPresupuesto"/>
+        
+        <action input="/Presupuesto/buscar_presupuesto.jsp" name="Presupuesto" path="/form_buscar_presupuesto" type="Actions_Presupuesto.busqueda_presupuesto" validate="false">
+            <forward name="success" path="buscarPresupuesto"/>
+            <forward name="failure" path="consultarTDP"/>
+        </action> 
+        
         
         
         <!-- CONSULTA PARA LOS LABORATORIOS EXISTENTES-->                                     
@@ -272,9 +292,6 @@
             <forward name="success" path="/Cheque/vista_modificado.jsp"/>
             <forward name="failure" path="/Cheque/vista_cheque.jsp"/>
         </action>
-        <action path="/asdasdasdasdadasd" type="Actions_TipoDePresupuesto.busqueda"/>
-        
-        
         
         
                                         

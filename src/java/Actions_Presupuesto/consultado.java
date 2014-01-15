@@ -45,7 +45,8 @@ public class consultado extends org.apache.struts.action.Action {
         
         ArrayList<Presupuesto> Presupuestos = DBMS.getInstance().consultarDatos_Presupuesto();
         
-            session.setAttribute(("presupuesto"), Presupuestos);
+            session.setAttribute(("presupuesto"), Presupuestos);            
+            session.setAttribute(("busqueda"), null);
             return mapping.findForward(SUCCESS);
 
 //        Recuerden que esto es una plantilla trabajada con condicionales

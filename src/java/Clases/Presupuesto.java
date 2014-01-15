@@ -24,6 +24,7 @@ public class Presupuesto extends org.apache.struts.action.ActionForm {
     private String monto_asignado;  
     private String fecha;    
     private String descripcion;
+    private String status;
     
 
     public void resetearVariables() {
@@ -31,7 +32,7 @@ public class Presupuesto extends org.apache.struts.action.ActionForm {
         this.codigo_lab = "";
         this.monto_asignado="";
         this.descripcion="";
-
+        this.status ="";
     }    
 
     public String getCodigo_TDP() {
@@ -80,6 +81,14 @@ public class Presupuesto extends org.apache.struts.action.ActionForm {
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 
     
