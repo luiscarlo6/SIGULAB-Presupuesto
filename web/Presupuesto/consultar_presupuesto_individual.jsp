@@ -24,19 +24,19 @@
     <thead>
         <tr>
             <th width="70px" align="center">
-                <font size="2" >Código de Laboratorio</font>                
+                <b><font size="2" >Código de Laboratorio</font></b>                
             </th>
             <th width="70px" align="center">
-                <font size="2" >Código de Tipo de Presupuesto</font>
+                <b><font size="2" >Código de Tipo de Presupuesto</font></b>
             </th>            
             <th width="70px" align="center">
-                <font size="2" >Monto Asignado</font>                               
+                <b><font size="2" >Monto Asignado</font></b>                               
             </th>
             <th width="40px" align="center">
-                <font size="2" >Observaciones</font>                                
+                <b><font size="2" >Observaciones</font></b>                                
             </th>
             <th width="40px" align="center">
-                <font size="2" >Fecha</font>                                
+                <b><font size="2" >Fecha</font></b>                                
             </th>                              
         </tr>
     </thead>
@@ -66,7 +66,7 @@
     <div align="center">   
         <html:link action="consultar_presupuesto"><font size="3" >Presupuesto</font></html:link> <font size="3" > | </font>
         <html:link action="asignar_presupuesto"><font size="3" > Asignar </font></html:link> <font size="3" > | </font>
-        <html:link action="asignar_presupuesto_equitativo"> <font size="3" >Asignacion Equitativa</font></html:link> <font size="3" > | </font>
+        <html:link action="asignar_presupuesto_equitativo"> <font size="3" >Asignación Equitativa</font></html:link> <font size="3" > | </font>
         <!-- <html:link action="construccion"><font size="3" > Modificar</font></html:link> <font size="3" > | </font> -->
         <html:link action="consulta_totales"><font size="3" > Totales Asinados</font></html:link>
         <br />

@@ -63,7 +63,7 @@
             </div>
         </logic:present>
         <h2>Introduzca los datos del presupuesto a modificar:</h2>
-        <html:form action="/form_parametros_nuevos_TDP_tipo">            
+        <html:form action="/form_parametros_nuevos_TDP_monto">            
             <div id="welcome">
                 <table border="0">
                     <tbody>                        

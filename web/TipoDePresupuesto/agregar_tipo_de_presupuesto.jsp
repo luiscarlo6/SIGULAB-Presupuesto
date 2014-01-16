@@ -13,24 +13,68 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>SIGU-LAB</title>
+        <link rel="stylesheet" type="text/css" href="css/jquery-ui-1.7.2.custom.css" />
+        <script type="text/javascript" src="calendar/jquery.min.js"></script>
+        <script type="text/javascript" src="calendar/jquery-ui.min.js"></script>
+        <script type="text/javascript">
+        jQuery(function($){
+              $.datepicker.regional['es'] = {
+                    closeText: 'Cerrar',
+                    prevText: '&#x3c;Ant',
+                    nextText: 'Sig&#x3e;',
+                    currentText: 'Hoy',
+                    monthNames: ['Enero','Febrero','Marzo','Abril','Mayo','Junio',
+                    'Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'],
+                    monthNamesShort: ['Ene','Feb','Mar','Abr','May','Jun',
+                    'Jul','Ago','Sep','Oct','Nov','Dic'],
+                    dayNames: ['Domingo','Lunes','Martes','Mi&eacute;rcoles','Jueves','Viernes','S&aacute;bado'],
+                    dayNamesShort: ['Dom','Lun','Mar','Mi&eacute;','Juv','Vie','S&aacute;b'],
+                    dayNamesMin: ['Do','Lu','Ma','Mi','Ju','Vi','S&aacute;'],
+                    weekHeader: 'Sm',
+                    dateFormat: 'dd/mm/yy',
+                    firstDay: 1,
+                    isRTL: false,
+                    showMonthAfterYear: false,
+                    yearSuffix: ''};
+              $.datepicker.setDefaults($.datepicker.regional['es']);
+        });    
+
+
+        $(document).ready(function(){
+          $("#datepicker").datepicker({
+               showOn: 'button',
+               changeMonth: true,
+               changeYear: true,
+               buttonImageOnly: true,
+               minDate: new Date(2014, 0, 1),
+               buttonImage: 'imagenes/calendario.png'  });
+        }); 
+        </script>
     </head>
     <body>
-        <h2>Introduzca los datos del presupuesto:</h2>
+        <h2>Introduzca los datos del Tipo de Presupuesto:</h2>
 
         <html:form action="/form_agregar_TDP">            
             <div id="welcome">
-                <table border="0">
-                    <tbody>                       
+                <table border="0">                   
+                            
+                        
+                    <tbody>                               
                         <tr>
-                            <td><font size="2" >Tipo:
-                                <html:select property="tipo">
+                            <td><font size="2" >* Tipo:</font>
+                                
+                            </td>                                            
+                        
+                        </tr>
+                        <tr>
+                            <td><html:select property="tipo">
                                     <option value=""></option>
                                     <option value="FUNINDES">FUNINDES</option>
                                     <option value="FONACIT">FONACIT</option>
                                     <option value="Donacion">Donacion</option>
                                     <option value="Ordinario">Ordinario</option>
-                                </html:select> 
-                            </font></td>
+                        </html:select>                             
+                            </td>
                         </tr>
                         <tr>
                             <td style="color: red">
@@ -39,7 +83,7 @@
                         </tr>
 
                         <tr>
-                            <td><font size="2" >Descripcion:</font></td>
+                            <td><font size="2" >Descripción:</font></td>
                         </tr>
                         <tr>
                             <td>
@@ -52,105 +96,54 @@
                             </td>
                         </tr>
                         <tr>
-                            <td><font size="2" >Monto:</font></td>
+                        <td style="color: red">
+                        <b><font size="2" color="black" >Monto:</font></b>
+                        <br />
+                             <font size="2" >**Nota: si el monto lleva decimales<br /> utilizar punto (.) y no coma (,)</font>
+                        </td>
                         </tr>
                         <tr>
                             <td>
                                 <html:text property="monto" />
                             </td>
                         </tr>
+                        
                         <tr>
                             <td style="color: red">
                                 <html:errors property="monto" /> 
                             </td>
                         </tr>
-                            <td>
-                                <font size="2" >Seleccione Fecha:</font>
-                            </td>
                         <tr>
-                            <td><font size="2" >Dia:
-                            <html:select property="dia">
-                                    <!--<option value=""></option> -->
-                                    <option value="1">1</option>
-                                    <option value="2">2</option>
-                                    <option value="3">3</option>
-                                    <option value="4">4</option>
-                                    <option value="5">5</option>
-                                    <option value="6">6</option>
-                                    <option value="7">7</option>
-                                    <option value="8">8</option>
-                                    <option value="9">9</option>
-                                    <option value="10">10</option>
-                                    <option value="11">11</option>
-                                    <option value="12">12</option>
-                                    <option value="13">13</option>
-                                    <option value="14">14</option>
-                                    <option value="15">15</option>
-                                    <option value="16">16</option>
-                                    <option value="17">17</option>
-                                    <option value="18">18</option>
-                                    <option value="19">19</option>
-                                    <option value="20">20</option>
-                                    <option value="21">21</option>
-                                    <option value="22">22</option>
-                                    <option value="23">23</option>
-                                    <option value="24">24</option>
-                                    <option value="25">25</option>
-                                    <option value="26">26</option>
-                                    <option value="27">27</option>
-                                    <option value="28">28</option>
-                                    <option value="29">29</option>
-                                    <option value="30">30</option>
-                                    <option value="31">31</option>
-                                    
-                            </html:select> 
-                            Mes:
-                            <html:select property="mes">
-                                    <!--<option value=""></option> -->
-                                    <option value="ENERO">ENERO</option>
-                                    <option value="FEBRERO">FEBRERO</option>
-                                    <option value="MARZO">MARZO</option>
-                                    <option value="ABRIL">ABRIL</option>
-                                    <option value="MAYO">MAYO</option>
-                                    <option value="JUNIO">JUNIO</option>
-                                    <option value="JULIO">JULIO</option>
-                                    <option value="AGOSTO">AGOSTO</option>
-                                    <option value="SEPTIEMBRE">SEPTIEMBRE</option>
-                                    <option value="OCTUBRE">OCTUBRE</option>
-                                    <option value="NOVIEMBRE">NOVIEMBRE</option>
-                                    <option value="DICIEMBRE">DICIEMBRE</option>                                                           
-                            </html:select>  
-                            Ano:
-                            <html:select property="ano">
-                                    <!--<option value=""></option> -->
-                                    <option value="2014">2014</option>
-                                    <option value="2015">2015</option>
-                                    <option value="2016">2016</option>
-                                    <option value="2017">2017</option>
-                                    <option value="2018">2018</option>
-                                    
-                            </html:select> 
-                            </font></td>
+                            <td>
+                                <font size="2" >* Fecha: </font><br />
+                                
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <input type="text" property="fecha" name="datepicker" id="datepicker" readonly="readonly" size="12" />                                
+                            </td>
                         </tr>
                         <tr>
                             <td style="color: red">
                                 <html:errors property="fecha" /> 
                             </td>
                         </tr>
-                        
-                        
-                    <td>
+                    <td>                        
                         <html:submit onclick="javascript: return confirm('¿Está seguro de que los datos son correctos?')">
-                            Agregar Presupuesto
+                            Agregar Tipo de Presupuesto
                         </html:submit>
                         <!---< html:reset value="Limpiar" /> -->
                     </td>
                     </tr>
                     </tbody>
+                    
                 </table>   
             </div>     
         </html:form>
 
+        <font size="1" >*Campos Obligatorios</font>
+        
         <html:link action= "/consultar_TDP" >
             <h2>
                 <font size="2" >Volver</font>

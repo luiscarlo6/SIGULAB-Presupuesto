@@ -41,7 +41,7 @@
 
 
         $(document).ready(function(){
-           $("#datepicker1").datepicker({
+          $("#datepicker1").datepicker({
                showOn: 'button',
                changeMonth: true,
                changeYear: true,
@@ -55,37 +55,19 @@
                buttonImageOnly: true,
                minDate: new Date(2014, 0, 1),
                buttonImage: 'imagenes/calendario.png'  });
-           $("#datepicker").datepicker({
-               showOn: 'button',
-               changeMonth: true,
-               changeYear: true,
-               buttonImageOnly: true,
-               minDate: new Date(2014, 0, 1),
-               buttonImage: 'imagenes/calendario.png'  });
         }); 
         
                 
         </script>
-        <SCRIPT language="javascript">
-            function SINO(cual) {
-            var elElemento=document.getElementById(cual);
-                if(elElemento.style.display == 'block') {
-                    elElemento.style.display = 'none';
-                } else {
-                    elElemento.style.display = 'block';
-                }
-            };
-        </SCRIPT>
     </head>
     <body>
-        <h2 align="center">Asignar un Nuevo Presupuesto</h2>    
-        <div>   
-        <logic:present name="consulta_realizada">           
+     <div>   
+    <logic:present name="consulta_realizada">           
             
-        <h2>Tipos de Presupuestos segun busqueda indicada:</h2>
+    <h2>Tipos de Presupuestos Existentes:</h2>
 
-        <table border="1" cellpadding="0" cellspacing="0" width="40%">
-        <thead>
+    <table border="1" cellpadding="0" cellspacing="0" width="40%">
+    <thead>
         <tr>
             <th width="30px" align="center">
                 <b><font size="2" >Código</font></b>
@@ -102,11 +84,14 @@
             <th width="100px" align="center">
                 <b><font size="2" >Fecha</font></b>                                
             </th>           
+            <th width="100px" align="center">
+                <b><font size="2" >Estado</font></b>                                
+            </th>           
             
         </tr>
-        </thead>
-        <div float:left>
-            <logic:iterate name="presupuesto" id="Presupuesto">
+    </thead>
+    <div float:left>
+        <logic:iterate name="presupuesto" id="Presupuesto">
             <tr>
                 <td width="30px" align="center">
                     <font size="2" ><bean:write name="Presupuesto" property="codigo"/></font>
@@ -123,23 +108,25 @@
                 <td width="80px" align="center">
                     <font size="2" ><bean:write name="Presupuesto" property="fecha"/></font>
                 </td>
-                
+                <td width="80px" align="center">
+                    <font size="2" ><bean:write name="Presupuesto" property="status"/></font>
+                </td>
                 
             </tr>                       
                 
-            </logic:iterate>
+        </logic:iterate>
             
-        </logic:present>
-        </div>
+    
+    </div>
     
 </table>    
+</logic:present>        
         
-        
-        <div id="demo1" style="display:none;">
+
         <br />
         <h2>Introduzca los datos del Tipo de Presupuesto para una Busqueda</h2>
         
-        <html:form action="/form_buscar_TDP_Presupuesto" method="get">            
+        <html:form action="/form_buscar_TDP" method="get">            
             <div id="welcome">
                 <table border="0">                   
                             
@@ -186,6 +173,11 @@
                         </tr>
                         
                         
+                        <tr>
+                            <td style="color: red">
+                                <html:errors property="fecha" /> 
+                            </td>
+                        </tr>
                     <td>                        
                         <html:submit onclick="javascript: return confirm('¿Está seguro de que los datos son correctos?')">
                             Buscar Presupuesto
@@ -198,124 +190,10 @@
                 </table>   
             </div>     
         </html:form>
-        </div>
-        <hr color="#FF0000" noshade="noshade"/>        
-        
-        <h2>Introduzca los datos del presupuesto:</h2>
-
-        <html:form action="/form_asignar_presupuesto">            
-            <div id="welcome">
-                <table border="0">
-                    <tbody>
-                        <logic:notPresent name="busqueda">
-                        <td><font size="2" >* Código de Tipo de Presupuesto: </font> <button type="button" href="javascript:void(0);" onclick="SINO('demo1')">Buscar Codigo</button></td>
-                            <tr>
-                                <td>
-                                  <html:text name = "PresupuestoAsignado" property="codigo_TDP" />
-                                </td>
-                            </tr>               
-                            <tr>
-                                <td style="color: red">
-                                    <html:errors property="codigo" /> 
-                                </td>
-                            </tr>
-                        </logic:notPresent>
-                            
-                        
-                        <logic:present name="busqueda">
-                            <td><font size="2" >* Código de Tipo de Presupuesto: </font><button type="button" href="javascript:void(0);" onclick="SINO('demo1')">Buscar Codigo</button></td>
-                            <tr>
-                                <td>
-                                    <html:select name = "PresupuestoAsignado" property="codigo_TDP">
-                                        <html:options collection="busqueda" property="value" labelProperty="label" />
-                                    </html:select>
-                                </td>
-                            </tr>               
-                            <tr>
-                                <td style="color: red">
-                                    <html:errors property="codigo" /> 
-                                </td>
-                            </tr>
-                            
-                        </logic:present>     
-                            
-                        <td><font size="2" >* Código de Laboratorio:</font></td>
-                        <tr>
-                            <td>
-                                <html:select name = "PresupuestoAsignado" property="codigo_lab">
-                                    <option value=" "></option>
-                                    <option value="01050301">01050301 ULAB</option>
-                                    <option value="01050303">01050303 Lab A</option>
-                                    <option value="01050304">01050304 Lab B</option>
-                                    <option value="01050305">01050305 Lab C</option>
-                                    <option value="01050306">01050306 Lab D</option>
-                                    <option value="01050307">01050307 Lab E</option>
-                                    <option value="01050308">01050308 Lab F</option>
-                                    <option value="01050309">01050309 Lab G</option>                                                                        
-                                </html:select> 
-                            </td>
-                        </tr>               
-                        <tr>
-                            <td style="color: red">
-                                <html:errors property="codigo_lab" /> 
-                            </td>
-                        </tr>
-                        
-                        <tr>
-                            <td><font size="2" >* Monto Asignado:</font></td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <html:text name = "PresupuestoAsignado" property="monto_asignado" />
-                            </td>
-                        </tr>
-                        <tr>
-                            <td style="color: red">
-                                <html:errors property="monto" /> 
-                            </td>
-                        </tr>
-                            
-                        <tr>
-                            <td><font size="2" >Observaciones:</font></td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <html:text name = "PresupuestoAsignado" property="descripcion" />
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <font size="2" >* Fecha: </font><br />
-                                
-                            </td>
-                        </tr>                        
-                        <tr>
-                            <td>
-                                <input type="text" property="fecha" name="datepicker" id="datepicker" readonly="readonly" size="12" />                                
-                            </td>
-                        </tr>
-                        <tr>
-                            <td style="color: red">
-                                <html:errors property="fecha" /> 
-                            </td>
-                        </tr>
-                        
-                        
-                    <td>
-                        <html:submit onclick="javascript: return confirm('¿Está seguro de que los datos son correctos?')">
-                            Asignar Presupuesto
-                        </html:submit>
-                        <!---< html:reset value="Limpiar" /> -->
-                    </td>
-                    </tr>
-                    </tbody>
-                </table>   
-            </div>     
-        </html:form>
 
         <font size="1" >*Campos Obligatorios</font>
         
-        <html:link action= "/consultar_presupuesto" >
+        <html:link action= "/consultar_TDP" >
             <h2>
                 <font size="2" >Volver</font>
             </h2>

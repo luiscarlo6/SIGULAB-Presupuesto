@@ -27,19 +27,39 @@
         <put name="body" value="/Inicio.jsp"/>
     </definition>
     
-    <!--Para cuando le das click a Tipo de Presupuesto (para resumir esta frase
-    se utilizaran las siglas: TDP)-->
+    <!--
+    -
+    Para cuando le das click a Tipo de Presupuesto (para resumir esta frase
+    se utilizaran las siglas: TDP)
+    -
+    -->
     <definition name="baseAdminTDP" extends="base"> <!-- BASE admin para TDP -->
         <put name="sidebarL" value="/Plantilla/sidebarLTDP.jsp"/>
+    </definition>
+    
+    <definition name="consultarTDPDescendente" extends="baseAdminTDP"> <!-- Consulta de TDP -->
+        <put name="body" value="/TipoDePresupuesto/consultar_tipo_de_presupuesto_descendente.jsp"/>
     </definition>
     
     <definition name="consultarTDP" extends="baseAdminTDP"> <!-- Consulta de TDP -->
         <put name="body" value="/TipoDePresupuesto/consultar_tipo_de_presupuesto.jsp"/>
     </definition>
-        
+            
+    <definition name="consultarTDPmonto" extends="baseAdminTDP"> <!-- Consulta de TDP -->
+        <put name="body" value="/TipoDePresupuesto/consultar_tipo_de_presupuesto_pormonto.jsp"/>
+    </definition>    
+       
+    <definition name="consultarTDPmontoDescendente" extends="baseAdminTDP"> <!-- Consulta de TDP -->
+        <put name="body" value="/TipoDePresupuesto/consultar_tipo_de_presupuesto_pormonto_descendente.jsp"/>
+    </definition>
+                                                  
     <definition name="consultarTDPtipo" extends="baseAdminTDP"> <!-- Consulta de TDP -->
         <put name="body" value="/TipoDePresupuesto/consultar_tipo_de_presupuesto_portipo.jsp"/>
     </definition>
+    
+    <definition name="consultarTDPtipoDescendente" extends="baseAdminTDP"> <!-- Consulta de TDP -->
+        <put name="body" value="/TipoDePresupuesto/consultar_tipo_de_presupuesto_portipo_descendente.jsp"/>
+    </definition>    
     
     <definition name="NoTDPAsignados" extends="baseAdminTDP"> <!-- Consulta de TDP -->
         <put name="body" value="/TipoDePresupuesto/sin_tipo_de_presupuestos_asignados.jsp"/>
@@ -73,12 +93,23 @@
         <put name="body" value="/TipoDePresupuesto/listar_tipo_de_modificar_tipo.jsp"/>
     </definition>
     
+    <definition name="nuevosDatosDeTDPpormonto" extends="baseAdminTDP"> <!-- Datos para modificar un TDP -->
+        <put name="body" value="/TipoDePresupuesto/listar_tipo_de_modificar_monto.jsp"/>
+    </definition>
+    
     <definition name="modificadoTDPsatisfactoriamente" extends="baseAdminTDP"> <!-- Modificacion de TDP exitosa -->
         <put name="body" value="/TipoDePresupuesto/modificado_tipo_de_presupuesto.jsp"/>
     </definition>
     
+    <definition name="buscarTDP" extends="baseAdminTDP"> <!-- Modificacion de TDP exitosa -->
+        <put name="body" value="/TipoDePresupuesto/buscar_tipo_de_presupuesto.jsp"/>
+    </definition>
     
-    <!--Para cuando le das click a Presupuesto -->
+    <!--
+    -
+    Para cuando le das click a Presupuesto 
+    -
+    -->
     <definition name="baseAdminPresupuesto" extends="base"> <!-- BASE admin para presupuesto -->
         <put name="sidebarL" value="/Plantilla/sidebarLPresupuesto.jsp"/>
     </definition>
@@ -135,9 +166,13 @@
         <put name="body" value="/Presupuesto/consultar_presupuesto_individual_sin_valores.jsp"/>
     </definition>
     
+    <definition name="buscarPresupuesto" extends="baseAdminPresupuesto"> <!-- Asignacion de los Presupuestos Equitativamente -->
+        <put name="body" value="/Presupuesto/buscar_presupuesto.jsp"/>
+    </definition>
     
-    
-    
+    <definition name="nuevosDatosDePresupuesto" extends="baseAdminPresupuesto"> <!-- Asignacion de los Presupuestos Equitativamente -->
+        <put name="body" value="/Presupuesto/listar_modificar_presupuesto.jsp"/>
+    </definition>
     
     <!--Para consulta de los tipos de laboratorios existentes-->
     <definition name="consultarLaboratorio" extends="baseAdmin"> <!-- Consulta de los laboratorios existentes -->

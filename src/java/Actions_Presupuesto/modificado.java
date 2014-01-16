@@ -1,11 +1,13 @@
 /*
- * To change this template, choose Tools | Templates
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+
 package Actions_Presupuesto;
 
-import DBMS.DBMS;
 import Clases.Presupuesto;
+import DBMS.DBMS;
 import java.util.ArrayList;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -18,15 +20,13 @@ import org.apache.struts.action.ActionMessage;
 
 /**
  *
- * @author 
+ * @author juanpe
  */
-public class consulta_individual extends org.apache.struts.action.Action {
-    /* forward name="success" path="" */
+public class modificado extends org.apache.struts.action.Action {
 
+    /* forward name="success" path="" */
     private static final String SUCCESS = "success";
     private static final String FAILURE = "failure";
-    private static final String OTHER = "other";
-    
     /**
      * This is the action called from the Struts framework.
      *
@@ -41,44 +41,22 @@ public class consulta_individual extends org.apache.struts.action.Action {
     public ActionForward execute(ActionMapping mapping, ActionForm form,
             HttpServletRequest request, HttpServletResponse response)
             throws Exception {
-        
-        HttpSession session = request.getSession(true);
         Presupuesto u;
         u = (Presupuesto) form;
+        HttpSession session = request.getSession(true);
         
         ActionErrors error = new ActionErrors();
-        String msg_codigo_lab = "";
         error = u.validate(mapping, request);
-        boolean huboError = false;
-
-        msg_codigo_lab = u.ValidarCampoCodigoLab(); 
-        
-        if (!msg_codigo_lab.equals("ok")){
-            huboError = true;
-        } 
-        
-        if (huboError) {            
-            if (msg_codigo_lab.equals("Codigo errado, indique un Numero")){
-                error.add("codigo", new ActionMessage("error.codigo.vacio"));
-            }else{
-                error.add("codigo", new ActionMessage("error.codigo.mayorquecero"));               
-            }     
+        System.out.println("id = " + u.getId());
+            Presupuesto pre = DBMS.getInstance().seleccionarDatos_Presupuesto(Integer.parseInt(u.getId()));
             u.resetearVariables();
-            saveErrors(request, error);
-            return mapping.findForward(FAILURE);
-            
-        } else {
-            ArrayList<Presupuesto> Presupuestos = DBMS.getInstance().consultarDatosIndividual_Presupuesto(u);
-            u.resetearVariables();
-
-                session.setAttribute(("presupuesto"), Presupuestos);
-                request.setAttribute("consulta_realizada",SUCCESS);
+            if (pre != null) {
+                request.setAttribute("datosPres", pre);
                 return mapping.findForward(SUCCESS);
- 
-         
-            
-            
-        }
-    }                        
-        
+            } else {
+                //u.setError("***Codigo no existe o esta deshabilitado***");
+                return mapping.findForward(FAILURE);
+            }
+
+    }
 }

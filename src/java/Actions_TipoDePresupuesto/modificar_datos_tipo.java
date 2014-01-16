@@ -56,25 +56,40 @@ public class modificar_datos_tipo extends org.apache.struts.action.Action {
             huboError = true;
             
         }*/
-        msg_fecha = u.VerificarFecha(); 
+        //msg_fecha = u.VerificarFecha(); 
         msg_monto = u.ValidarCampoMonto();
         msg_tipo = u.ValidarCampoTipo();
-
-        if ((!msg_fecha.equals("ok")) || (!msg_monto.equals("ok")) || (!msg_tipo.equals("ok"))){
+        msg_fecha = request.getParameter("datepicker");
+        System.out.println("la fecha es en modificar_datos = "+msg_fecha);
+        if ((msg_fecha.equals("null")) || (msg_fecha.equals(""))){
+            error.add("fecha", new ActionMessage("error.fecha.required"));
+            huboError = true;
+        }
+            
+        if (!msg_tipo.equals("ok")){
+            error.add("tipo", new ActionMessage("error.tipo.required"));
+            huboError = true;
+        } 
+        if (!msg_monto.equals("ok")){
+            if (msg_monto.equals("Indique un monto")){
+                    error.add("monto", new ActionMessage("error.monto.required"));
+            }else{
+                    error.add("monto", new ActionMessage("error.monto.mayorquecero"));
+            }
             huboError = true;
         }
         
         if (huboError) {
-            
+            Tipo_de_Presupuesto pre = DBMS.getInstance().seleccionarDatos_Tipo_de_presupuesto(Integer.parseInt(u.getCodigo()));
             u.resetearVariables();
-            error.add("codigo", new ActionMessage("error.codigo.modificando"));
-            saveErrors(request, error);
+            request.setAttribute("datosPres", pre);            
             request.setAttribute("modificacion_fallida",SUCCESS);
-            return mapping.findForward(FAILURE);
+            saveErrors(request, error);return mapping.findForward(FAILURE);
             //si los campos son validos
         } else 
             
             {
+                u.setFecha(msg_fecha);
                 boolean modifico = DBMS.getInstance().ModificarDatos_Tipo_de_presupuesto(u);
                 u.resetearVariables();
                 if (modifico) {
@@ -85,6 +100,9 @@ public class modificar_datos_tipo extends org.apache.struts.action.Action {
                     return mapping.findForward(SUCCESS);
                 } else {
                     //u.resetearVariables();
+                    Tipo_de_Presupuesto pre = DBMS.getInstance().seleccionarDatos_Tipo_de_presupuesto(Integer.parseInt(u.getCodigo()));
+                    request.setAttribute("datosPres", pre);
+                    u.resetearVariables();
                     error.add("codigo", new ActionMessage("error.codigo.modificando"));
                     saveErrors(request, error);
                     request.setAttribute("modificacion_fallida",SUCCESS);

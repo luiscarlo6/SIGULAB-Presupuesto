@@ -24,48 +24,49 @@
         
         <logic:present name="desactivacion_exitosa">
             <div align="center" class="alert alert-success" id="alert">
-                Desactivacion de Tipo de Presupuesto Exitoso.
+                Desactivación de Tipo de Presupuesto Exitoso.
             </div>
         </logic:present>
         
         <logic:present name="modificacion_exitosa">
             <div align="center" class="alert alert-success" id="alert">
-                Modificacion de Tipo de Presupuesto Exitoso.
+                Modificación de Tipo de Presupuesto Exitoso.
             </div>
         </logic:present>
         
         <logic:present name="modificacion_fallida">
             <div align="center" class="alert alert-danger" id="alert">
-                Modificacion de Tipo de Presupuesto Fallida, intente de nuevo.
+                Modificación de Tipo de Presupuesto Fallida, intente de nuevo.
             </div>
         </logic:present>
 
         <h2>Tipos de Presupuestos Existentes:</h2>
 
-    <table border="1" >
+    <table border="1" cellpadding="0" cellspacing="0" width="40%">
     <thead>
         <tr>
             <th width="30px" align="center">
-                <font size="2" >Código</font>
+                <b><html:link  action="consultar_TDP_descendente"><font size="2" >Código</font> </html:link></b>
             </th>
-            <th width="70px" align="center">
-                <font size="2" >Tipo</font>                
-            </th>
-            <th width="100px" align="center">
-                <font size="2" >Descripción</font>                                                
-            </th>
-            <th width="70px" align="center">
-                <font size="2" >Monto<br />(por asignar)</font>                               
+            <th width="60px" align="center">                
+                <b><html:link  action="consultar_TDP_tipo"><font size="2" >Tipo</font> </html:link></b>               
             </th>
             <th width="100px" align="center">
-                <font size="2" >Fecha</font>                                
+                <b><font size="2" >Descripción</font></b>                                                
+            </th>
+            <th width="80px" align="center">
+                <b><html:link  action="consultar_TDP_monto"><font size="2" >Monto<br /></html:link>(por asignar)</font></b>                               
+            </th>
+            <th width="100px" align="center">
+                <b><font size="2" >Fecha</font></b>                                
             </th>
             <th width="30px" align="center">
-                <font size="2" >Desactivacion</font>                                
+                <b><font size="2" >Desactivación</font></b>                                
             </th>
             <th width="30px" align="center">
-                <font size="2" >Modificacion</font>                                
+                <b><font size="2" >Modificación</font></b>                                
             </th>
+            
         </tr>
     </thead>
     <div float:left>
@@ -74,26 +75,24 @@
                 <td width="30px" align="center">
                     <font size="2" ><bean:write name="Presupuesto" property="codigo"/></font>
                 </td>
-                <td width="70px" align="center">
+                <td width="60px" align="center">
                     <font size="2" ><bean:write name="Presupuesto" property="tipo"/></font>
                 </td>
                 <td width="100px" align="center">
                     <font size="2" ><bean:write name="Presupuesto" property="descripcion"/></font>
                 </td>
-                <td width="70px" align="center">
+                <td width="80px" align="center">
                     <font size="2" ><bean:write name="Presupuesto" property="monto"/></font>
                 </td>
-                <td width="100px" align="center">
-                    <font size="2" ><bean:write name="Presupuesto" property="dia"/></font> /               
-                    <font size="2" ><bean:write name="Presupuesto" property="mes"/></font> /
-                    <font size="2" ><bean:write name="Presupuesto" property="ano"/></font>
+                <td width="80px" align="center">
+                    <font size="2" ><bean:write name="Presupuesto" property="fecha"/></font>
                 </td>
                 <td width="30px" align="center">   
                     <font size="2" >
                         <html:form action="/cambiar_status_TDP" onsubmit="return(this)" style="margin: 0px;">
                                <html:hidden name="Presupuesto" property="codigo" />
                                <center>
-                               <html:submit style="margin: 5px; padding: 3px; padding-left: 5px; padding-right: 5px;"
+                                   <html:submit style="margin: 5px; padding: 3px; padding-left: 5px; padding-right: 5px;"
                                             onclick="javascript: return confirm('¿Está seguro de este cambio?\n***Estara desactivado a la vista***')">
                                     Desactivar
                                </html:submit>
@@ -113,6 +112,7 @@
                         </html:form>                    
                     </font>
                 </td>
+                
             </tr>                       
                 
         </logic:iterate>
@@ -120,8 +120,8 @@
     
 </table>
     <div align="center">
-        <html:link  action="agregar_TDP"><font size="3" >Agregar Nuevo </font></html:link>    <font size="3" > | </font>           
-        <html:link  action="consultar_TDP_tipo"><font size="3" >Ordenar por tipo</font></html:link>
+        <html:link  action="agregar_TDP"><font size="3" >Agregar Nuevo </font></html:link> <font size="3" > | </font>   
+        <html:link  action="buscar_TDP"><font size="3" >Busqueda Especifica</font></html:link>
     </div>
     
     <br />

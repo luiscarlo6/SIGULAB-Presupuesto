@@ -49,7 +49,7 @@
                 <b><html:link  action="consultar_TDP"><font size="2" >Código</font> </html:link></b>
             </th>
             <th width="60px" align="center">
-                <b><html:link  action="consultar_TDP_tipo_descendente"><font size="2" >Tipo</font> </html:link></b>                 
+                <b><html:link  action="consultar_TDP_tipo"><font size="2" >Tipo</font> </html:link></b>                 
             </th>
             <th width="100px" align="center">
                 <b><font size="2" >Descripción</font></b>                                                

@@ -1,13 +1,18 @@
 <%-- 
-    Document   : agregar
-    Created on : 28-nov-2013, 21:41:52
+    Document   : modificar
+    Created on : 29-nov-2013, 9:03:10
     Author     : juanpe
+
 --%>
+
+<% Object codOri = request.getAttribute("codigo_TDP");%>
+
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <link rel="stylesheet" type="text/css" href="css/bootstrap.css">
 <%@ taglib uri="http://struts.apache.org/tags-bean" prefix="bean" %>
 <%@ taglib uri="http://struts.apache.org/tags-html" prefix="html" %>
 <%@ taglib uri="http://struts.apache.org/tags-logic" prefix="logic" %>
+<%@ taglib uri="http://struts.apache.org/tags-tiles" prefix="tiles" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -75,10 +80,9 @@
                     elElemento.style.display = 'block';
                 }
             };
-        </SCRIPT>
+        </SCRIPT>       
     </head>
     <body>
-        <h2 align="center">Asignar un Nuevo Presupuesto</h2>    
         <div>   
         <logic:present name="consulta_realizada">           
             
@@ -132,14 +136,14 @@
         </logic:present>
         </div>
     
-</table>    
+</table>   
         
         
         <div id="demo1" style="display:none;">
         <br />
         <h2>Introduzca los datos del Tipo de Presupuesto para una Busqueda</h2>
         
-        <html:form action="/form_buscar_TDP_Presupuesto" method="get">            
+        <html:form action="/form_buscar_TDP_Presupuesto_modificacion" method="get">            
             <div id="welcome">
                 <table border="0">                   
                             
@@ -185,7 +189,7 @@
                             </td>
                         </tr>
                         
-                        
+                        <html:hidden name= "datosPres" property="id" />
                     <td>                        
                         <html:submit onclick="javascript: return confirm('¿Está seguro de que los datos son correctos?')">
                             Buscar Presupuesto
@@ -199,47 +203,34 @@
             </div>     
         </html:form>
         </div>
-        <hr color="#FF0000" noshade="noshade"/>        
         
-        <h2>Introduzca los datos del presupuesto:</h2>
-
-        <html:form action="/form_asignar_presupuesto">            
+        <logic:present name="modificacion_fallida">
+            <div align="center" class="alert alert-danger" id="alert">
+                Modificación de Presupuesto Fallida, intente de nuevo.
+            </div>
+        </logic:present>
+        
+        <h2>Introduzca los datos del presupuesto a modificar:</h2>
+        
+        <html:form action="/form_parametros_nuevos_presupuesto">            
             <div id="welcome">
                 <table border="0">
-                    <tbody>
-                        <logic:notPresent name="busqueda">
-                        <td><font size="2" >* Código de Tipo de Presupuesto: </font> <button type="button" href="javascript:void(0);" onclick="SINO('demo1')">Buscar Codigo</button></td>
-                            <tr>
-                                <td>
-                                  <html:text name = "PresupuestoAsignado" property="codigo_TDP" />
-                                </td>
-                            </tr>               
-                            <tr>
-                                <td style="color: red">
-                                    <html:errors property="codigo" /> 
-                                </td>
-                            </tr>
-                        </logic:notPresent>
-                            
+                    <tbody>                        
+                        <tr>                            
+                            <td>
+                                
+                                <b><font size="2" >Presupuesto a modificar con código de laboratorio:</font></b> <br />
+                                    
+                                <font size="2" style="color: blue">
+                                    <bean:write name="datosPres" property="codigo_lab"/>
+                                    
+                                </font>    
+                                
+                            </td>
+                        </tr> 
                         
-                        <logic:present name="busqueda">
-                            <td><font size="2" >* Código de Tipo de Presupuesto: </font><button type="button" href="javascript:void(0);" onclick="SINO('demo1')">Buscar Codigo</button></td>
-                            <tr>
-                                <td>
-                                    <html:select name = "PresupuestoAsignado" property="codigo_TDP">
-                                        <html:options collection="busqueda" property="value" labelProperty="label" />
-                                    </html:select>
-                                </td>
-                            </tr>               
-                            <tr>
-                                <td style="color: red">
-                                    <html:errors property="codigo" /> 
-                                </td>
-                            </tr>
-                            
-                        </logic:present>     
-                            
-                        <td><font size="2" >* Código de Laboratorio:</font></td>
+                        
+                        <td><font size="2" >* NUEVO Código de Laboratorio:</font></td>
                         <tr>
                             <td>
                                 <html:select name = "PresupuestoAsignado" property="codigo_lab">
@@ -261,37 +252,97 @@
                             </td>
                         </tr>
                         
-                        <tr>
-                            <td><font size="2" >* Monto Asignado:</font></td>
-                        </tr>
+                        
+                        
+                        
+                        
+                        <logic:notPresent name="busqueda">
+                        <td><font size="2" >Presupuesto a modificar con código de Tipo de Presupuesto: </font> <button type="button" href="javascript:void(0);" onclick="SINO('demo1')">Buscar Codigo</button></td>
+                            <tr>
+                                <td>
+                                  <html:text name = "datosPres" property="codigo_TDP" />
+                                </td>
+                            </tr>               
+                            <tr>
+                                <td style="color: red">
+                                    <html:errors property="codigo" /> 
+                                </td>
+                            </tr>
+                        </logic:notPresent>
+                            
+                        
+                        <logic:present name="busqueda">
+                            <td><font size="2" >Opciones de código de Tipo de Presupuesto: </font><button type="button" href="javascript:void(0);" onclick="SINO('demo1')">Buscar Codigo</button></td>
+                            <tr>
+                                <td>
+                                    <html:select name = "datosPres" property="codigo_TDP">
+                                        <html:options collection="busqueda" property="value" labelProperty="label" />
+                                    </html:select>
+                                </td>
+                            </tr>               
+                            <tr>
+                                <td style="color: red">
+                                    <html:errors property="codigo" /> 
+                                </td>
+                            </tr>
+                            
+                        </logic:present>
+                        
+                        
+                        
                         <tr>
                             <td>
-                                <html:text name = "PresupuestoAsignado" property="monto_asignado" />
+                                <div>
+                                    <b><font size="2" >Observaciones:</font></b><br />
+                                </div>
+                                <html:text name="datosPres" property="descripcion" />
+                            </td>
+                        </tr>  
+                        
+                        <tr>
+                            <td style="color: red">
+                                <html:errors property="descripcion" /> 
                             </td>
                         </tr>
+                        
+                        
+                        <tr>
+                        <td style="color: red">
+                        <b><font size="2" color="black" >Monto:</font></b>
+                        <br />
+                             <font size="2" >**Nota: si el monto lleva decimales<br /> utilizar punto (.) y no coma (,)</font>
+                        </td>
+                        </tr>
+                        
+                        <tr>
+                            <td>
+                                <html:text name="datosPres" property="monto_asignado" />
+                            </td>
+                        </tr>
+                                                
                         <tr>
                             <td style="color: red">
                                 <html:errors property="monto" /> 
                             </td>
                         </tr>
-                            
+                        
                         <tr>
-                            <td><font size="2" >Observaciones:</font></td>
+                             <td>
+                             <b><font size="2" >Fecha Actual:</font></b><br />                             
+                             <font size="2" style="color: blue">
+                                <bean:write name="datosPres" property="fecha"/>
+                             </font>
+                             </td>
                         </tr>
+                        
                         <tr>
                             <td>
-                                <html:text name = "PresupuestoAsignado" property="descripcion" />
+                                <b><font size="2" >Seleccione Fecha Nueva:</font></b>
                             </td>
-                        </tr>
+                        </tr>    
                         <tr>
-                            <td>
-                                <font size="2" >* Fecha: </font><br />
-                                
-                            </td>
-                        </tr>                        
-                        <tr>
-                            <td>
-                                <input type="text" property="fecha" name="datepicker" id="datepicker" readonly="readonly" size="12" />                                
+                            <td>                                
+                                <input type="text" property="fecha" name="datepicker" id="datepicker" readonly="readonly" size="12"/>                                
                             </td>
                         </tr>
                         <tr>
@@ -299,28 +350,23 @@
                                 <html:errors property="fecha" /> 
                             </td>
                         </tr>
-                        
-                        
+                        <html:hidden name= "datosPres" property="id" />
                     <td>
-                        <html:submit onclick="javascript: return confirm('¿Está seguro de que los datos son correctos?')">
-                            Asignar Presupuesto
+                        <html:submit onclick="javascript: return confirm('¿Está seguro de sus modificaciones?')">
+                            Modificar Presupuesto
                         </html:submit>
+                        
                         <!---< html:reset value="Limpiar" /> -->
                     </td>
-                    </tr>
                     </tbody>
                 </table>   
             </div>     
         </html:form>
 
-        <font size="1" >*Campos Obligatorios</font>
-        
-        <html:link action= "/consultar_presupuesto" >
+        <html:link action= "/consultar_TDP" >
             <h2>
                 <font size="2" >Volver</font>
             </h2>
         </html:link>
-
-
     </body>
 </html>

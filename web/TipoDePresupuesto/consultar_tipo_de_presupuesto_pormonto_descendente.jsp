@@ -42,14 +42,14 @@
 
         <h2>Tipos de Presupuestos Existentes:</h2>
 
-    <table border="1" >
+    <table border="1" cellpadding="0" cellspacing="0" width="40%">
     <thead>
         <tr>
             <th width="30px" align="center">
                 <b><html:link  action="consultar_TDP"><font size="2" >Código</font> </html:link></b>
             </th>
-            <th width="60px" align="center">
-                <b><html:link  action="consultar_TDP_tipo_descendente"><font size="2" >Tipo</font> </html:link></b>                 
+            <th width="60px" align="center">                
+                <b><html:link  action="consultar_TDP_tipo"><font size="2" >Tipo</font> </html:link></b>               
             </th>
             <th width="100px" align="center">
                 <b><font size="2" >Descripción</font></b>                                                
@@ -66,6 +66,7 @@
             <th width="30px" align="center">
                 <b><font size="2" >Modificación</font></b>                                
             </th>
+            
         </tr>
     </thead>
     <div float:left>
@@ -83,12 +84,12 @@
                 <td width="80px" align="center">
                     <font size="2" ><bean:write name="Presupuesto" property="monto"/></font>
                 </td>
-                <td width="100px" align="center">
+                <td width="80px" align="center">
                     <font size="2" ><bean:write name="Presupuesto" property="fecha"/></font>
                 </td>
                 <td width="30px" align="center">   
                     <font size="2" >
-                        <html:form action="/cambiar_status_TDP_tipo" onsubmit="return(this)" style="margin: 0px;">
+                        <html:form action="/cambiar_status_TDP_monto" onsubmit="return(this)" style="margin: 0px;">
                                <html:hidden name="Presupuesto" property="codigo" />
                                <center>
                                <html:submit style="margin: 5px; padding: 3px; padding-left: 5px; padding-right: 5px;"
@@ -101,7 +102,7 @@
                 </td>
                 <td width="30px" align="center">   
                     <font size="2" >
-                        <html:form action="/modificar_TDP_tipo" onsubmit="return(this)" style="margin: 0px;">
+                        <html:form action="/modificar_TDP_monto" onsubmit="return(this)" style="margin: 0px;">
                                <html:hidden name="Presupuesto" property="codigo" />
                                <center>
                                <html:submit style="margin: 5px; padding: 3px; padding-left: 5px; padding-right: 5px;">
@@ -111,6 +112,7 @@
                         </html:form>                    
                     </font>
                 </td>
+                
             </tr>                       
                 
         </logic:iterate>

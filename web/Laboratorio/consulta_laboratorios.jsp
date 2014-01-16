@@ -18,17 +18,17 @@
     <body>        
         <h2>Laboratorios Existentes:</h2>
 
-    <table border="1" class="altrowstable" id="alternatecolor">
+    <table border="1">
     <thead>
         <tr>
             <th width="70px" align="center">
-                <font size="2" >Código</font>                
+                <b><font size="2" >Código</font></b>                
             </th>
             <th width="70px" align="center">
-                <font size="2" >Nombre</font>                               
+                <b><font size="2" >Nombre</font></b>                               
             </th>
             <th width="70px" align="center">
-                <font size="2" >Descripcion</font>                               
+                <b><font size="2" >Descripcion</font></b>                               
             </th>
         </tr>
     </thead>

@@ -6,10 +6,8 @@
 package Actions_TipoDePresupuesto;
 
 import Clases.Tipo_de_Presupuesto;
-
 import DBMS.DBMS;
 import java.util.ArrayList;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -23,7 +21,7 @@ import org.apache.struts.action.ActionMessage;
  *
  * @author juanpe
  */
-public class agregado extends org.apache.struts.action.Action {
+public class eliminado_monto extends org.apache.struts.action.Action {
 
     /* forward name="success" path="" */
     private static final String SUCCESS = "success";
@@ -48,59 +46,37 @@ public class agregado extends org.apache.struts.action.Action {
         HttpSession session = request.getSession(true);
 
         ActionErrors error = new ActionErrors();
-        String msg_codigo = "", msg_monto = "", msg_tipo = "", msg_fecha= "";
+        String msg_codigo = "";
         error = u.validate(mapping, request);
         boolean huboError = false;
-
-        //msg_codigo = u.ValidarCampoCodigo(); 
-        msg_monto = u.ValidarCampoMonto();
-        msg_tipo = u.ValidarCampoTipo();
-        msg_fecha = request.getParameter("datepicker");
-        /*if (error.size() != 0) {
+        msg_codigo = u.ValidarCampoCodigo();        
+        
+        if (!msg_codigo.equals("ok")) {
             huboError = true;
         }
         
-        */
         
-        System.out.println("fechaaa: "+request.getParameter("datepicker"));
-        
-        if ((msg_fecha.equals("null")) || (msg_fecha.equals(""))){
-            error.add("fecha", new ActionMessage("error.fecha.required"));
-            huboError = true;
-        }
-        if (/*(!msg_codigo.equals("ok")) ||*/ (!msg_monto.equals("ok")) || (!msg_tipo.equals("ok")) /*|| (!msg_fecha.equals("ok"))*/){
-            huboError = true;
-        }       
-            
-        if (huboError) {                        
-            if (!msg_monto.equals("ok")){
-                if (msg_monto.equals("Indique un monto")){
-                    error.add("monto", new ActionMessage("error.monto.required"));
-                }else{
-                    error.add("monto", new ActionMessage("error.monto.mayorquecero"));
-                }
+        if (huboError) {
+            u.resetearVariables();            
+            if (msg_codigo.equals("Codigo errado, indique un Numero")){
+                error.add("codigo", new ActionMessage("error.codigo.numero"));
+            }else{
+                error.add("codigo", new ActionMessage("error.codigo.mayorquecero"));
             }
-            if (!msg_tipo.equals("ok")){
-                error.add("tipo", new ActionMessage("error.tipo.required"));
-            }
-            
-            u.resetearVariables();
-            saveErrors(request, error);
+            saveErrors(request, error);            
             return mapping.findForward(FAILURE);
             //si los campos son validos
         } else {
-            u.setFecha(msg_fecha);
-            boolean agrego = DBMS.getInstance().agregarDatos_Tipo_de_presupuesto(u);
+            boolean elimino = DBMS.getInstance().CambiarStatus_Tipo_de_presupuesto(u);
             u.resetearVariables();
-            if (agrego) {
-                ArrayList<Tipo_de_Presupuesto> Presupuestos = DBMS.getInstance().consultarDatos_Tipo_de_presupuesto();
+            if (elimino) {
+                ArrayList<Tipo_de_Presupuesto> Presupuestos = DBMS.getInstance().consultarDatos_Tipo_de_presupuesto_ordenMonto();
                 session.setAttribute(("presupuesto"), Presupuestos);
-                request.setAttribute("agregado_exitoso",SUCCESS);
+                request.setAttribute("desactivacion_exitosa",SUCCESS);
                 return mapping.findForward(SUCCESS);
             } else {
-                //error.add("codigo", new ActionMessage("error.codigo.existe"));
-                //saveErrors(request, error);
-                //u.setError_tipo();
+                error.add("codigo", new ActionMessage("error.codigo.noexiste_deshabilitado"));
+                saveErrors(request, error);
                 return mapping.findForward(FAILURE);
             }
         }

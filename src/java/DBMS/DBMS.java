@@ -20,6 +20,12 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
+import java.text.SimpleDateFormat;
+import java.io.*;
+import java.sql.Date;
+import java.lang.String;
+import java.sql.Timestamp; 
+import java.util.StringTokenizer; 
 
 /**
  *
@@ -60,6 +66,85 @@ public class DBMS {
         return false;
     }
 
+    public static Date StringttoDate(String fecha)  {
+        
+	  StringTokenizer st = new StringTokenizer(fecha,"/"); 
+	  //con esto creas el tokenizer y le pasas la cadena como parametro
+	  int i = 1;
+	  int dia= 0 , mes=0, anio=0;
+	  while(st.hasMoreTokens()) { //este ciclo es para comprobar cuando se acaba de procesar tu cadena
+	      String palabra = st.nextToken();
+	      if (i == 1){
+		dia = Integer.parseInt(palabra);
+	      }else if (i==2) {
+		mes = Integer.parseInt(palabra) - 1;
+	      }else{
+		anio = Integer.parseInt(palabra) - 1900;
+	      }
+	      i++;	      
+	  } 
+	    
+	  java.sql.Date DateSistema=new java.sql.Date(anio,mes,dia);
+	  return DateSistema;	  
+    }
+    // Retorna la fecha pero en formato DD-MM-YY
+    public static String FormatoFechaDMA(String fecha)  {
+        
+	  StringTokenizer st = new StringTokenizer(fecha,"-"); 
+	  //con esto creas el tokenizer y le pasas la cadena como parametro
+	  int i = 1;
+	  String Dia = "", Mes = "", Anio = "";
+	  while(st.hasMoreTokens()) { //este ciclo es para comprobar cuando se acaba de procesar tu cadena
+	      String palabra = st.nextToken();
+	      if (i == 1){
+		Anio = ""+Integer.parseInt(palabra);
+	      }else if (i==2) {
+		Mes = ""+Integer.parseInt(palabra);
+		if (Mes.length() == 1){
+		   Mes = "0"+Mes;
+		}
+	      }else{
+		Dia = ""+Integer.parseInt(palabra);
+		if (Dia.length() == 1){
+		   Dia = "0"+Dia;
+		}
+	      }
+	      i++;	      
+	  } 
+	  
+	  return ""+Dia+"-"+Mes+"-"+Anio;	  
+    }
+    
+     public static String FormatoFloat(String monto)  {
+        
+	  StringTokenizer st = new StringTokenizer(monto,","); 
+	  //con esto creas el tokenizer y le pasas la cadena como parametro
+	  int i = 1;
+	  String salida = monto;
+	  String primero = "", segundo="no";
+	  while(st.hasMoreTokens()) { //este ciclo es para comprobar cuando se acaba de procesar tu cadena
+	      String palabra = st.nextToken();
+	      if (i == 1){
+		primero = ""+palabra;
+	      }else{
+		segundo = ""+palabra;
+	      }
+	      System.out.println("dentro del while i = " +i);
+	      i++;	      
+	  } 
+	  if (segundo.equals("no")){
+	    salida = primero+".00";
+	  }else{
+	    salida = primero + "." +segundo;
+	    if (segundo.length() == 1) {
+	      salida = salida + "0";
+	    }
+	  }
+	  
+	  return salida;	  
+      }
+    
+    
     
     public boolean seleccionarDatos_Usuario(Usuario u){
         PreparedStatement psConsultar = null;
@@ -95,17 +180,15 @@ public class DBMS {
         PreparedStatement psAgregar = null;
         try {
 
-            psAgregar = conexion.prepareStatement("INSERT INTO TIPO_DE_PRESUPUESTO VALUES (default,?,?,?,?,?,?,?);");
+            psAgregar = conexion.prepareStatement("INSERT INTO TIPO_DE_PRESUPUESTO VALUES (default,?,?,?,?,?);");
             
            // psAgregar.setInt(1, Integer.parseInt(u.getCodigo()));
             psAgregar.setString(1, u.getTipo());
             psAgregar.setString(2, u.getDescripcion());
             psAgregar.setInt(3, 1);            
-            psAgregar.setFloat(4, Float.parseFloat(u.getMonto()));
-            psAgregar.setInt(5, Integer.parseInt(u.getDia()));
-            psAgregar.setString(6, u.getMes());
-            psAgregar.setInt(7, Integer.parseInt(u.getAno()));
-            
+            psAgregar.setFloat(4, Float.parseFloat(u.getMonto()));                                    
+            System.out.println("Fecha en agregar "+u.getFecha());                                    
+            psAgregar.setDate(5, StringttoDate(u.getFecha()));
             
             System.out.println(psAgregar.toString());
 
@@ -129,17 +212,15 @@ public class DBMS {
             
             ResultSet Rs = psConsultar.executeQuery();
             Rs.next();
-            
+            //FormatoFloat();
             Tipo_de_Presupuesto pre = new Tipo_de_Presupuesto();
             pre.setCodigo(""+Rs.getInt("codigo"));
             pre.setDescripcion(Rs.getString("descripcion"));
             pre.setTipo(Rs.getString("tipo"));
-            NumberFormat monto = new DecimalFormat("#############.###");		
+            NumberFormat monto = new DecimalFormat("#############.##");		
             String s = monto.format(Rs.getFloat("monto"));
-            pre.setMonto(""+s);
-            pre.setDia(""+Rs.getInt("dia"));
-            pre.setMes(Rs.getString("mes"));
-            pre.setAno(""+Rs.getInt("ano"));
+            pre.setMonto(""+FormatoFloat(s));                        
+            pre.setFecha(""+FormatoFechaDMA(Rs.getString("fecha")));
             
             
             return pre;
@@ -156,16 +237,14 @@ public class DBMS {
         PreparedStatement psConsultar = null;
         try {
             
-            psConsultar = conexion.prepareStatement("UPDATE TIPO_DE_PRESUPUESTO SET descripcion=?, tipo=?, monto=?, dia=?, mes=?, ano=? where codigo = ?;");
-
-            //psConsultar.setInt(1, Integer.parseInt(u.getCodigo_nuevo()));
+            psConsultar = conexion.prepareStatement("UPDATE TIPO_DE_PRESUPUESTO SET descripcion=?, tipo=?, monto=?, fecha=? where codigo = ?;");
+            
             psConsultar.setString(1, u.getDescripcion());
             psConsultar.setString(2, u.getTipo());
-            psConsultar.setFloat(3, Float.parseFloat(u.getMonto()));
-            psConsultar.setInt(4, Integer.parseInt(u.getDia()));
-            psConsultar.setString(5, u.getMes());
-            psConsultar.setInt(6, Integer.parseInt(u.getAno()));
-            psConsultar.setInt(7, Integer.parseInt(u.getCodigo()));
+            psConsultar.setFloat(3, Float.parseFloat(u.getMonto()));                        
+            psConsultar.setDate(4, StringttoDate(u.getFecha()));
+                        
+            psConsultar.setInt(5, Integer.parseInt(u.getCodigo()));
             
             System.out.println(psConsultar.toString());
 
@@ -224,12 +303,11 @@ public class DBMS {
                     u.setCodigo(""+Rs.getInt("codigo"));
                     u.setDescripcion(Rs.getString("descripcion"));
                     u.setTipo(Rs.getString("tipo"));
-                    NumberFormat monto = new DecimalFormat("#############.###");		
+                    NumberFormat monto = new DecimalFormat("#############.##");		
                     String s = monto.format(Rs.getFloat("monto"));
-                    u.setMonto(""+s);
-                    u.setDia(""+Rs.getInt("dia"));
-                    u.setMes(Rs.getString("mes"));
-                    u.setAno(""+Rs.getInt("ano"));
+                    u.setMonto(""+FormatoFloat(s));
+                    //u.setMonto(""+Rs.getFloat("monto"));
+                    u.setFecha(""+FormatoFechaDMA(Rs.getString("fecha")));
                     Presupuestos.add(u);
                 }
                 
@@ -252,7 +330,7 @@ public class DBMS {
         PreparedStatement psConsultar = null;
         try {
 
-            psConsultar = conexion.prepareStatement("SELECT * FROM TIPO_DE_PRESUPUESTO ORDER BY TIPO;");
+            psConsultar = conexion.prepareStatement("SELECT * FROM TIPO_DE_PRESUPUESTO ORDER BY TIPO,FECHA;");
             ResultSet Rs = psConsultar.executeQuery();
 
             while (Rs.next()) {
@@ -262,12 +340,11 @@ public class DBMS {
                     u.setCodigo(""+Rs.getInt("codigo"));
                     u.setDescripcion(Rs.getString("descripcion"));
                     u.setTipo(Rs.getString("tipo"));
-                    NumberFormat monto = new DecimalFormat("#############.###");		
-                    String s = monto.format(Rs.getFloat("monto"));
-                    u.setMonto(""+s);
-                    u.setDia(""+Rs.getInt("dia"));
-                    u.setMes(Rs.getString("mes"));
-                    u.setAno(""+Rs.getInt("ano"));
+                    NumberFormat monto = new DecimalFormat("#############.##");		
+                    String s = monto.format(Rs.getFloat("monto"));                    
+                    u.setMonto(""+FormatoFloat(s));
+                    u.setFecha(""+FormatoFechaDMA(Rs.getString("fecha")));
+                    
                     Presupuestos.add(u);
                 }
                 
@@ -282,7 +359,364 @@ public class DBMS {
         return Presupuestos;
 
     }
+
+    public ArrayList<Tipo_de_Presupuesto> consultarDatos_Tipo_de_presupuesto_ordenTipo_descendente() {
+
+        ArrayList<Tipo_de_Presupuesto> Presupuestos = new ArrayList<Tipo_de_Presupuesto>();
+        PreparedStatement psConsultar = null;
+        try {
+
+            psConsultar = conexion.prepareStatement("SELECT * FROM TIPO_DE_PRESUPUESTO ORDER BY TIPO DESC,FECHA;");
+            ResultSet Rs = psConsultar.executeQuery();
+
+            while (Rs.next()) {
+                Tipo_de_Presupuesto u = new Tipo_de_Presupuesto();
+                
+                if (Rs.getInt("status") == 1) {
+                    u.setCodigo(""+Rs.getInt("codigo"));
+                    u.setDescripcion(Rs.getString("descripcion"));
+                    u.setTipo(Rs.getString("tipo"));
+                    NumberFormat monto = new DecimalFormat("#############.##");		
+                    String s = monto.format(Rs.getFloat("monto"));                    
+                    u.setMonto(""+FormatoFloat(s));
+                    u.setFecha(""+FormatoFechaDMA(Rs.getString("fecha")));
+                    
+                    Presupuestos.add(u);
+                }
+                
+                
+            }
+
+
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        
+        return Presupuestos;
+
+    }    
     
+    public ArrayList<Tipo_de_Presupuesto> consultarDatos_Tipo_de_presupuesto_ordenCodigoDescendente() {
+
+        ArrayList<Tipo_de_Presupuesto> Presupuestos = new ArrayList<Tipo_de_Presupuesto>();
+        PreparedStatement psConsultar = null;
+        try {
+
+            psConsultar = conexion.prepareStatement("SELECT * FROM TIPO_DE_PRESUPUESTO ORDER BY CODIGO DESC;");
+            ResultSet Rs = psConsultar.executeQuery();
+
+            while (Rs.next()) {
+                Tipo_de_Presupuesto u = new Tipo_de_Presupuesto();
+                
+                if (Rs.getInt("status") == 1) {
+                    u.setCodigo(""+Rs.getInt("codigo"));
+                    u.setDescripcion(Rs.getString("descripcion"));
+                    u.setTipo(Rs.getString("tipo"));
+                    NumberFormat monto = new DecimalFormat("#############.##");		
+                    String s = monto.format(Rs.getFloat("monto"));                    
+                    u.setMonto(""+FormatoFloat(s));
+                    u.setFecha(""+FormatoFechaDMA(Rs.getString("fecha")));
+                    
+                    Presupuestos.add(u);
+                }
+                
+                
+            }
+
+
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        
+        return Presupuestos;
+
+    }
+
+    public ArrayList<Tipo_de_Presupuesto> consultarDatos_Tipo_de_presupuesto_ordenMonto() {
+
+        ArrayList<Tipo_de_Presupuesto> Presupuestos = new ArrayList<Tipo_de_Presupuesto>();
+        PreparedStatement psConsultar = null;
+        try {
+
+            psConsultar = conexion.prepareStatement("SELECT * FROM TIPO_DE_PRESUPUESTO ORDER BY MONTO DESC;");
+            ResultSet Rs = psConsultar.executeQuery();
+
+            while (Rs.next()) {
+                Tipo_de_Presupuesto u = new Tipo_de_Presupuesto();
+                
+                if (Rs.getInt("status") == 1) {
+                    u.setCodigo(""+Rs.getInt("codigo"));
+                    u.setDescripcion(Rs.getString("descripcion"));
+                    u.setTipo(Rs.getString("tipo"));
+                    NumberFormat monto = new DecimalFormat("#############.##");		
+                    String s = monto.format(Rs.getFloat("monto"));                    
+                    u.setMonto(""+FormatoFloat(s));
+                    u.setFecha(""+FormatoFechaDMA(Rs.getString("fecha")));
+                    
+                    Presupuestos.add(u);
+                }
+                
+                
+            }
+
+
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        
+        return Presupuestos;
+
+    }    
+
+        public ArrayList<Tipo_de_Presupuesto> consultarDatos_Tipo_de_presupuesto_ordenMontoDescendente() {
+
+        ArrayList<Tipo_de_Presupuesto> Presupuestos = new ArrayList<Tipo_de_Presupuesto>();
+        PreparedStatement psConsultar = null;
+        try {
+
+            psConsultar = conexion.prepareStatement("SELECT * FROM TIPO_DE_PRESUPUESTO ORDER BY MONTO;");
+            ResultSet Rs = psConsultar.executeQuery();
+
+            while (Rs.next()) {
+                Tipo_de_Presupuesto u = new Tipo_de_Presupuesto();
+                
+                if (Rs.getInt("status") == 1) {
+                    u.setCodigo(""+Rs.getInt("codigo"));
+                    u.setDescripcion(Rs.getString("descripcion"));
+                    u.setTipo(Rs.getString("tipo"));
+                    NumberFormat monto = new DecimalFormat("#############.##");		
+                    String s = monto.format(Rs.getFloat("monto"));                    
+                    u.setMonto(""+FormatoFloat(s));
+                    u.setFecha(""+FormatoFechaDMA(Rs.getString("fecha")));
+                    
+                    Presupuestos.add(u);
+                }
+                
+                
+            }
+
+
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        
+        return Presupuestos;
+
+    } 
+
+    public ArrayList<Tipo_de_Presupuesto> consultarDatos_Tipo_de_presupuesto_Busqueda
+        (String tipo1, String tipo2, String tipo3, String tipo4, String fmin, String fmax) {
+
+        ArrayList<Tipo_de_Presupuesto> Presupuestos = new ArrayList<Tipo_de_Presupuesto>();
+        PreparedStatement psConsultar = null;
+        try {
+            int j = 0, k=0, min = 0, max = 0;
+            String[] tipos = new String[4];
+            String[] fechas = new String[2];
+            if (!tipo1.equals("null")) {
+                tipos[j] = tipo1;
+                j++;
+            }
+            if (!tipo2.equals("null")) {
+                tipos[j] = tipo2;
+                j++;
+            }
+            if (!tipo3.equals("null")) {
+                tipos[j] = tipo3;
+                j++;
+            }
+            if (!tipo4.equals("null")) {
+                tipos[j] = tipo4;
+                j++;
+            }
+            if (!fmin.equals("")) {
+                fechas[k] = fmin;
+                min = 1;
+                k++;
+            }
+            if (!fmax.equals("")) {
+                fechas[k] = fmax;
+                max = 1;
+                k++;
+            }
+            
+            if (j == 0){
+                if (k==0){
+                    psConsultar = conexion.prepareStatement("SELECT * FROM TIPO_DE_PRESUPUESTO ORDER BY TIPO,FECHA;");
+                }else if (k==1){
+                    //si es 1, kiere decir que la fecha es la min. sino, es la fecha tope.
+                    if (min == 1){
+                        psConsultar = conexion.prepareStatement("SELECT * FROM TIPO_DE_PRESUPUESTO WHERE fecha >= ? ORDER BY FECHA;");                        
+                        psConsultar.setDate(1, StringttoDate(fechas[0]));
+                    }else {
+                        psConsultar = conexion.prepareStatement("SELECT * FROM TIPO_DE_PRESUPUESTO WHERE fecha <= ? ORDER BY FECHA;");                        
+                        psConsultar.setDate(1, StringttoDate(fechas[0]));                        
+                    }
+                }else if (k==2){
+                    psConsultar = conexion.prepareStatement("SELECT * FROM TIPO_DE_PRESUPUESTO WHERE fecha between ? and ? ORDER BY FECHA;");
+                    psConsultar.setDate(1, StringttoDate(fechas[0]));                        
+                    psConsultar.setDate(2, StringttoDate(fechas[1]));                        
+                }
+            }else if (j==1){
+                if (k==0){
+                    psConsultar = conexion.prepareStatement("SELECT * FROM TIPO_DE_PRESUPUESTO where tipo = ? ORDER BY TIPO,fecha;");
+                    psConsultar.setString(1, tipos[0]);
+                }else if (k==1){
+                    //si es 1, kiere decir que la fecha es la min. sino, es la fecha tope.
+                    if (min == 1){
+                        psConsultar = conexion.prepareStatement("SELECT * FROM TIPO_DE_PRESUPUESTO WHERE tipo = ? and fecha >= ? ORDER BY tipo,FECHA;");                        
+                        psConsultar.setString(1, tipos[0]);
+                        psConsultar.setDate(2, StringttoDate(fechas[0]));
+                    }else {
+                        psConsultar = conexion.prepareStatement("SELECT * FROM TIPO_DE_PRESUPUESTO WHERE tipo = ? and fecha <= ? ORDER BY tipo,FECHA;");                        
+                        psConsultar.setString(1, tipos[0]);
+                        psConsultar.setDate(2, StringttoDate(fechas[0]));                        
+                    }
+                }else if (k==2){
+                    psConsultar = conexion.prepareStatement("SELECT * FROM TIPO_DE_PRESUPUESTO WHERE tipo = ? and fecha between ? and ? ORDER BY tipo,FECHA;");
+                    psConsultar.setString(1, tipos[0]);
+                    psConsultar.setDate(2, StringttoDate(fechas[0]));                        
+                    psConsultar.setDate(3, StringttoDate(fechas[1]));                        
+                }
+            
+            }else if (j==2){
+                if (k==0){
+                    psConsultar = conexion.prepareStatement("SELECT * FROM TIPO_DE_PRESUPUESTO where (tipo = ? or tipo = ?) ORDER BY TIPO,FECHA;");
+                    psConsultar.setString(1, tipos[0]);
+                    psConsultar.setString(2, tipos[1]);
+                }else if (k==1){
+                    //si es 1, kiere decir que la fecha es la min. sino, es la fecha tope.
+                    if (min == 1){
+                        psConsultar = conexion.prepareStatement("SELECT * FROM TIPO_DE_PRESUPUESTO WHERE (tipo = ? or tipo = ?) and fecha >= ? ORDER BY tipo,FECHA;");                        
+                        psConsultar.setString(1, tipos[0]);
+                        psConsultar.setString(2, tipos[1]);
+                        psConsultar.setDate(3, StringttoDate(fechas[0]));
+                    }else {
+                        psConsultar = conexion.prepareStatement("SELECT * FROM TIPO_DE_PRESUPUESTO WHERE (tipo = ? or tipo = ?) and fecha <= ? ORDER BY tipo,FECHA;");                        
+                        psConsultar.setString(1, tipos[0]);
+                        psConsultar.setString(2, tipos[1]);
+                        psConsultar.setDate(3, StringttoDate(fechas[0]));                        
+                    }
+                }else if (k==2){
+                    psConsultar = conexion.prepareStatement("SELECT * FROM TIPO_DE_PRESUPUESTO WHERE (tipo = ? or tipo = ?) and fecha between ? and ? ORDER BY tipo,FECHA;");
+                    psConsultar.setString(1, tipos[0]);
+                    psConsultar.setString(2, tipos[1]);
+                    psConsultar.setDate(3, StringttoDate(fechas[0]));                        
+                    psConsultar.setDate(4, StringttoDate(fechas[1]));                        
+                }
+            
+            }else if (j==3){
+                if (k==0){
+                    psConsultar = conexion.prepareStatement("SELECT * FROM TIPO_DE_PRESUPUESTO where (tipo = ? or tipo = ? or tipo = ?) ORDER BY TIPO,FECHA;");
+                    psConsultar.setString(1, tipos[0]);
+                    psConsultar.setString(2, tipos[1]);
+                    psConsultar.setString(3, tipos[2]);
+                }else if (k==1){
+                    //si es 1, kiere decir que la fecha es la min. sino, es la fecha tope.
+                    if (min == 1){
+                        psConsultar = conexion.prepareStatement("SELECT * FROM TIPO_DE_PRESUPUESTO WHERE (tipo = ? or tipo = ? or tipo = ?) and fecha >= ? ORDER BY tipo,FECHA;");                        
+                        psConsultar.setString(1, tipos[0]);
+                        psConsultar.setString(2, tipos[1]);
+                        psConsultar.setString(3, tipos[2]);
+                        psConsultar.setDate(4, StringttoDate(fechas[0]));
+                    }else {
+                        psConsultar = conexion.prepareStatement("SELECT * FROM TIPO_DE_PRESUPUESTO WHERE (tipo = ? or tipo = ? or tipo = ?) and fecha <= ? ORDER BY tipo,FECHA;");                        
+                        psConsultar.setString(1, tipos[0]);
+                        psConsultar.setString(2, tipos[1]);
+                        psConsultar.setString(3, tipos[2]);
+                        psConsultar.setDate(4, StringttoDate(fechas[0]));                        
+                    }
+                }else if (k==2){
+                    psConsultar = conexion.prepareStatement("SELECT * FROM TIPO_DE_PRESUPUESTO WHERE (tipo = ? or tipo = ? or tipo = ?) and fecha between ? and ? ORDER BY tipo,FECHA;");
+                    psConsultar.setString(1, tipos[0]);
+                    psConsultar.setString(2, tipos[1]);
+                    psConsultar.setString(3, tipos[2]);
+                    psConsultar.setDate(4, StringttoDate(fechas[0]));                        
+                    psConsultar.setDate(5, StringttoDate(fechas[1]));                        
+                }
+            }else if (j==4){
+                if (k==0){
+                    psConsultar = conexion.prepareStatement("SELECT * FROM TIPO_DE_PRESUPUESTO where (tipo = ? or tipo = ? or tipo = ? or tipo = ?) ORDER BY TIPO,FECHA;");
+                    psConsultar.setString(1, tipos[0]);
+                    psConsultar.setString(2, tipos[1]);
+                    psConsultar.setString(3, tipos[2]);
+                    psConsultar.setString(4, tipos[3]);
+                }else if (k==1){
+                    //si es 1, kiere decir que la fecha es la min. sino, es la fecha tope.
+                    if (min == 1){
+                        psConsultar = conexion.prepareStatement("SELECT * FROM TIPO_DE_PRESUPUESTO WHERE (tipo = ? or tipo = ? or tipo = ? or tipo = ?) and fecha >= ? ORDER BY tipo,FECHA;");                        
+                        psConsultar.setString(1, tipos[0]);
+                        psConsultar.setString(2, tipos[1]);
+                        psConsultar.setString(3, tipos[2]);
+                        psConsultar.setString(4, tipos[3]);
+                        psConsultar.setDate(5, StringttoDate(fechas[0]));
+                    }else {
+                        psConsultar = conexion.prepareStatement("SELECT * FROM TIPO_DE_PRESUPUESTO WHERE (tipo = ? or tipo = ? or tipo = ? or tipo = ?) and fecha <= ? ORDER BY tipo,FECHA;");                        
+                        psConsultar.setString(1, tipos[0]);
+                        psConsultar.setString(2, tipos[1]);
+                        psConsultar.setString(3, tipos[2]);
+                        psConsultar.setString(4, tipos[3]);
+                        psConsultar.setDate(5, StringttoDate(fechas[0]));                        
+                    }
+                }else if (k==2){
+                    psConsultar = conexion.prepareStatement("SELECT * FROM TIPO_DE_PRESUPUESTO WHERE (tipo = ? or tipo = ? or tipo = ? or tipo = ?) and fecha between ? and ? ORDER BY tipo,FECHA;");
+                    psConsultar.setString(1, tipos[0]);
+                    psConsultar.setString(2, tipos[1]);
+                    psConsultar.setString(3, tipos[2]);
+                    psConsultar.setString(4, tipos[3]);
+                    psConsultar.setDate(5, StringttoDate(fechas[0]));                        
+                    psConsultar.setDate(6, StringttoDate(fechas[1]));                        
+                }
+            }
+            
+           // psConsultar = conexion.prepareStatement("SELECT * FROM TIPO_DE_PRESUPUESTO ORDER BY CODIGO;");
+            ResultSet Rs = psConsultar.executeQuery();
+            Double total = 0.0;
+            while (Rs.next()) {
+                Tipo_de_Presupuesto u = new Tipo_de_Presupuesto();
+                
+               // if (Rs.getInt("status") == 1) {
+                    u.setCodigo(""+Rs.getInt("codigo"));
+                    u.setDescripcion(Rs.getString("descripcion"));
+                    u.setTipo(Rs.getString("tipo"));
+                    System.out.println("monto = "+Rs.getFloat("monto"));
+                    NumberFormat monto = new DecimalFormat("#############.##");		
+                    String s = monto.format(Rs.getFloat("monto"));
+                    
+                    u.setMonto(""+FormatoFloat(s));
+                    //total = total + Double.parseDouble(""+Rs.getFloat("monto"));
+                    //u.setMonto(""+Rs.getFloat("monto"));
+                    u.setFecha(""+FormatoFechaDMA(Rs.getString("fecha")));
+                    if (Rs.getInt("status") == 1){
+                        u.setStatus("Habilitado");
+                        total = total + Double.parseDouble(""+Rs.getFloat("monto"));
+                    }else{
+                        u.setStatus("Desabilitado");
+                    }
+                    
+                    Presupuestos.add(u);
+               // }
+                
+            }        
+                System.out.println("total = "+total);
+                Tipo_de_Presupuesto u = new Tipo_de_Presupuesto();
+                u.setDescripcion("TOTAL monto de Busqueda (Habilitados):");
+                NumberFormat monto = new DecimalFormat("#############.##");		
+                String s = monto.format(total);
+                u.setMonto(""+s);
+                Presupuestos.add(u);
+
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        
+        return Presupuestos;
+
+    }
+        
+        
+        
+    //PRESUPUESTOS
     public String agregarDatos_Presupuesto(Presupuesto u) {
 
         PreparedStatement psAgregar = null;
@@ -316,12 +750,13 @@ public class DBMS {
                             // existente o si se bloquea la accion
                             return "Presupuesto a agregar ya existe";
                         }*/
-                        psAgregar = conexion.prepareStatement("INSERT INTO PRESUPUESTO VALUES (default,?,?,?,?,default,?);");
+                        psAgregar = conexion.prepareStatement("INSERT INTO PRESUPUESTO VALUES (default,?,?,?,?,?,?);");
                         psAgregar.setInt(1, Integer.parseInt(u.getCodigo_TDP()));   
                         psAgregar.setInt(2, Integer.parseInt(u.getCodigo_lab()));
                         psAgregar.setFloat(3, Float.parseFloat(u.getMonto_asignado()));            
                         psAgregar.setInt(4, 1);
-                        psAgregar.setString(5, u.getDescripcion());
+                        psAgregar.setDate(5, StringttoDate(u.getFecha()));
+                        psAgregar.setString(6, u.getDescripcion());
                         System.out.println(psAgregar.toString());
                         Integer i = psAgregar.executeUpdate();
                         if (i>0){
@@ -387,12 +822,13 @@ public class DBMS {
                 Integer i = 1;                
                 while (RsLab.next()) {
                         codigo_lab = RsLab.getInt("codigo_laboratorio");                        
-                        psAgregar = conexion.prepareStatement("INSERT INTO PRESUPUESTO VALUES (default,?,?,?,?,default,?);");
+                        psAgregar = conexion.prepareStatement("INSERT INTO PRESUPUESTO VALUES (default,?,?,?,?,?,?);");
                         psAgregar.setInt(1, codigo_TDP);   
                         psAgregar.setInt(2, codigo_lab);
                         psAgregar.setFloat(3, monto);            
                         psAgregar.setInt(4, 1);
-                        psAgregar.setString(5, u.getDescripcion());
+                        psAgregar.setDate(5, StringttoDate(u.getFecha()));
+                        psAgregar.setString(6, u.getDescripcion());
                         i = psAgregar.executeUpdate();
                         System.out.println(psAgregar.toString());
                 }
@@ -421,7 +857,7 @@ public class DBMS {
         PreparedStatement psConsultar = null;
         try {
 
-            psConsultar = conexion.prepareStatement("SELECT * FROM PRESUPUESTO where codigo_tdp in (select codigo from TIPO_DE_PRESUPUESTO)ORDER BY CODIGO_LABORATORIO;");
+            psConsultar = conexion.prepareStatement("SELECT * FROM PRESUPUESTO where codigo_tdp in (select codigo from TIPO_DE_PRESUPUESTO)ORDER BY CODIGO_LABORATORIO,FECHA;");
             ResultSet Rs = psConsultar.executeQuery();
 
             while (Rs.next()) {
@@ -429,10 +865,15 @@ public class DBMS {
                 if (Rs.getInt("status") == 1){                    
                     u.setCodigo_TDP(""+Rs.getInt("codigo_TDP"));
                     u.setCodigo_lab(""+Rs.getInt("codigo_laboratorio"));
-                    u.setMonto_asignado(""+Rs.getFloat("monto_asignado"));
-                    u.setFecha(""+Rs.getString("fecha"));
+                    NumberFormat monto = new DecimalFormat("#############.##");		
+                    String s = monto.format(Rs.getFloat("monto_asignado"));
+                    
+                    u.setMonto_asignado(""+FormatoFloat(s));
+                    //u.setMonto_asignado(""+Rs.getFloat("monto_asignado"));
+                    u.setFecha(""+FormatoFechaDMA(Rs.getString("fecha")));
                     u.setDescripcion(""+Rs.getString("descripcion"));
                     u.setId(""+Rs.getInt("id"));
+                    u.setNombrelab(NombreLaboratorio(Rs.getInt("codigo_laboratorio")));
                     Presupuestos.add(u);
                 }
             }
@@ -447,13 +888,34 @@ public class DBMS {
     }
 
     
+    public String NombreLaboratorio(int codigo) {
+        
+        PreparedStatement psConsultar = null;
+        try {
+
+            psConsultar = conexion.prepareStatement("select * from laboratorio  where codigo_laboratorio  = ?;");
+            psConsultar.setInt(1, codigo);
+            ResultSet Rs = psConsultar.executeQuery();
+            Rs.next();
+            return Rs.getString("nombre");
+            
+
+
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        
+        return "";
+
+    }
+    
     public ArrayList<Presupuesto> consultarDatosIndividual_Presupuesto(Presupuesto pres) {
 
         ArrayList<Presupuesto> Presupuestos = new ArrayList<Presupuesto>();
         PreparedStatement psConsultar = null;
         try {
 
-            psConsultar = conexion.prepareStatement("SELECT * FROM PRESUPUESTO where codigo_laboratorio = ? and status = 1;");
+            psConsultar = conexion.prepareStatement("SELECT * FROM PRESUPUESTO where codigo_laboratorio = ? and status = 1 ORDER BY FECHA;");
             psConsultar.setInt(1, Integer.parseInt(pres.getCodigo_lab()));
             ResultSet Rs = psConsultar.executeQuery();
 
@@ -462,8 +924,12 @@ public class DBMS {
                 if (Rs.getInt("status") == 1){
                     u.setCodigo_TDP(""+Rs.getInt("codigo_TDP"));
                     u.setCodigo_lab(""+Rs.getInt("codigo_laboratorio"));
-                    u.setMonto_asignado(""+Rs.getFloat("monto_asignado"));
-                    u.setFecha(""+Rs.getString("fecha"));
+                    NumberFormat monto = new DecimalFormat("#############.##");		
+                    String s = monto.format(Rs.getFloat("monto_asignado"));
+                    
+                    u.setMonto_asignado(""+FormatoFloat(s));
+                    //u.setMonto_asignado(""+Rs.getFloat("monto_asignado"));
+                    u.setFecha(""+FormatoFechaDMA(Rs.getString("fecha")));
                     u.setDescripcion(""+Rs.getString("descripcion"));
                     Presupuestos.add(u);
                 }
@@ -517,7 +983,11 @@ public class DBMS {
                 
                     u.setCodigo_lab(""+Rs.getInt("codigo_lab"));
                     u.setNombre(""+Rs.getString("nombre"));
-                    u.setMonto(""+Rs.getFloat("monto"));                    
+                    NumberFormat monto = new DecimalFormat("#############.##");		
+                    String s = monto.format(Rs.getFloat("monto"));
+                    
+                    u.setMonto(""+FormatoFloat(s));
+                    //u.setMonto(""+Rs.getFloat("monto"));                    
                     Laboratorios.add(u);
                 
             }
@@ -531,6 +1001,332 @@ public class DBMS {
 
     }
     
+        public ArrayList<Presupuesto> consultarDatos_Presupuesto_Busqueda
+        (String codigo1, String codigo2, String codigo3, String codigo4, 
+         String codigo5, String codigo6, String codigo7, String codigo8, String fmin, String fmax) {
+
+        ArrayList<Presupuesto> Presupuestos = new ArrayList<Presupuesto>();
+        PreparedStatement psConsultar = null;
+        try {
+            int j = 0, k=0, min = 0, max = 0;
+            String[] codigos = new String[8];
+            String[] fechas = new String[2];
+            if (!codigo1.equals("null")) {
+                codigos[j] = codigo1;
+                j++;
+            }
+            if (!codigo2.equals("null")) {
+                codigos[j] = codigo2;
+                j++;
+            }
+            if (!codigo3.equals("null")) {
+                codigos[j] = codigo3;
+                j++;
+            }
+            if (!codigo4.equals("null")) {
+                codigos[j] = codigo4;
+                j++;
+            }
+            if (!codigo5.equals("null")) {
+                codigos[j] = codigo5;
+                j++;
+            }
+            if (!codigo6.equals("null")) {
+                codigos[j] = codigo6;
+                j++;
+            }
+            if (!codigo7.equals("null")) {
+                codigos[j] = codigo7;
+                j++;
+            }
+            if (!codigo8.equals("null")) {
+                codigos[j] = codigo8;
+                j++;
+            }
+            
+            
+            if (!fmin.equals("")) {
+                fechas[k] = fmin;
+                min = 1;
+                k++;
+            }
+            if (!fmax.equals("")) {
+                fechas[k] = fmax;
+                max = 1;
+                k++;
+            }
+            
+            if (j == 0){
+                if (k == 0){
+                    psConsultar = conexion.prepareStatement("SELECT * FROM PRESUPUESTO ORDER BY CODIGO_LABORATORIO,FECHA;");
+                }else if (k == 1){
+                    if (min == 1){
+                        psConsultar = conexion.prepareStatement("SELECT * FROM PRESUPUESTO where fecha >= ? ORDER BY CODIGO_LABORATORIO,FECHA;");                    
+                    }else{
+                        psConsultar = conexion.prepareStatement("SELECT * FROM PRESUPUESTO where fecha <= ? ORDER BY CODIGO_LABORATORIO,FECHA;");                    
+                    } 
+                    psConsultar.setDate(1, StringttoDate(fechas[0]));
+                }else if (k == 2){
+                    psConsultar = conexion.prepareStatement("SELECT * FROM PRESUPUESTO where fecha between ? and ? ORDER BY CODIGO_LABORATORIO,FECHA;");                    
+                    psConsultar.setDate(1, StringttoDate(fechas[0]));
+                    psConsultar.setDate(2, StringttoDate(fechas[1]));
+                }
+            }else if (j == 1){
+                if (k == 0){
+                    psConsultar = conexion.prepareStatement("SELECT * FROM PRESUPUESTO where codigo_laboratorio = ? ORDER BY CODIGO_LABORATORIO,FECHA;");
+                    
+                }else if (k == 1){
+                    if (min == 1){
+                        psConsultar = conexion.prepareStatement("SELECT * FROM PRESUPUESTO where codigo_laboratorio = ? and fecha >= ? ORDER BY CODIGO_LABORATORIO,FECHA;");                                            
+                    }else{
+                        psConsultar = conexion.prepareStatement("SELECT * FROM PRESUPUESTO where codigo_laboratorio = ? and fecha <= ? ORDER BY CODIGO_LABORATORIO,FECHA;");                                            
+                    }                    
+                    psConsultar.setDate(2, StringttoDate(fechas[0]));
+                }else if (k == 2){
+                    psConsultar = conexion.prepareStatement("SELECT * FROM PRESUPUESTO where codigo_laboratorio = ? and fecha between ? and ? ORDER BY CODIGO_LABORATORIO,FECHA;");                                        
+                    psConsultar.setDate(2, StringttoDate(fechas[0]));
+                    psConsultar.setDate(3, StringttoDate(fechas[1]));
+                }
+                psConsultar.setInt(1, Integer.parseInt(codigos[0]));
+            
+            }else if (j == 2){
+                if (k == 0){
+                    psConsultar = conexion.prepareStatement("SELECT * FROM PRESUPUESTO where (codigo_laboratorio = ? or codigo_laboratorio = ?) ORDER BY CODIGO_LABORATORIO,FECHA;");                    
+                }else if (k == 1){
+                    if (min == 1){
+                        psConsultar = conexion.prepareStatement("SELECT * FROM PRESUPUESTO where (codigo_laboratorio = ? or codigo_laboratorio = ?) and fecha >= ? ORDER BY CODIGO_LABORATORIO,FECHA;");                                            
+                    }else{
+                        psConsultar = conexion.prepareStatement("SELECT * FROM PRESUPUESTO where (codigo_laboratorio = ? or codigo_laboratorio = ?) and fecha <= ? ORDER BY CODIGO_LABORATORIO,FECHA;");                                            
+                    }
+                    psConsultar.setDate(3, StringttoDate(fechas[0]));
+                }else if (k == 2){
+                    psConsultar = conexion.prepareStatement("SELECT * FROM PRESUPUESTO where (codigo_laboratorio = ? or codigo_laboratorio = ?) and fecha between ? and ? ORDER BY CODIGO_LABORATORIO,FECHA;");                    
+                    psConsultar.setDate(3, StringttoDate(fechas[0]));
+                    psConsultar.setDate(4, StringttoDate(fechas[1]));
+                }
+                psConsultar.setInt(1, Integer.parseInt(codigos[0]));
+                psConsultar.setInt(2, Integer.parseInt(codigos[1]));
+            }else if (j == 3){
+                if (k == 0){
+                    psConsultar = conexion.prepareStatement("SELECT * FROM PRESUPUESTO where (codigo_laboratorio = ? or codigo_laboratorio = ? or codigo_laboratorio = ?) ORDER BY CODIGO_LABORATORIO,FECHA;");                    
+                }else if (k == 1){
+                    if (min == 1){
+                        psConsultar = conexion.prepareStatement("SELECT * FROM PRESUPUESTO where (codigo_laboratorio = ? or codigo_laboratorio = ? or codigo_laboratorio = ?) and fecha >= ? ORDER BY CODIGO_LABORATORIO,FECHA;");                                            
+                    }else{
+                        psConsultar = conexion.prepareStatement("SELECT * FROM PRESUPUESTO where (codigo_laboratorio = ? or codigo_laboratorio = ? or codigo_laboratorio = ?) and fecha <= ? ORDER BY CODIGO_LABORATORIO,FECHA;");                                            
+                    }
+                    psConsultar.setDate(4, StringttoDate(fechas[0]));
+                }else if (k == 2){
+                    psConsultar = conexion.prepareStatement("SELECT * FROM PRESUPUESTO where (codigo_laboratorio = ? or codigo_laboratorio = ? or codigo_laboratorio = ?) and fecha between ? and ? ORDER BY CODIGO_LABORATORIO,FECHA;");                    
+                    psConsultar.setDate(4, StringttoDate(fechas[0]));
+                    psConsultar.setDate(5, StringttoDate(fechas[1]));
+                }
+                psConsultar.setInt(1, Integer.parseInt(codigos[0]));
+                psConsultar.setInt(2, Integer.parseInt(codigos[1]));
+                psConsultar.setInt(3, Integer.parseInt(codigos[2]));
+            }else if (j == 4){
+                if (k == 0){
+                    psConsultar = conexion.prepareStatement("SELECT * FROM PRESUPUESTO where (codigo_laboratorio = ? or codigo_laboratorio = ? or codigo_laboratorio = ? or codigo_laboratorio = ?) ORDER BY CODIGO_LABORATORIO,FECHA;");
+                }else if (k == 1){
+                    if (min == 1){
+                        psConsultar = conexion.prepareStatement("SELECT * FROM PRESUPUESTO where (codigo_laboratorio = ? or codigo_laboratorio = ? or codigo_laboratorio = ? or codigo_laboratorio = ?) and fecha >= ? ORDER BY CODIGO_LABORATORIO,FECHA;");                                            
+                    }else{
+                        psConsultar = conexion.prepareStatement("SELECT * FROM PRESUPUESTO where (codigo_laboratorio = ? or codigo_laboratorio = ? or codigo_laboratorio = ? or codigo_laboratorio = ?) and fecha <= ? ORDER BY CODIGO_LABORATORIO,FECHA;");                                            
+                    }
+                    psConsultar.setDate(5, StringttoDate(fechas[0]));
+                }else if (k == 2){
+                    psConsultar = conexion.prepareStatement("SELECT * FROM PRESUPUESTO where (codigo_laboratorio = ? or codigo_laboratorio = ? or codigo_laboratorio = ? or codigo_laboratorio = ?) and fecha between ? and ? ORDER BY CODIGO_LABORATORIO,FECHA;");                    
+                    psConsultar.setDate(5, StringttoDate(fechas[0]));
+                    psConsultar.setDate(6, StringttoDate(fechas[1]));
+                }
+                psConsultar.setInt(1, Integer.parseInt(codigos[0]));
+                psConsultar.setInt(2, Integer.parseInt(codigos[1]));
+                psConsultar.setInt(3, Integer.parseInt(codigos[2]));
+                psConsultar.setInt(4, Integer.parseInt(codigos[3]));
+                
+            
+            }else if (j == 5){
+                if (k == 0){
+                    psConsultar = conexion.prepareStatement("SELECT * FROM PRESUPUESTO where (codigo_laboratorio = ? or codigo_laboratorio = ? or codigo_laboratorio = ? or codigo_laboratorio = ? or codigo_laboratorio = ?) ORDER BY CODIGO_LABORATORIO,FECHA;");                    
+                }else if (k == 1){
+                    if (min == 1){
+                        psConsultar = conexion.prepareStatement("SELECT * FROM PRESUPUESTO where (codigo_laboratorio = ? or codigo_laboratorio = ? or codigo_laboratorio = ? or codigo_laboratorio = ? or codigo_laboratorio = ?) and fecha >= ? ORDER BY CODIGO_LABORATORIO,FECHA;");                                            
+                    }else{
+                        psConsultar = conexion.prepareStatement("SELECT * FROM PRESUPUESTO where (codigo_laboratorio = ? or codigo_laboratorio = ? or codigo_laboratorio = ? or codigo_laboratorio = ? or codigo_laboratorio = ?) and fecha <= ? ORDER BY CODIGO_LABORATORIO,FECHA;");                                            
+                    }
+                    psConsultar.setDate(6, StringttoDate(fechas[0]));
+                }else if (k == 2){
+                    psConsultar = conexion.prepareStatement("SELECT * FROM PRESUPUESTO where (codigo_laboratorio = ? or codigo_laboratorio = ? or codigo_laboratorio = ? or codigo_laboratorio = ? or codigo_laboratorio = ?) and fecha between ? and ? ORDER BY CODIGO_LABORATORIO,FECHA;");                    
+                    psConsultar.setDate(6, StringttoDate(fechas[0]));
+                    psConsultar.setDate(7, StringttoDate(fechas[1]));
+                }
+                psConsultar.setInt(1, Integer.parseInt(codigos[0]));
+                psConsultar.setInt(2, Integer.parseInt(codigos[1]));
+                psConsultar.setInt(3, Integer.parseInt(codigos[2]));
+                psConsultar.setInt(4, Integer.parseInt(codigos[3]));
+                psConsultar.setInt(5, Integer.parseInt(codigos[4]));
+                
+            }else if (j == 6){
+                if (k == 0){
+                    psConsultar = conexion.prepareStatement("SELECT * FROM PRESUPUESTO where (codigo_laboratorio = ? or codigo_laboratorio = ? or codigo_laboratorio = ? or codigo_laboratorio = ? or codigo_laboratorio = ? or codigo_laboratorio = ?) ORDER BY CODIGO_LABORATORIO,FECHA;");                    
+                }else if (k == 1){
+                    if (min == 1){
+                        psConsultar = conexion.prepareStatement("SELECT * FROM PRESUPUESTO where (codigo_laboratorio = ? or codigo_laboratorio = ? or codigo_laboratorio = ? or codigo_laboratorio = ? or codigo_laboratorio = ? or codigo_laboratorio = ?) and fecha >= ? ORDER BY CODIGO_LABORATORIO,FECHA;");                                            
+                    }else{
+                        psConsultar = conexion.prepareStatement("SELECT * FROM PRESUPUESTO where (codigo_laboratorio = ? or codigo_laboratorio = ? or codigo_laboratorio = ? or codigo_laboratorio = ? or codigo_laboratorio = ? or codigo_laboratorio = ?) and fecha <= ? ORDER BY CODIGO_LABORATORIO,FECHA;");                                            
+                    }
+                    psConsultar.setDate(7, StringttoDate(fechas[0]));
+                }else if (k == 2){
+                    psConsultar = conexion.prepareStatement("SELECT * FROM PRESUPUESTO where (codigo_laboratorio = ? or codigo_laboratorio = ? or codigo_laboratorio = ? or codigo_laboratorio = ? or codigo_laboratorio = ? or codigo_laboratorio = ?) and fecha between ? and ? ORDER BY CODIGO_LABORATORIO,FECHA;");                    
+                    psConsultar.setDate(7, StringttoDate(fechas[0]));
+                    psConsultar.setDate(8, StringttoDate(fechas[1]));
+                }
+                psConsultar.setInt(1, Integer.parseInt(codigos[0]));
+                psConsultar.setInt(2, Integer.parseInt(codigos[1]));
+                psConsultar.setInt(3, Integer.parseInt(codigos[2]));
+                psConsultar.setInt(4, Integer.parseInt(codigos[3]));
+                psConsultar.setInt(5, Integer.parseInt(codigos[4]));
+                psConsultar.setInt(6, Integer.parseInt(codigos[5]));
+                
+            }else if (j == 7){
+                if (k == 0){
+                    psConsultar = conexion.prepareStatement("SELECT * FROM PRESUPUESTO where (codigo_laboratorio = ? or codigo_laboratorio = ? or codigo_laboratorio = ? or codigo_laboratorio = ? or codigo_laboratorio = ? or codigo_laboratorio = ? or codigo_laboratorio = ?) ORDER BY CODIGO_LABORATORIO,FECHA;");                    
+                }else if (k == 1){
+                    if (min == 1){
+                        psConsultar = conexion.prepareStatement("SELECT * FROM PRESUPUESTO where (codigo_laboratorio = ? or codigo_laboratorio = ? or codigo_laboratorio = ? or codigo_laboratorio = ? or codigo_laboratorio = ? or codigo_laboratorio = ? or codigo_laboratorio = ?) and fecha >= ? ORDER BY CODIGO_LABORATORIO,FECHA;");                                            
+                    }else{
+                        psConsultar = conexion.prepareStatement("SELECT * FROM PRESUPUESTO where (codigo_laboratorio = ? or codigo_laboratorio = ? or codigo_laboratorio = ? or codigo_laboratorio = ? or codigo_laboratorio = ? or codigo_laboratorio = ? or codigo_laboratorio = ?) and fecha <= ? ORDER BY CODIGO_LABORATORIO,FECHA;");                                            
+                    }
+                    psConsultar.setDate(8, StringttoDate(fechas[0]));
+                }else if (k == 2){
+                    psConsultar = conexion.prepareStatement("SELECT * FROM PRESUPUESTO where (codigo_laboratorio = ? or codigo_laboratorio = ? or codigo_laboratorio = ? or codigo_laboratorio = ? or codigo_laboratorio = ? or codigo_laboratorio = ? or codigo_laboratorio = ?) and fecha between ? and ? ORDER BY CODIGO_LABORATORIO,FECHA;");                    
+                    psConsultar.setDate(8, StringttoDate(fechas[0]));
+                    psConsultar.setDate(9, StringttoDate(fechas[1]));
+                }
+                psConsultar.setInt(1, Integer.parseInt(codigos[0]));
+                psConsultar.setInt(2, Integer.parseInt(codigos[1]));
+                psConsultar.setInt(3, Integer.parseInt(codigos[2]));
+                psConsultar.setInt(4, Integer.parseInt(codigos[3]));
+                psConsultar.setInt(5, Integer.parseInt(codigos[4]));
+                psConsultar.setInt(6, Integer.parseInt(codigos[5]));
+                psConsultar.setInt(7, Integer.parseInt(codigos[6]));
+                
+            }else if (j == 8){
+                if (k == 0){
+                    psConsultar = conexion.prepareStatement("SELECT * FROM PRESUPUESTO where ORDER BY CODIGO_LABORATORIO,FECHA;");                    
+                }else if (k == 1){
+                    if (min == 1){
+                        psConsultar = conexion.prepareStatement("SELECT * FROM PRESUPUESTO where fecha >= ? ORDER BY CODIGO_LABORATORIO,FECHA;");                                            
+                    }else{
+                        psConsultar = conexion.prepareStatement("SELECT * FROM PRESUPUESTO where fecha <= ? ORDER BY CODIGO_LABORATORIO,FECHA;");                                            
+                    }
+                    psConsultar.setDate(1, StringttoDate(fechas[0]));
+                }else if (k == 2){
+                    psConsultar = conexion.prepareStatement("SELECT * FROM PRESUPUESTO where fecha between ? and ? ORDER BY CODIGO_LABORATORIO,FECHA;");                    
+                    psConsultar.setDate(1, StringttoDate(fechas[0]));
+                    psConsultar.setDate(2, StringttoDate(fechas[1]));
+                }
+                
+            }
+          
+                
+            
+            //psConsultar = conexion.prepareStatement("SELECT * FROM PRESUPUESTO ORDER BY CODIGO_LABORATORIO;");
+            ResultSet Rs = psConsultar.executeQuery();
+
+            while (Rs.next()) {
+                Presupuesto u = new Presupuesto();
+                //if (Rs.getInt("status") == 1){                    
+                    u.setCodigo_TDP(""+Rs.getInt("codigo_TDP"));
+                    u.setCodigo_lab(""+Rs.getInt("codigo_laboratorio"));
+                    NumberFormat monto = new DecimalFormat("#############.##");		
+                    String s = monto.format(Rs.getFloat("monto_asignado"));
+                    
+                    u.setMonto_asignado(""+FormatoFloat(s));
+                    //u.setMonto_asignado(""+Rs.getFloat("monto_asignado"));
+                    u.setFecha(""+FormatoFechaDMA(Rs.getString("fecha")));
+                    u.setDescripcion(""+Rs.getString("descripcion"));
+                    u.setId(""+Rs.getInt("id"));
+                    if (Rs.getInt("status") == 1){
+                        u.setStatus("Habilitado");
+                        //total = total + Double.parseDouble(""+Rs.getFloat("monto"));
+                    }else{
+                        u.setStatus("Desabilitado");
+                    }
+                    Presupuestos.add(u);
+                //}
+            }
+                
+            return Presupuestos;    
+
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            
+        }
+        return Presupuestos;
+        
+    }
+
+    
+        public Presupuesto seleccionarDatos_Presupuesto(int codigo){
+        PreparedStatement psConsultar = null;
+        try {
+            
+            psConsultar = conexion.prepareStatement("SELECT * FROM PRESUPUESTO WHERE id = ? and status = 1;");
+            psConsultar.setInt(1, codigo);
+            
+            System.out.println(psConsultar.toString());
+            
+            ResultSet Rs = psConsultar.executeQuery();
+            Rs.next();
+            
+            Presupuesto pre = new Presupuesto();
+            pre.setCodigo_TDP(""+Rs.getInt("codigo_tdp"));
+            pre.setCodigo_lab(Rs.getString("codigo_laboratorio"));
+            pre.setDescripcion(Rs.getString("descripcion"));          
+            NumberFormat monto = new DecimalFormat("#############.##");		
+            String s = monto.format(Rs.getFloat("monto_asignado"));
+            pre.setMonto_asignado(""+FormatoFloat(s));                        
+            pre.setFecha(""+FormatoFechaDMA(Rs.getString("fecha")));
+            pre.setId(Rs.getString("id"));
+            
+            
+            return pre;
+
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            return null;
+        }
+        
+  
+    }
+    
+public boolean ModificarDatos_Presupuesto(Presupuesto u) {
+        PreparedStatement psConsultar = null;
+        try {
+            
+            psConsultar = conexion.prepareStatement("UPDATE PRESUPUESTO SET codigo_tdp = ?, codigo_laboratorio = ?, descripcion=?, monto_asignado=?, fecha=? where id = ?;");
+            
+            psConsultar.setInt(1, Integer.parseInt(u.getCodigo_TDP()));
+            psConsultar.setInt(2, Integer.parseInt(u.getCodigo_lab()));
+            psConsultar.setString(3, u.getDescripcion());
+            psConsultar.setFloat(4, Float.parseFloat(u.getMonto_asignado()));                                                
+            psConsultar.setDate(5, StringttoDate(u.getFecha()));
+            psConsultar.setInt(6, Integer.parseInt(u.getId()));
+                        
+            System.out.println(psConsultar.toString());
+
+            Integer i = psConsultar.executeUpdate();
+
+            return i > 0;
+
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            return false;
+        }
+    }        
+        
+        
     // LISTADO DE LABORATORIOS
     public ArrayList<Laboratorio> consultarDatos_Laboratorio() {
 

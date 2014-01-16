@@ -51,25 +51,35 @@ public class asignado_equitativo extends org.apache.struts.action.Action {
         ActionErrors error = new ActionErrors();
         error = u.validate(mapping, request);
         boolean huboError = false;
-        String msg_codigo_TDP = "";
+        String msg_codigo_TDP = "",msg_fecha="";
                 
         msg_codigo_TDP = u.ValidarCampoCodigoTDP(); 
 
+        msg_fecha = request.getParameter("datepicker");               
+        //System.out.println("fechaaa: "+request.getParameter("datepicker"));
+        
+        if ((msg_fecha.equals("null")) || (msg_fecha.equals(""))){
+            error.add("fecha", new ActionMessage("error.fecha.required"));
+            huboError = true;
+        }
         if (!msg_codigo_TDP.equals("ok")){
             huboError = true;
         }
   
         if (huboError) {
             u.resetearVariables();
-            if (msg_codigo_TDP.equals("Codigo errado, indique un Numero")){
-                error.add("codigo", new ActionMessage("error.codigo.numero"));
-            }else{
-                error.add("codigo", new ActionMessage("error.codigo.mayorquecero"));
+            if (!msg_codigo_TDP.equals("ok")){
+                if (msg_codigo_TDP.equals("Codigo errado, indique un Numero")){
+                    error.add("codigo", new ActionMessage("error.codigo.numero"));
+                }else{
+                    error.add("codigo", new ActionMessage("error.codigo.mayorquecero"));
+                }
             }
             saveErrors(request, error);            
             return mapping.findForward(FAILURE);
             //si los campos son validos
         } else {
+            u.setFecha(msg_fecha);
             String msg_status = DBMS.getInstance().agregarDatosEquitativo_Presupuesto(u);
             u.resetearVariables();
             if (msg_status.equals("ok")) {
@@ -91,6 +101,7 @@ public class asignado_equitativo extends org.apache.struts.action.Action {
                 ArrayList<Presupuesto> Presupuestos = DBMS.getInstance().consultarDatos_Presupuesto();
                 session.setAttribute(("presupuesto"), Presupuestos);
                 request.setAttribute("agregado_equitativo_exitoso",SUCCESS);
+                session.setAttribute(("busqueda"), null);
                 return mapping.findForward(SUCCESS);
             } 
             return mapping.findForward(FAILURE);
