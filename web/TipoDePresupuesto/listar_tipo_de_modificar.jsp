@@ -57,6 +57,11 @@
         </script>        
     </head>
     <body>
+        <logic:present name="modificacion_fallida">
+            <div align="center" class="alert alert-danger" id="alert">
+                Modificación de Tipo de Presupuesto Fallida, intente de nuevo.
+            </div>
+        </logic:present>
         <h2>Introduzca los datos del presupuesto a modificar:</h2>
         <html:form action="/form_parametros_nuevos_TDP">            
             <div id="welcome">
@@ -74,11 +79,7 @@
                                 
                             </td>
                         </tr>               
-                        <tr>                           
-                            <td style="color: red">
-                                <html:errors property="tipo" /> 
-                            </td>
-                        </tr>                        
+                                                
                             <td>
                                 <div>
                                     <b><font size="2" >Tipo Actual:</font></b><br />                                    
@@ -137,7 +138,12 @@
                                 <html:text name="datosPres" property="monto" />
                             </td>
                         </tr>
-                                                
+                        
+                        <tr>
+                            <td style="color: red">
+                                <html:errors property="monto" /> 
+                            </td>
+                        </tr>                        
                         
                         <tr>
                              <td>
@@ -160,7 +166,7 @@
                         </tr>
                         <tr>
                             <td style="color: red">
-                                <html:errors property="dia" /> 
+                                <html:errors property="fecha" /> 
                             </td>
                         </tr>
                         
@@ -183,3 +189,4 @@
         </html:link>
     </body>
 </html>
+

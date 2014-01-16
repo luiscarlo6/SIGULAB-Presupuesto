@@ -2,6 +2,7 @@
     Document   : modificar
     Created on : 29-nov-2013, 9:03:10
     Author     : juanpe
+á 
 --%>
 
 <% Object codOri = request.getAttribute("codigo");%>
@@ -53,10 +54,14 @@
                minDate: new Date(2014, 0, 1),
                buttonImage: 'imagenes/calendario.png'  });
         }); 
-        </script>             
+        </script>        
     </head>
     <body>
-        
+        <logic:present name="modificacion_fallida">
+            <div align="center" class="alert alert-danger" id="alert">
+                Modificación de Tipo de Presupuesto Fallida, intente de nuevo.
+            </div>
+        </logic:present>
         <h2>Introduzca los datos del presupuesto a modificar:</h2>
         <html:form action="/form_parametros_nuevos_TDP_tipo">            
             <div id="welcome">
@@ -74,11 +79,7 @@
                                 
                             </td>
                         </tr>               
-                        <tr>                           
-                            <td style="color: red">
-                                <html:errors property="tipo" /> 
-                            </td>
-                        </tr>                        
+                                                
                             <td>
                                 <div>
                                     <b><font size="2" >Tipo Actual:</font></b><br />                                    
@@ -92,7 +93,7 @@
                                 <div>
                                         <b><font size="2" >Seleccione Tipo Nuevo:</font></b><br />
                                 
-                                <html:select name="datosPres" property="tipo">                                    
+                                <html:select name="datosPres" property="tipo">
                                     <option value=""></option>
                                     <option value="Donacion">Donación</option>
                                     <option value="FONACIT">FONACIT</option>
@@ -123,6 +124,7 @@
                             </td>
                         </tr>
                         
+                        
                         <tr>
                         <td style="color: red">
                         <b><font size="2" color="black" >Monto:</font></b>
@@ -136,13 +138,18 @@
                                 <html:text name="datosPres" property="monto" />
                             </td>
                         </tr>
-                                                
+                        
+                        <tr>
+                            <td style="color: red">
+                                <html:errors property="monto" /> 
+                            </td>
+                        </tr>                        
                         
                         <tr>
                              <td>
                              <b><font size="2" >Fecha Actual:</font></b><br />                             
                              <font size="2" style="color: blue">
-                             <bean:write name="datosPres" property="fecha"/>
+                                <bean:write name="datosPres" property="fecha"/>
                              </font>
                              </td>
                         </tr>
@@ -157,7 +164,11 @@
                                 <input type="text" property="fecha" name="datepicker" id="datepicker" readonly="readonly" size="12"/>                                
                             </td>
                         </tr>
-                        
+                        <tr>
+                            <td style="color: red">
+                                <html:errors property="fecha" /> 
+                            </td>
+                        </tr>
                         
                     <td>
                         <html:submit onclick="javascript: return confirm('¿Está seguro de sus modificaciones?')">

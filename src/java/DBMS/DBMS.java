@@ -115,21 +115,31 @@ public class DBMS {
 	  return ""+Dia+"-"+Mes+"-"+Anio;	  
     }
     
-    public static String FormatoFloat(String monto)  {
+     public static String FormatoFloat(String monto)  {
         
 	  StringTokenizer st = new StringTokenizer(monto,","); 
 	  //con esto creas el tokenizer y le pasas la cadena como parametro
 	  int i = 1;
 	  String salida = monto;
+	  String primero = "", segundo="no";
 	  while(st.hasMoreTokens()) { //este ciclo es para comprobar cuando se acaba de procesar tu cadena
 	      String palabra = st.nextToken();
 	      if (i == 1){
-		salida = palabra+".";
+		primero = ""+palabra;
 	      }else{
-		salida = salida +""+ palabra;
+		segundo = ""+palabra;
 	      }
+	      System.out.println("dentro del while i = " +i);
 	      i++;	      
 	  } 
+	  if (segundo.equals("no")){
+	    salida = primero+".00";
+	  }else{
+	    salida = primero + "." +segundo;
+	    if (segundo.length() == 1) {
+	      salida = salida + "0";
+	    }
+	  }
 	  
 	  return salida;	  
       }
@@ -202,14 +212,14 @@ public class DBMS {
             
             ResultSet Rs = psConsultar.executeQuery();
             Rs.next();
-            
+            //FormatoFloat();
             Tipo_de_Presupuesto pre = new Tipo_de_Presupuesto();
             pre.setCodigo(""+Rs.getInt("codigo"));
             pre.setDescripcion(Rs.getString("descripcion"));
             pre.setTipo(Rs.getString("tipo"));
             NumberFormat monto = new DecimalFormat("#############.##");		
             String s = monto.format(Rs.getFloat("monto"));
-            pre.setMonto(""+s);                        
+            pre.setMonto(""+FormatoFloat(s));                        
             pre.setFecha(""+FormatoFechaDMA(Rs.getString("fecha")));
             
             
@@ -295,7 +305,7 @@ public class DBMS {
                     u.setTipo(Rs.getString("tipo"));
                     NumberFormat monto = new DecimalFormat("#############.##");		
                     String s = monto.format(Rs.getFloat("monto"));
-                    u.setMonto(""+s);
+                    u.setMonto(""+FormatoFloat(s));
                     //u.setMonto(""+Rs.getFloat("monto"));
                     u.setFecha(""+FormatoFechaDMA(Rs.getString("fecha")));
                     Presupuestos.add(u);
@@ -332,7 +342,7 @@ public class DBMS {
                     u.setTipo(Rs.getString("tipo"));
                     NumberFormat monto = new DecimalFormat("#############.##");		
                     String s = monto.format(Rs.getFloat("monto"));                    
-                    u.setMonto(""+s);
+                    u.setMonto(""+FormatoFloat(s));
                     u.setFecha(""+FormatoFechaDMA(Rs.getString("fecha")));
                     
                     Presupuestos.add(u);
@@ -368,7 +378,7 @@ public class DBMS {
                     u.setTipo(Rs.getString("tipo"));
                     NumberFormat monto = new DecimalFormat("#############.##");		
                     String s = monto.format(Rs.getFloat("monto"));                    
-                    u.setMonto(""+s);
+                    u.setMonto(""+FormatoFloat(s));
                     u.setFecha(""+FormatoFechaDMA(Rs.getString("fecha")));
                     
                     Presupuestos.add(u);
@@ -404,7 +414,7 @@ public class DBMS {
                     u.setTipo(Rs.getString("tipo"));
                     NumberFormat monto = new DecimalFormat("#############.##");		
                     String s = monto.format(Rs.getFloat("monto"));                    
-                    u.setMonto(""+s);
+                    u.setMonto(""+FormatoFloat(s));
                     u.setFecha(""+FormatoFechaDMA(Rs.getString("fecha")));
                     
                     Presupuestos.add(u);
@@ -440,7 +450,7 @@ public class DBMS {
                     u.setTipo(Rs.getString("tipo"));
                     NumberFormat monto = new DecimalFormat("#############.##");		
                     String s = monto.format(Rs.getFloat("monto"));                    
-                    u.setMonto(""+s);
+                    u.setMonto(""+FormatoFloat(s));
                     u.setFecha(""+FormatoFechaDMA(Rs.getString("fecha")));
                     
                     Presupuestos.add(u);
@@ -476,7 +486,7 @@ public class DBMS {
                     u.setTipo(Rs.getString("tipo"));
                     NumberFormat monto = new DecimalFormat("#############.##");		
                     String s = monto.format(Rs.getFloat("monto"));                    
-                    u.setMonto(""+s);
+                    u.setMonto(""+FormatoFloat(s));
                     u.setFecha(""+FormatoFechaDMA(Rs.getString("fecha")));
                     
                     Presupuestos.add(u);
@@ -673,7 +683,7 @@ public class DBMS {
                     NumberFormat monto = new DecimalFormat("#############.##");		
                     String s = monto.format(Rs.getFloat("monto"));
                     
-                    u.setMonto(""+s);
+                    u.setMonto(""+FormatoFloat(s));
                     //total = total + Double.parseDouble(""+Rs.getFloat("monto"));
                     //u.setMonto(""+Rs.getFloat("monto"));
                     u.setFecha(""+FormatoFechaDMA(Rs.getString("fecha")));
@@ -858,11 +868,12 @@ public class DBMS {
                     NumberFormat monto = new DecimalFormat("#############.##");		
                     String s = monto.format(Rs.getFloat("monto_asignado"));
                     
-                    u.setMonto_asignado(""+s);
+                    u.setMonto_asignado(""+FormatoFloat(s));
                     //u.setMonto_asignado(""+Rs.getFloat("monto_asignado"));
                     u.setFecha(""+FormatoFechaDMA(Rs.getString("fecha")));
                     u.setDescripcion(""+Rs.getString("descripcion"));
                     u.setId(""+Rs.getInt("id"));
+                    u.setNombrelab(NombreLaboratorio(Rs.getInt("codigo_laboratorio")));
                     Presupuestos.add(u);
                 }
             }
@@ -876,6 +887,27 @@ public class DBMS {
 
     }
 
+    
+    public String NombreLaboratorio(int codigo) {
+        
+        PreparedStatement psConsultar = null;
+        try {
+
+            psConsultar = conexion.prepareStatement("select * from laboratorio  where codigo_laboratorio  = ?;");
+            psConsultar.setInt(1, codigo);
+            ResultSet Rs = psConsultar.executeQuery();
+            Rs.next();
+            return Rs.getString("nombre");
+            
+
+
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        
+        return "";
+
+    }
     
     public ArrayList<Presupuesto> consultarDatosIndividual_Presupuesto(Presupuesto pres) {
 
@@ -895,7 +927,7 @@ public class DBMS {
                     NumberFormat monto = new DecimalFormat("#############.##");		
                     String s = monto.format(Rs.getFloat("monto_asignado"));
                     
-                    u.setMonto_asignado(""+s);
+                    u.setMonto_asignado(""+FormatoFloat(s));
                     //u.setMonto_asignado(""+Rs.getFloat("monto_asignado"));
                     u.setFecha(""+FormatoFechaDMA(Rs.getString("fecha")));
                     u.setDescripcion(""+Rs.getString("descripcion"));
@@ -954,7 +986,7 @@ public class DBMS {
                     NumberFormat monto = new DecimalFormat("#############.##");		
                     String s = monto.format(Rs.getFloat("monto"));
                     
-                    u.setMonto(""+s);
+                    u.setMonto(""+FormatoFloat(s));
                     //u.setMonto(""+Rs.getFloat("monto"));                    
                     Laboratorios.add(u);
                 
@@ -1210,7 +1242,7 @@ public class DBMS {
                     NumberFormat monto = new DecimalFormat("#############.##");		
                     String s = monto.format(Rs.getFloat("monto_asignado"));
                     
-                    u.setMonto_asignado(""+s);
+                    u.setMonto_asignado(""+FormatoFloat(s));
                     //u.setMonto_asignado(""+Rs.getFloat("monto_asignado"));
                     u.setFecha(""+FormatoFechaDMA(Rs.getString("fecha")));
                     u.setDescripcion(""+Rs.getString("descripcion"));
@@ -1236,7 +1268,65 @@ public class DBMS {
     }
 
     
+        public Presupuesto seleccionarDatos_Presupuesto(int codigo){
+        PreparedStatement psConsultar = null;
+        try {
+            
+            psConsultar = conexion.prepareStatement("SELECT * FROM PRESUPUESTO WHERE id = ? and status = 1;");
+            psConsultar.setInt(1, codigo);
+            
+            System.out.println(psConsultar.toString());
+            
+            ResultSet Rs = psConsultar.executeQuery();
+            Rs.next();
+            
+            Presupuesto pre = new Presupuesto();
+            pre.setCodigo_TDP(""+Rs.getInt("codigo_tdp"));
+            pre.setCodigo_lab(Rs.getString("codigo_laboratorio"));
+            pre.setDescripcion(Rs.getString("descripcion"));          
+            NumberFormat monto = new DecimalFormat("#############.##");		
+            String s = monto.format(Rs.getFloat("monto_asignado"));
+            pre.setMonto_asignado(""+FormatoFloat(s));                        
+            pre.setFecha(""+FormatoFechaDMA(Rs.getString("fecha")));
+            pre.setId(Rs.getString("id"));
+            
+            
+            return pre;
+
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            return null;
+        }
+        
+  
+    }
     
+public boolean ModificarDatos_Presupuesto(Presupuesto u) {
+        PreparedStatement psConsultar = null;
+        try {
+            
+            psConsultar = conexion.prepareStatement("UPDATE PRESUPUESTO SET codigo_tdp = ?, codigo_laboratorio = ?, descripcion=?, monto_asignado=?, fecha=? where id = ?;");
+            
+            psConsultar.setInt(1, Integer.parseInt(u.getCodigo_TDP()));
+            psConsultar.setInt(2, Integer.parseInt(u.getCodigo_lab()));
+            psConsultar.setString(3, u.getDescripcion());
+            psConsultar.setFloat(4, Float.parseFloat(u.getMonto_asignado()));                                                
+            psConsultar.setDate(5, StringttoDate(u.getFecha()));
+            psConsultar.setInt(6, Integer.parseInt(u.getId()));
+                        
+            System.out.println(psConsultar.toString());
+
+            Integer i = psConsultar.executeUpdate();
+
+            return i > 0;
+
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            return false;
+        }
+    }        
+        
+        
     // LISTADO DE LABORATORIOS
     public ArrayList<Laboratorio> consultarDatos_Laboratorio() {
 

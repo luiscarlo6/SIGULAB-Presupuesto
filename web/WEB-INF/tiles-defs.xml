@@ -170,7 +170,9 @@
         <put name="body" value="/Presupuesto/buscar_presupuesto.jsp"/>
     </definition>
     
-    
+    <definition name="nuevosDatosDePresupuesto" extends="baseAdminPresupuesto"> <!-- Asignacion de los Presupuestos Equitativamente -->
+        <put name="body" value="/Presupuesto/listar_modificar_presupuesto.jsp"/>
+    </definition>
     
     <!--Para consulta de los tipos de laboratorios existentes-->
     <definition name="consultarLaboratorio" extends="baseAdmin"> <!-- Consulta de los laboratorios existentes -->

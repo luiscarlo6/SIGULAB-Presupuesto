@@ -53,7 +53,7 @@
     <thead>
         <tr>
             <th width="50px" align="center">
-                <b><font size="2" >Código de Laboratorio</font></b>                
+                <b><font size="2" >Laboratorio</font></b>                
             </th>
             <th width="50px" align="center">
                 <b><font size="2" >Código de Tipo de Presupuesto</font></b>
@@ -70,13 +70,16 @@
             <th width="20px" align="center">
                 <b><font size="2" >Desactivación</font></b>                                
             </th>                        
+            <th width="20px" align="center">
+                <b><font size="2" >Modificación</font></b>                                
+            </th>
         </tr>
     </thead>
     <div float:left>
         <logic:iterate name="presupuesto" id="PresupuestoAsignado">
             <tr>
                 <td width="50px" align="center">
-                    <font size="2" ><bean:write name="PresupuestoAsignado" property="codigo_lab"/></font>
+                    <font size="2" ><bean:write name="PresupuestoAsignado" property="nombrelab"/></font>
                 </td>
                 <td width="50px" align="center">
                     <font size="2" ><bean:write name="PresupuestoAsignado" property="codigo_TDP"/></font>
@@ -104,7 +107,19 @@
                                </center>
                         </html:form>                   
                     </font>
-                </td>             
+                </td>
+                <td width="20px" align="center">   
+                    <font size="2">
+                        <html:form action="/modificar_presupuesto" onsubmit="return(this)" style="margin: 0px;">
+                               <html:hidden name="PresupuestoAsignado" property="id" />
+                               <center>
+                               <html:submit style="margin: 5px; padding: 3px; padding-left: 5px; padding-right: 5px;">
+                                    Modificar
+                               </html:submit>
+                               </center>
+                        </html:form>                    
+                    </font>
+                </td>
             </tr>                       
                 
         </logic:iterate>
