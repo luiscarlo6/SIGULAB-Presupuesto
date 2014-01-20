@@ -79,7 +79,7 @@
                 <b><font size="2" >Descripción</font></b>                                                
             </th>
             <th width="80px" align="center">
-                <b><font size="2" >Monto<br />(por asignar)</font></b>                               
+                <b><font size="2" >Monto (BsF.)<br />(por asignar)</font></b>                               
             </th>
             <th width="100px" align="center">
                 <b><font size="2" >Fecha</font></b>                                

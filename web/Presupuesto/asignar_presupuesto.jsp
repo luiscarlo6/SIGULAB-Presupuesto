@@ -97,11 +97,14 @@
                 <b><font size="2" >Descripción</font></b>                                                
             </th>
             <th width="80px" align="center">
-                <b><font size="2" >Monto<br />(por asignar)</font></b>                               
+                <b><font size="2" >Monto (BsF.)<br />(por asignar)</font></b>                               
             </th>
             <th width="100px" align="center">
                 <b><font size="2" >Fecha</font></b>                                
-            </th>           
+            </th>
+            <th width="100px" align="center">
+                <b><font size="2" >Estado</font></b>                                
+            </th>
             
         </tr>
         </thead>
@@ -122,6 +125,9 @@
                 </td>
                 <td width="80px" align="center">
                     <font size="2" ><bean:write name="Presupuesto" property="fecha"/></font>
+                </td>
+                <td width="80px" align="center">
+                    <font size="2" ><bean:write name="Presupuesto" property="status"/></font>
                 </td>
                 
                 
@@ -226,11 +232,22 @@
                             <td><font size="2" >* Código de Tipo de Presupuesto: </font><button type="button" href="javascript:void(0);" onclick="SINO('demo1')">Buscar Codigo</button></td>
                             <tr>
                                 <td>
+                                    
+                                    
                                     <html:select name = "PresupuestoAsignado" property="codigo_TDP">
                                         <html:options collection="busqueda" property="value" labelProperty="label" />
                                     </html:select>
+                                    
                                 </td>
-                            </tr>               
+                                
+                            </tr>
+                            <tr>
+                                <td>
+                                    <b><font size="2">Selección de habilitados</font></b>
+                                </td>
+                                
+                            </tr>
+                            
                             <tr>
                                 <td style="color: red">
                                     <html:errors property="codigo" /> 
@@ -262,7 +279,7 @@
                         </tr>
                         
                         <tr>
-                            <td><font size="2" >* Monto Asignado:</font></td>
+                            <td><font size="2" >* Monto (BsF.):</font></td>
                         </tr>
                         <tr>
                             <td>

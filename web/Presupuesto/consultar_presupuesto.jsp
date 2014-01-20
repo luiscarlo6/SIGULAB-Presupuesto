@@ -58,8 +58,8 @@
             <th width="50px" align="center">
                 <b><font size="2" >Código de Tipo de Presupuesto</font></b>
             </th>            
-            <th width="70px" align="center">
-                <b><font size="2" >Monto Asignado</font></b>                               
+            <th width="50px" align="center">
+                <b><font size="2" >Monto Disponible (BsF.)</font></b>                               
             </th>
             <th width="40px" align="center">
                 <b><font size="2" >Observaciones</font></b>                                
@@ -67,10 +67,10 @@
             <th width="70px" align="center">
                 <b><font size="2" >Fecha</font></b>                                
             </th>
-            <th width="20px" align="center">
+            <th width="10px" align="center">
                 <b><font size="2" >Desactivación</font></b>                                
             </th>                        
-            <th width="20px" align="center">
+            <th width="10px" align="center">
                 <b><font size="2" >Modificación</font></b>                                
             </th>
         </tr>
@@ -84,7 +84,7 @@
                 <td width="50px" align="center">
                     <font size="2" ><bean:write name="PresupuestoAsignado" property="codigo_TDP"/></font>
                 </td>                
-                <td width="70px" align="center">
+                <td width="50px" align="center">
                     <font size="2" ><bean:write name="PresupuestoAsignado" property="monto_asignado"/></font>
                 </td>
                 <td width="40px" align="center">
@@ -93,7 +93,7 @@
                 <td width="70px" align="center">
                     <font size="2" ><bean:write name="PresupuestoAsignado" property="fecha"/></font> 
                 </td>  
-                <td width="20px" align="center">   
+                <td width="10px" align="center">   
                     <font size="2" >
                         <html:form action="/cambiar_status_presupuesto" onsubmit="return(this)" style="margin: 0px;">
                                <html:hidden name="PresupuestoAsignado" property="codigo_TDP" />
@@ -108,7 +108,7 @@
                         </html:form>                   
                     </font>
                 </td>
-                <td width="20px" align="center">   
+                <td width="10px" align="center">   
                     <font size="2">
                         <html:form action="/modificar_presupuesto" onsubmit="return(this)" style="margin: 0px;">
                                <html:hidden name="PresupuestoAsignado" property="id" />

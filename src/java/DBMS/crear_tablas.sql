@@ -101,3 +101,16 @@ insert into laboratorio values(01050309, 'Laboratorio G', 'Apoyo Interdiciplinar
 insert into usuario values('visit','123456');
 insert into usuario values('admin','123456');
 insert into usuario values('juanpe','123456');
+
+
+/*
+select nombre,monto from laboratorio
+where exists
+(select p.codigo_laboratorio, SUM(p.monto_asignado) monto 
+from presupuesto p
+where p.status = 1
+group by p.codigo_laboratorio 
+order by p.codigo_laboratorio
+HAVE sum = 0);
+
+*/

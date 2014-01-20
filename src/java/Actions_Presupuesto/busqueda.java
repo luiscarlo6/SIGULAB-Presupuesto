@@ -89,7 +89,9 @@ public class busqueda extends org.apache.struts.action.Action {
         
             ArrayList<org.apache.struts.util.LabelValueBean> codigos = new ArrayList<org.apache.struts.util.LabelValueBean>();
             for (int i = 0;i<pres.size();i++){
+                 if (pres.get(i).getStatus().equals("Habilitado")) {
                  codigos.add(new org.apache.struts.util.LabelValueBean(pres.get(i).getCodigo(),pres.get(i).getCodigo()));
+                 }
             }
 	  
 	  

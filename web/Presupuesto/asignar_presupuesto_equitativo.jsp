@@ -97,11 +97,14 @@
                 <b><font size="2" >Descripción</font></b>                                                
             </th>
             <th width="80px" align="center">
-                <b><font size="2" >Monto<br />(por asignar)</font></b>                               
+                <b><font size="2" >Monto (BsF.)<br />(por asignar)</font></b>                               
             </th>
             <th width="100px" align="center">
                 <b><font size="2" >Fecha</font></b>                                
-            </th>           
+            </th>
+            <th width="100px" align="center">
+                <b><font size="2" >Estado</font></b>                                
+            </th>
             
         </tr>
         </thead>
@@ -122,6 +125,9 @@
                 </td>
                 <td width="80px" align="center">
                     <font size="2" ><bean:write name="Presupuesto" property="fecha"/></font>
+                </td>
+                <td width="80px" align="center">
+                    <font size="2" ><bean:write name="Presupuesto" property="status"/></font>
                 </td>
                 
                 
@@ -230,7 +236,13 @@
                                         <html:options collection="busqueda" property="value" labelProperty="label" />
                                     </html:select>
                                 </td>
-                            </tr>               
+                            </tr>  
+                            <tr>
+                                <td>
+                                    <b><font size="2">Selección de habilitados</font></b>
+                                </td>
+                                
+                            </tr>
                             <tr>
                                 <td style="color: red">
                                     <html:errors property="codigo" /> 

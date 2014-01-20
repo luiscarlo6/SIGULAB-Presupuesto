@@ -76,7 +76,7 @@
                 <b><font size="2" >Código de Tipo de Presupuesto</font></b>
             </th>            
             <th width="70px" align="center">
-                <b><font size="2" >Monto Asignado</font></b>                               
+                <b><font size="2" >Monto Disponible (BsF.)</font></b>                               
             </th>
             <th width="40px" align="center">
                 <b><font size="2" >Observaciones</font></b>                                
@@ -93,7 +93,7 @@
         <logic:iterate name="presupuesto" id="PresupuestoAsignado">
             <tr>
                 <td width="50px" align="center">
-                    <font size="2" ><bean:write name="PresupuestoAsignado" property="codigo_lab"/></font>
+                    <font size="2" ><bean:write name="PresupuestoAsignado" property="nombrelab"/></font>
                 </td>
                 <td width="50px" align="center">
                     <font size="2" ><bean:write name="PresupuestoAsignado" property="codigo_TDP"/></font>

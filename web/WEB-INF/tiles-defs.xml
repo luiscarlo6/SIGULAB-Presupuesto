@@ -33,74 +33,50 @@
     se utilizaran las siglas: TDP)
     -
     -->
-    <definition name="baseAdminTDP" extends="base"> <!-- BASE admin para TDP -->
+    <definition name="baseAdminTDP" extends="base"> <!-- Base admin para TDP -->
         <put name="sidebarL" value="/Plantilla/sidebarLTDP.jsp"/>
-    </definition>
-    
-    <definition name="consultarTDPDescendente" extends="baseAdminTDP"> <!-- Consulta de TDP -->
-        <put name="body" value="/TipoDePresupuesto/consultar_tipo_de_presupuesto_descendente.jsp"/>
     </definition>
     
     <definition name="consultarTDP" extends="baseAdminTDP"> <!-- Consulta de TDP -->
         <put name="body" value="/TipoDePresupuesto/consultar_tipo_de_presupuesto.jsp"/>
     </definition>
+    
+    <definition name="consultarTDPDescendente" extends="baseAdminTDP"> <!-- Consulta de TDP por codigo Descendente -->
+        <put name="body" value="/TipoDePresupuesto/consultar_tipo_de_presupuesto_descendente.jsp"/>
+    </definition>        
             
-    <definition name="consultarTDPmonto" extends="baseAdminTDP"> <!-- Consulta de TDP -->
+    <definition name="consultarTDPmonto" extends="baseAdminTDP"> <!-- Consulta de TDP por monto -->
         <put name="body" value="/TipoDePresupuesto/consultar_tipo_de_presupuesto_pormonto.jsp"/>
     </definition>    
        
-    <definition name="consultarTDPmontoDescendente" extends="baseAdminTDP"> <!-- Consulta de TDP -->
+    <definition name="consultarTDPmontoDescendente" extends="baseAdminTDP"> <!-- Consulta de TDP por monto descendente -->
         <put name="body" value="/TipoDePresupuesto/consultar_tipo_de_presupuesto_pormonto_descendente.jsp"/>
     </definition>
                                                   
-    <definition name="consultarTDPtipo" extends="baseAdminTDP"> <!-- Consulta de TDP -->
+    <definition name="consultarTDPtipo" extends="baseAdminTDP"> <!-- Consulta de TDP por tipo-->
         <put name="body" value="/TipoDePresupuesto/consultar_tipo_de_presupuesto_portipo.jsp"/>
     </definition>
     
-    <definition name="consultarTDPtipoDescendente" extends="baseAdminTDP"> <!-- Consulta de TDP -->
+    <definition name="consultarTDPtipoDescendente" extends="baseAdminTDP"> <!-- Consulta de TDP por tipo descendente -->
         <put name="body" value="/TipoDePresupuesto/consultar_tipo_de_presupuesto_portipo_descendente.jsp"/>
     </definition>    
-    
-    <definition name="NoTDPAsignados" extends="baseAdminTDP"> <!-- Consulta de TDP -->
-        <put name="body" value="/TipoDePresupuesto/sin_tipo_de_presupuestos_asignados.jsp"/>
-    </definition>
     
     <definition name="agregarTDP" extends="baseAdminTDP"> <!-- Agregacion de TDP -->
         <put name="body" value="/TipoDePresupuesto/agregar_tipo_de_presupuesto.jsp"/>
     </definition>
-    
-    <definition name="agregadoTDPsatisfactoriamente" extends="baseAdminTDP"> <!-- Agregacion de TDP exitosa -->
-        <put name="body" value="/TipoDePresupuesto/consultar_tipo_de_presupuesto.jsp"/>
-    </definition>
-    
-    <definition name="eliminarTDP" extends="baseAdminTDP"> <!-- Eliminacion de TDP -->
-        <put name="body" value="/TipoDePresupuesto/eliminar_tipo_de_presupuesto.jsp"/>
-    </definition>
-    
-    <definition name="eliminadoTDPsatisfactoriamente" extends="baseAdminTDP"> <!-- Eliminacion de TDP exitosa -->
-        <put name="body" value="/TipoDePresupuesto/consultar_tipo_de_presupuesto.jsp"/>
-    </definition>
-        
-    <definition name="modificarTDP" extends="baseAdminTDP"> <!-- Modificacion de TDP -->
-        <put name="body" value="/TipoDePresupuesto/modificar_tipo_de_presupuesto.jsp"/>
-    </definition>
-    
-    <definition name="nuevosDatosDeTDP" extends="baseAdminTDP"> <!-- Datos para modificar un TDP -->
+           
+    <definition name="nuevosDatosDeTDP" extends="baseAdminTDP"> <!-- Datos para modificar un TDP y caer en la vista principal -->
         <put name="body" value="/TipoDePresupuesto/listar_tipo_de_modificar.jsp"/>
     </definition>
     
-    <definition name="nuevosDatosDeTDPportipo" extends="baseAdminTDP"> <!-- Datos para modificar un TDP -->
+    <definition name="nuevosDatosDeTDPportipo" extends="baseAdminTDP"> <!-- Datos para modificar un TDP y caer en la vista por tipo -->
         <put name="body" value="/TipoDePresupuesto/listar_tipo_de_modificar_tipo.jsp"/>
     </definition>
     
-    <definition name="nuevosDatosDeTDPpormonto" extends="baseAdminTDP"> <!-- Datos para modificar un TDP -->
+    <definition name="nuevosDatosDeTDPpormonto" extends="baseAdminTDP"> <!-- Datos para modificar un TDP y caer en la vista por monto -->
         <put name="body" value="/TipoDePresupuesto/listar_tipo_de_modificar_monto.jsp"/>
-    </definition>
-    
-    <definition name="modificadoTDPsatisfactoriamente" extends="baseAdminTDP"> <!-- Modificacion de TDP exitosa -->
-        <put name="body" value="/TipoDePresupuesto/modificado_tipo_de_presupuesto.jsp"/>
-    </definition>
-    
+    </definition>        
+        
     <definition name="buscarTDP" extends="baseAdminTDP"> <!-- Modificacion de TDP exitosa -->
         <put name="body" value="/TipoDePresupuesto/buscar_tipo_de_presupuesto.jsp"/>
     </definition>
@@ -110,67 +86,31 @@
     Para cuando le das click a Presupuesto 
     -
     -->
-    <definition name="baseAdminPresupuesto" extends="base"> <!-- BASE admin para presupuesto -->
+    <definition name="baseAdminPresupuesto" extends="base"> <!-- Base admin para presupuesto -->
         <put name="sidebarL" value="/Plantilla/sidebarLPresupuesto.jsp"/>
-    </definition>
-    
-    <definition name="consultarPresupuesto" extends="baseAdminPresupuesto"> <!-- Consulta de los Presupuestos -->
-        <put name="body" value="/Presupuesto/consultar_presupuesto.jsp"/>
-    </definition>
-    
-    <definition name="asignarPresupuestoEquitativoOtro" extends="baseAdminPresupuesto"> <!-- asignacion de los Presupuestos satisfactoria -->
-        <put name="body" value="/Presupuesto/asignado_presupuesto_equitativo_otro.jsp"/>
-    </definition>
-    
-    <definition name="NoPresupuestosAsignados" extends="baseAdminPresupuesto"> <!-- Consulta de los Presupuestos -->
-        <put name="body" value="/Presupuesto/sin_presupuestos_asignados.jsp"/>
     </definition>
     
     <definition name="asignarPresupuesto" extends="baseAdminPresupuesto"> <!-- Asignacion de los Presupuestos -->
         <put name="body" value="/Presupuesto/asignar_presupuesto.jsp"/>
-    </definition>
+    </definition>   
     
-    <definition name="asignadoPresupuestosatisfactoriamente" extends="baseAdminPresupuesto"> <!-- asignacion de los Presupuestos satisfactoria -->
-        <put name="body" value="/Presupuesto/asignado_presupuesto.jsp"/>
-    </definition>
-    
-    <definition name="eliminarPresupuesto" extends="baseAdminPresupuesto"> <!-- Cambiar Status de los Presupuestos -->
-        <put name="body" value="/Presupuesto/eliminar_presupuesto.jsp"/>
-    </definition>
-    
-    <definition name="eliminadoPresupuestosatisfactoriamente" extends="baseAdminPresupuesto"> <!-- eliminacion de los Presupuestos satisfactoria -->
-        <put name="body" value="/Presupuesto/eliminado_presupuesto.jsp"/>
-    </definition>
+    <definition name="consultarPresupuesto" extends="baseAdminPresupuesto"> <!-- Consulta de los Presupuestos -->
+        <put name="body" value="/Presupuesto/consultar_presupuesto.jsp"/>
+    </definition>       
     
     <definition name="consultarPresupuestoTotales" extends="baseAdminPresupuesto"> <!-- Consulta de los totales de los Presupuestos -->
         <put name="body" value="/Presupuesto/consultar_presupuesto_totales.jsp"/>
     </definition>
-        
-    <definition name="consultarPresupuestoTotalesVacio" extends="baseAdminPresupuesto"> <!-- Consulta de los totales de los Presupuestos -->
-        <put name="body" value="/Presupuesto/consultar_presupuesto_totales_vacio.jsp"/>
-    </definition>    
-                
+                        
     <definition name="asignarPresupuestoEquitativo" extends="baseAdminPresupuesto"> <!-- Asignacion de los Presupuestos Equitativamente -->
         <put name="body" value="/Presupuesto/asignar_presupuesto_equitativo.jsp"/>
     </definition>
-    
-    <definition name="agregarDatosConsultaIndividualPresupuesto" extends="baseAdminPresupuesto"> <!-- Consulta de presupuesto Individual -->
-        <put name="body" value="/Presupuesto/indicar_datos_presupuesto_individual.jsp"/>
-    </definition>
         
-    <definition name="consultaExitosaPresupuestoIndividual" extends="baseAdminPresupuesto"> <!-- Consulta de presupuesto Individual Exitosa -->
-        <put name="body" value="/Presupuesto/consultar_presupuesto_individual.jsp"/>
-    </definition>
-    
-    <definition name="ConsultaExitosaPresupuestoIndividualNoHayValores" extends="baseAdminPresupuesto"> <!-- Consulta de presupuesto Individual Exitosa sin Valores -->
-        <put name="body" value="/Presupuesto/consultar_presupuesto_individual_sin_valores.jsp"/>
-    </definition>
-    
-    <definition name="buscarPresupuesto" extends="baseAdminPresupuesto"> <!-- Asignacion de los Presupuestos Equitativamente -->
+    <definition name="buscarPresupuesto" extends="baseAdminPresupuesto"> <!-- Busqueda de los presupuestos  -->
         <put name="body" value="/Presupuesto/buscar_presupuesto.jsp"/>
     </definition>
     
-    <definition name="nuevosDatosDePresupuesto" extends="baseAdminPresupuesto"> <!-- Asignacion de los Presupuestos Equitativamente -->
+    <definition name="nuevosDatosDePresupuesto" extends="baseAdminPresupuesto"> <!-- Nuevos datos para la modificacion de un presupuesto -->
         <put name="body" value="/Presupuesto/listar_modificar_presupuesto.jsp"/>
     </definition>
     

@@ -19,7 +19,7 @@
     </head>
        
     <p></p>
-        <FONT FACE="arial" SIZE=4 >Bienvenido al Sistema de Gestion Presupuestaria de ULAB</FONT>
+        <FONT FACE="arial" SIZE=4 >Bienvenido al Sistema de Gestión Presupuestaria de ULAB</FONT>
           
     
 </html>

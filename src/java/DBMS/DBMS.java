@@ -703,7 +703,8 @@ public class DBMS {
                 u.setDescripcion("TOTAL monto de Busqueda (Habilitados):");
                 NumberFormat monto = new DecimalFormat("#############.##");		
                 String s = monto.format(total);
-                u.setMonto(""+s);
+                u.setMonto(""+FormatoFloat(s));
+                u.setStatus("");
                 Presupuestos.add(u);
 
         } catch (SQLException ex) {
@@ -973,7 +974,7 @@ public class DBMS {
 
             psConsultar = conexion.prepareStatement("select distinct lab.codigo_laboratorio as codigo_lab, lab.nombre as nombre, SUM(p.monto_asignado) as monto\n" +
                                                     "from laboratorio lab, Presupuesto p, Tipo_de_Presupuesto tdp \n" +
-                                                    "where lab.codigo_laboratorio = p.codigo_laboratorio and p.status = 1 and tdp.codigo = p.codigo_tdp and tdp.status = 1\n" +
+                                                    "where lab.codigo_laboratorio = p.codigo_laboratorio and p.status = 1 and tdp.codigo = p.codigo_tdp \n" +
                                                     "group by lab.codigo_laboratorio \n" +
                                                     "order by lab.codigo_laboratorio;");
             ResultSet Rs = psConsultar.executeQuery();
@@ -1253,6 +1254,7 @@ public class DBMS {
                     }else{
                         u.setStatus("Desabilitado");
                     }
+                    u.setNombrelab(NombreLaboratorio(Rs.getInt("codigo_laboratorio")));
                     Presupuestos.add(u);
                 //}
             }

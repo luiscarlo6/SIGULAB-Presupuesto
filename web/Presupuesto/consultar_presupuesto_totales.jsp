@@ -29,7 +29,7 @@
                 <b><font size="2" >Nombre</font></b>                               
             </th>
             <th width="70px" align="center">
-                <b><font size="2" >Monto total disponible</font></b>                               
+                <b><font size="2" >Monto total disponible (BsF.)</font></b>                               
             </th>            
         </tr>
     </thead>
