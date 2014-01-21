@@ -40,5 +40,22 @@ ORDER BY CODIGO_LABORATORIO;
 
 select distinct t1.* from tipo_de_presupuesto t1 order by t1.tipo;
 
+
+(select distinct lab.codigo_laboratorio as codigo_lab, lab.nombre as nombre, SUM(p.monto_asignado) as monto
+from laboratorio lab, Presupuesto p, Tipo_de_Presupuesto tdp
+where lab.codigo_laboratorio = p.codigo_laboratorio and p.status = 1 and tdp.codigo = p.codigo_tdp
+group by lab.codigo_laboratorio
+order by lab.codigo_laboratorio)
+UNION
+(Select codigo_laboratorio, nombre, monto 
+from laboratorio
+where (codigo_laboratorio,nombre) NOT IN (select distinct lab.codigo_laboratorio as codigo_lab, lab.nombre as nombre
+        from laboratorio lab, Presupuesto p
+        where lab.codigo_laboratorio = p.codigo_laboratorio and p.status = 1
+        group by lab.codigo_laboratorio
+        order by lab.codigo_laboratorio))
+order by codigo_lab;
+
+
 */
 

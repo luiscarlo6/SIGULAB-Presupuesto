@@ -995,13 +995,24 @@ public class DBMS {
         PreparedStatement psConsultar = null;
         try {
 
-            psConsultar = conexion.prepareStatement("select distinct lab.codigo_laboratorio as codigo_lab, lab.nombre as nombre, SUM(p.monto_asignado) as monto\n" +
-                                                    "from laboratorio lab, Presupuesto p, Tipo_de_Presupuesto tdp \n" +
-                                                    "where lab.codigo_laboratorio = p.codigo_laboratorio and p.status = 1 and tdp.codigo = p.codigo_tdp \n" +
-                                                    "group by lab.codigo_laboratorio \n" +
-                                                    "order by lab.codigo_laboratorio;");
+            psConsultar = conexion.prepareStatement("(select distinct lab.codigo_laboratorio as codigo_lab, lab.nombre as nombre, SUM(p.monto_asignado) as monto\n" +
+                                                    "from laboratorio lab, Presupuesto p, Tipo_de_Presupuesto tdp\n" +
+                                                    "where lab.codigo_laboratorio = p.codigo_laboratorio and p.status = 1 and tdp.codigo = p.codigo_tdp\n" +
+                                                    "group by lab.codigo_laboratorio\n" +
+                                                    "order by lab.codigo_laboratorio)\n" +
+                                                    "UNION\n" +
+                                                    "(Select codigo_laboratorio, nombre, monto \n" +
+                                                    "from laboratorio\n" +
+                                                    "where (codigo_laboratorio,nombre) NOT IN (select distinct lab.codigo_laboratorio as codigo_lab, lab.nombre as nombre\n" +
+                                                    "        from laboratorio lab, Presupuesto p\n" +
+                                                    "        where lab.codigo_laboratorio = p.codigo_laboratorio and p.status = 1\n" +
+                                                    "        group by lab.codigo_laboratorio\n" +
+                                                    "        order by lab.codigo_laboratorio))\n" +
+                                                    "order by codigo_lab;");
             ResultSet Rs = psConsultar.executeQuery();
 
+           
+            
             while (Rs.next()) {
                 Laboratorio u = new Laboratorio();
                 

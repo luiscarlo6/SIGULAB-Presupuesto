@@ -1,3 +1,8 @@
+drop table PRESUPUESTO;
+drop table TIPO_DE_PRESUPUESTO;
+drop table LABORATORIO;
+drop table USUARIO;
+drop sequence codigo_seq;
 SET DATESTYLE TO 'European';
 CREATE SEQUENCE codigo_seq Start with 100000;
 create table USUARIO 
@@ -59,6 +64,14 @@ insert into tipo_de_presupuesto values('999', 'REFORMULACION', 'REFORMULACION', 
 
 insert into presupuesto values(default,100001,01050303,'120000',1);
 insert into presupuesto values(default,100001,01050301,'120000',1);
+insert into presupuesto values(default,100003,01050301,'10000',1);
+insert into presupuesto values(default,100002,01050304,'120000',1);
+insert into presupuesto values(default,100002,01050306,'120000',1);
+insert into presupuesto values(default,100003,01050308,'120000',1);
+
+insert into presupuesto values(default,100003,01050309,'120000',1);
+insert into presupuesto values(default,100003,01050305,'120000',1);
+insert into presupuesto values(default,100003,01050307,'120000',1);
 
 
 
