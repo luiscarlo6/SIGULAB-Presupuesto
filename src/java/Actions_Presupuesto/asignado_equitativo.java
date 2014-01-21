@@ -103,7 +103,11 @@ public class asignado_equitativo extends org.apache.struts.action.Action {
                 request.setAttribute("agregado_equitativo_exitoso",SUCCESS);
                 session.setAttribute(("busqueda"), null);
                 return mapping.findForward(SUCCESS);
-            } 
+            } else if (msg_status.equals("Fecha errada")) {
+                error.add("fecha", new ActionMessage("error.fecha.menorquetdp"));
+                saveErrors(request, error);
+                return mapping.findForward(FAILURE);
+            }
             return mapping.findForward(FAILURE);
         }
     }

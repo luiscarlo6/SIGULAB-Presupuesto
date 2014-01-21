@@ -100,24 +100,36 @@ public class modificar_datos extends org.apache.struts.action.Action {
             
             {
                 u.setFecha(msg_fecha);
-                boolean modifico = DBMS.getInstance().ModificarDatos_Presupuesto(u);
+                String modifico = DBMS.getInstance().ModificarDatos_Presupuesto(u);
                 //u.resetearVariables();
-                if (modifico) {
+                if (modifico.equals("ok")) {
                     u.resetearVariables();
                     ArrayList<Presupuesto> Presupuestos = DBMS.getInstance().consultarDatos_Presupuesto();
                     session.setAttribute(("presupuesto"), Presupuestos);
                     request.setAttribute("modificacion_exitosa",SUCCESS);
                     return mapping.findForward(SUCCESS);
+                } else if (modifico.equals("Fecha errada")){
+                    Presupuesto pre = DBMS.getInstance().seleccionarDatos_Presupuesto(Integer.parseInt(u.getId()));            
+                    u.resetearVariables();
+                    request.setAttribute("datosPres", pre); 
+                    error.add("fecha", new ActionMessage("error.fecha.menorquetdp"));
+                    saveErrors(request, error);
+                    
+                    request.setAttribute("modificacion_fallida",SUCCESS);
+                    return mapping.findForward(FAILURE);
                 } else {
                     //u.resetearVariables();
                     //Presupuesto pre = DBMS.getInstance().seleccionarDatos_Tipo_de_presupuesto(Integer.parseInt(u.getCodigo_TDP()));
                     //request.setAttribute("datosPres", pre);
+                    Presupuesto pre = DBMS.getInstance().seleccionarDatos_Presupuesto(Integer.parseInt(u.getId()));            
                     u.resetearVariables();
-                    error.add("codigo", new ActionMessage("error.codigo.modificando"));
+                    request.setAttribute("datosPres", pre); 
+                    error.add("monto", new ActionMessage("error.monto.exceder"));
                     saveErrors(request, error);
+                    
                     request.setAttribute("modificacion_fallida",SUCCESS);
                     return mapping.findForward(FAILURE);
-            }
+                }
         }
         
         

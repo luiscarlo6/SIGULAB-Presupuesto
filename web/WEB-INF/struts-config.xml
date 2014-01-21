@@ -237,6 +237,12 @@
             <forward name="failure" path="nuevosDatosDePresupuesto"/>
         </action>
         
+        <!--Reformulacion-->
+        <action path="/reformular_presupuesto" type="Actions_Presupuesto.reformulado" validate="false">
+            <forward name="success" path="consultarPresupuesto"/>           
+        </action>              
+        
+        
         
         <!-- CONSULTA PARA LOS LABORATORIOS EXISTENTES-->                                     
         <action path="/consultar_laboratorio" type="Actions_Laboratorio.consultado" validate="false">
@@ -278,8 +284,7 @@
             <forward name="success" path="/Cheque/vista_modificado.jsp"/>
             <forward name="failure" path="/Cheque/vista_cheque.jsp"/>
         </action>
-        <action path="/d" type="Actions_Presupuesto.modificar_datos"/>
-        <action path="/asd" type="Actions_Presupuesto.modificado"/>
+
         
         
                                         

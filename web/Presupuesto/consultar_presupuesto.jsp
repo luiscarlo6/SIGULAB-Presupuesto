@@ -46,6 +46,11 @@
             </div>
         </logic:present>
         
+        <logic:present name="reformulacion">
+            <div align="center" class="alert alert-success" id="alert">
+                Reformulación del Presupuesto completada.
+            </div>
+        </logic:present>
         
         <h2>Presupuestos Existentes:</h2>
 

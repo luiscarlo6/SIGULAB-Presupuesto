@@ -101,7 +101,7 @@ insert into laboratorio values(01050309, 'Laboratorio G', 'Apoyo Interdiciplinar
 insert into usuario values('visit','123456');
 insert into usuario values('admin','123456');
 insert into usuario values('juanpe','123456');
-
+insert into tipo_de_presupuesto values('999', 'REFORMULACION', 'REFORMULACION', 0, '0.00', '01/01/2014');
 
 /*
 select nombre,monto from laboratorio

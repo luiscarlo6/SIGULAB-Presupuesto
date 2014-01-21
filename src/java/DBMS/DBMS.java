@@ -129,7 +129,6 @@ public class DBMS {
 	      }else{
 		segundo = ""+palabra;
 	      }
-	      System.out.println("dentro del while i = " +i);
 	      i++;	      
 	  } 
 	  if (segundo.equals("no")){
@@ -720,7 +719,7 @@ public class DBMS {
     //PRESUPUESTOS
     public String agregarDatos_Presupuesto(Presupuesto u) {
 
-        PreparedStatement psAgregar = null;
+        PreparedStatement psAgregar = null, psVerificarFecha = null;
         PreparedStatement psConsultar = null;
         PreparedStatement psUpdate = null;
         Integer codigo_TDP;
@@ -732,6 +731,18 @@ public class DBMS {
             psConsultar.setInt(1, codigo_TDP);
             ResultSet Rs = psConsultar.executeQuery();
             if (Rs.next()){
+                
+                psVerificarFecha = conexion.prepareStatement("SELECT * FROM TIPO_DE_PRESUPUESTO WHERE CODIGO = ?;");            
+                psVerificarFecha.setInt(1, codigo_TDP);
+                ResultSet RsFecha = psVerificarFecha.executeQuery();
+                RsFecha.next();
+                Date fechatdp = RsFecha.getDate("fecha");
+                Date fecha = StringttoDate(u.getFecha());
+                System.out.println("fechatdp = "+fechatdp+" fecha = "+fecha);
+                if (fecha.before(fechatdp)){
+                    return "Fecha errada";
+                }
+                
                 psConsultar = conexion.prepareStatement("SELECT * FROM LABORATORIO lab WHERE lab.codigo_laboratorio = ?;");
                 psConsultar.setInt(1, Integer.parseInt(u.getCodigo_lab()));
                 ResultSet RsLab = psConsultar.executeQuery();
@@ -792,7 +803,7 @@ public class DBMS {
 
         PreparedStatement psAgregar = null, psConsultarLabExiste = null;
         PreparedStatement psConsultar = null, psConsultarLab = null;
-        PreparedStatement psUpdate = null;
+        PreparedStatement psUpdate = null, psVerificarFecha = null;
         Integer codigo_TDP, codigo_lab;
         Float monto, monto_tdp, monto_final;
         try {
@@ -802,6 +813,18 @@ public class DBMS {
             psConsultar.setInt(1, codigo_TDP);
             ResultSet Rs = psConsultar.executeQuery();
             if (Rs.next()){
+                
+                psVerificarFecha = conexion.prepareStatement("SELECT * FROM TIPO_DE_PRESUPUESTO WHERE CODIGO = ?;");            
+                psVerificarFecha.setInt(1, codigo_TDP);
+                ResultSet RsFecha = psVerificarFecha.executeQuery();
+                RsFecha.next();
+                Date fechatdp = RsFecha.getDate("fecha");
+                Date fecha = StringttoDate(u.getFecha());
+                System.out.println("fechatdp = "+fechatdp+" fecha = "+fecha);
+                if (fecha.before(fechatdp)){
+                    return "Fecha errada";
+                }
+                
                 psConsultar = conexion.prepareStatement("select count(p) as conteo\n" +
                                         "from (SELECT distinct tdp.codigo_laboratorio FROM "
                                         + "PRESUPUESTO tdp WHERE tdp.codigo_TDP = ? and tdp.status = 1) p;");
@@ -1301,34 +1324,172 @@ public class DBMS {
         }
         
   
-    }
-    
-public boolean ModificarDatos_Presupuesto(Presupuesto u) {
-        PreparedStatement psConsultar = null;
+        }
+
+
+        public String ModificarDatos_Presupuesto(Presupuesto u) {
+        PreparedStatement psConsultar = null, psBuscar = null, psBuscarTDP = null, psUpdate= null, psVerificarFecha = null;
         try {
             
-            psConsultar = conexion.prepareStatement("UPDATE PRESUPUESTO SET codigo_tdp = ?, codigo_laboratorio = ?, descripcion=?, monto_asignado=?, fecha=? where id = ?;");
+            psVerificarFecha = conexion.prepareStatement("SELECT * FROM TIPO_DE_PRESUPUESTO WHERE CODIGO = ?;");            
+            psVerificarFecha.setInt(1, Integer.parseInt(u.getCodigo_TDP()));
+            ResultSet RsFecha = psVerificarFecha.executeQuery();
+            RsFecha.next();
+            Date fechatdp = RsFecha.getDate("fecha");
+            Date fecha = StringttoDate(u.getFecha());
+            System.out.println("fechatdp = "+fechatdp+" fecha = "+fecha);
+            if (fecha.before(fechatdp)){
+                return "Fecha errada";
+            }
             
-            psConsultar.setInt(1, Integer.parseInt(u.getCodigo_TDP()));
-            psConsultar.setInt(2, Integer.parseInt(u.getCodigo_lab()));
-            psConsultar.setString(3, u.getDescripcion());
-            psConsultar.setFloat(4, Float.parseFloat(u.getMonto_asignado()));                                                
-            psConsultar.setDate(5, StringttoDate(u.getFecha()));
-            psConsultar.setInt(6, Integer.parseInt(u.getId()));
-                        
-            System.out.println(psConsultar.toString());
+            
+            Integer i = 0;
+            psBuscar = conexion.prepareStatement("SELECT * FROM PRESUPUESTO WHERE ID = ?;");
+            psBuscar.setInt(1, Integer.parseInt(u.getId()));
+            ResultSet Rs = psBuscar.executeQuery();
+            Rs.next();
+            int codigotdp_actual = Rs.getInt("codigo_TDP"), 
+                    codigotdp_nuevo = Integer.parseInt(u.getCodigo_TDP());            
+            Float monto_actual = Rs.getFloat("monto_asignado"), 
+                    nuevo_monto = Float.parseFloat(u.getMonto_asignado());
+            Float montotdp;
+            System.out.println("nuevo monto = "+nuevo_monto +" monto actual = " +monto_actual);
+            //si es el mismo codigo de tipo de presupuesto se empieza a chequear los montos
+            if (codigotdp_actual == codigotdp_nuevo){                
+                if (nuevo_monto > monto_actual) {
+                    psBuscarTDP = conexion.prepareStatement("SELECT * FROM TIPO_DE_PRESUPUESTO WHERE CODIGO = ?;");
+                    psBuscarTDP.setInt(1, codigotdp_actual);
+                    ResultSet RsTDP = psBuscarTDP.executeQuery();
+                    RsTDP.next();
+                    montotdp = RsTDP.getFloat("monto");
+                    System.out.println("montotdp = "+montotdp);
+                    if (montotdp >= nuevo_monto - monto_actual){
+                        psUpdate = conexion.prepareStatement("UPDATE TIPO_DE_PRESUPUESTO SET monto = ? where codigo = ?;");
+                        System.out.println("el psupdate en nuevo monto > montoActual es este = " + psUpdate.toString());
+                        psUpdate.setInt(2, codigotdp_actual);
+                        psUpdate.setFloat(1, montotdp - (nuevo_monto - monto_actual));  
+                        psUpdate.executeUpdate();
+                    } else {
+                        return "Error en monto";
+                    }
+                } else if (monto_actual > nuevo_monto) {
+                    psBuscarTDP = conexion.prepareStatement("SELECT * FROM TIPO_DE_PRESUPUESTO WHERE CODIGO = ?;");
+                    psBuscarTDP.setInt(1, codigotdp_actual);
+                    ResultSet RsTDP = psBuscarTDP.executeQuery();
+                    RsTDP.next();
+                    montotdp = RsTDP.getFloat("monto");
+                    psUpdate = conexion.prepareStatement("UPDATE TIPO_DE_PRESUPUESTO SET monto = ? where codigo = ?;");
+                    psUpdate.setFloat(1, montotdp + (monto_actual - nuevo_monto));  
+                    psUpdate.setInt(2, codigotdp_actual);                    
+                    System.out.println("el psupdate es este = " + psUpdate.toString());
+                    psUpdate.executeUpdate();
+                    
+                } 
+                psConsultar = conexion.prepareStatement("UPDATE PRESUPUESTO SET codigo_tdp = ?, codigo_laboratorio = ?, descripcion=?, monto_asignado=?, fecha=? where id = ?;");            
+                psConsultar.setInt(1, Integer.parseInt(u.getCodigo_TDP()));
+                psConsultar.setInt(2, Integer.parseInt(u.getCodigo_lab()));
+                psConsultar.setString(3, u.getDescripcion());
+                psConsultar.setFloat(4, Float.parseFloat(u.getMonto_asignado()));                                                
+                psConsultar.setDate(5, StringttoDate(u.getFecha()));
+                psConsultar.setInt(6, Integer.parseInt(u.getId()));                        
+                System.out.println(psConsultar.toString());
+                i = psConsultar.executeUpdate();
 
-            Integer i = psConsultar.executeUpdate();
+                return "ok";
+            //si son codigos de tipo de presupuesto diferentes se procede de la siguiente forma    
+            }else {
+                montotdp = RsFecha.getFloat("monto");
+                if (montotdp >= nuevo_monto){
+                    //coigo nuevo
+                    psUpdate = conexion.prepareStatement("UPDATE TIPO_DE_PRESUPUESTO SET monto = ? where codigo = ?;");
+                    psUpdate.setFloat(1, montotdp - nuevo_monto);  
+                    psUpdate.setInt(2, codigotdp_nuevo);                    
+                    System.out.println("el psupdate es este = " + psUpdate.toString());
+                    psUpdate.executeUpdate();
+                    
+                    //codigo actual
+                    psBuscarTDP = conexion.prepareStatement("SELECT * FROM TIPO_DE_PRESUPUESTO WHERE CODIGO = ?;");
+                    psBuscarTDP.setInt(1, codigotdp_actual);
+                    ResultSet RsTDP = psBuscarTDP.executeQuery();
+                    RsTDP.next();
+                    montotdp = RsTDP.getFloat("monto");
+                    
+                    psUpdate = conexion.prepareStatement("UPDATE TIPO_DE_PRESUPUESTO SET monto = ? where codigo = ?;");
+                    psUpdate.setFloat(1, montotdp + monto_actual);  
+                    psUpdate.setInt(2, codigotdp_actual);                    
+                    System.out.println("el psupdate de codigotdp_actual = "+codigotdp_actual+" es este = " + psUpdate.toString());
+                    psUpdate.executeUpdate();
+                }else{
+                    return "Error en monto";
+                }
+                
+                psConsultar = conexion.prepareStatement("UPDATE PRESUPUESTO SET codigo_tdp = ?, codigo_laboratorio = ?, descripcion=?, monto_asignado=?, fecha=? where id = ?;");            
+                psConsultar.setInt(1, Integer.parseInt(u.getCodigo_TDP()));
+                psConsultar.setInt(2, Integer.parseInt(u.getCodigo_lab()));
+                psConsultar.setString(3, u.getDescripcion());
+                psConsultar.setFloat(4, Float.parseFloat(u.getMonto_asignado()));                                                
+                psConsultar.setDate(5, StringttoDate(u.getFecha()));
+                psConsultar.setInt(6, Integer.parseInt(u.getId()));                        
+                System.out.println(psConsultar.toString());
+                i = psConsultar.executeUpdate();
 
-            return i > 0;
+                return "ok";
+            }
+            
+               
+            
 
         } catch (SQLException ex) {
             ex.printStackTrace();
-            return false;
+            return "Failure";
         }
     }        
         
+    public boolean Reformulacion_Presupuesto() {
+        ArrayList<Presupuesto> Presupuestos = new ArrayList<Presupuesto>();
+        PreparedStatement psConsultar = null, psAgregar = null;
+        try {
+            ArrayList<Laboratorio> Laboratorios = DBMS.getInstance().consultarDatosTotales_Presupuesto(); 
+            psConsultar = conexion.prepareStatement("SELECT * FROM PRESUPUESTO WHERE status = 1;");
+            ResultSet Rs = psConsultar.executeQuery(); 
+            while (Rs.next()) {
+                    Presupuesto u = new Presupuesto();                                
+                    u.setCodigo_TDP(""+Rs.getInt("codigo_TDP"));
+                    u.setCodigo_lab(""+Rs.getInt("codigo_laboratorio"));
+                    u.setId(""+Rs.getInt("id"));
+                    DBMS.getInstance().CambiarStatus_Presupuesto(u);
+            } 
+                    
+                    
+            int i = 0;
+            while (i < Laboratorios.size()) {
+                String codigolab = Laboratorios.get(i).getCodigo_lab();
+                String monto = Laboratorios.get(i).getMonto();
+                psAgregar = conexion.prepareStatement("INSERT INTO PRESUPUESTO VALUES (default,?,?,?,?,default,?);");
+                psAgregar.setInt(1, 999);   
+                psAgregar.setInt(2, Integer.parseInt(codigolab));
+                psAgregar.setFloat(3, Float.parseFloat(monto));            
+                psAgregar.setInt(4, 1);                
+                psAgregar.setString(5, "REFORMULACION");
+                System.out.println(psAgregar.toString());
+                psAgregar.executeUpdate();
+                System.out.println("codigo lab = "+ codigolab +" monto = " +monto);
+                
+                i++;
+            }
         
+                        
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }      
+        return true;
+    }    /*
+    NumberFormat monto = new DecimalFormat("#############.##");		
+                    String s = monto.format(Rs.getFloat("monto_asignado"));
+                    
+                    u.setMonto_asignado(""+FormatoFloat(s));*/
+
+
     // LISTADO DE LABORATORIOS
     public ArrayList<Laboratorio> consultarDatos_Laboratorio() {
 

@@ -121,6 +121,10 @@ public class agregado extends org.apache.struts.action.Action {
                 session.setAttribute(("busqueda"), null);
 
                 return mapping.findForward(SUCCESS);
+            } else if (msg_status.equals("Fecha errada")) {
+                error.add("fecha", new ActionMessage("error.fecha.menorquetdp"));
+                saveErrors(request, error);
+                return mapping.findForward(FAILURE);
             }
             
             
