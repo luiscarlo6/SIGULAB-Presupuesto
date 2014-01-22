@@ -70,7 +70,7 @@
             </html:form>
 
             <div id="copyright">
-                <p> Copyright © 2013 Lantech. All rights reserved.</p>
+                <p> Copyright © 2014 One Systems. All rights reserved.</p>
             </div>
         </div>
 
