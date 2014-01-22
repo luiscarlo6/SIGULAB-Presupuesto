@@ -1014,17 +1014,14 @@ public class DBMS {
            
             
             while (Rs.next()) {
-                Laboratorio u = new Laboratorio();
-                
+                    Laboratorio u = new Laboratorio();                
                     u.setCodigo_lab(""+Rs.getInt("codigo_lab"));
                     u.setNombre(""+Rs.getString("nombre"));
                     NumberFormat monto = new DecimalFormat("#############.##");		
-                    String s = monto.format(Rs.getFloat("monto"));
-                    
+                    String s = monto.format(Rs.getFloat("monto"));                    
                     u.setMonto(""+FormatoFloat(s));
                     //u.setMonto(""+Rs.getFloat("monto"));                    
-                    Laboratorios.add(u);
-                
+                    Laboratorios.add(u);                
             }
 
 
@@ -1461,6 +1458,7 @@ public class DBMS {
         PreparedStatement psConsultar = null, psAgregar = null;
         try {
             ArrayList<Laboratorio> Laboratorios = DBMS.getInstance().consultarDatosTotales_Presupuesto(); 
+            
             psConsultar = conexion.prepareStatement("SELECT * FROM PRESUPUESTO WHERE status = 1;");
             ResultSet Rs = psConsultar.executeQuery(); 
             while (Rs.next()) {
@@ -1476,16 +1474,20 @@ public class DBMS {
             while (i < Laboratorios.size()) {
                 String codigolab = Laboratorios.get(i).getCodigo_lab();
                 String monto = Laboratorios.get(i).getMonto();
-                psAgregar = conexion.prepareStatement("INSERT INTO PRESUPUESTO VALUES (default,?,?,?,?,default,?);");
-                psAgregar.setInt(1, 999);   
-                psAgregar.setInt(2, Integer.parseInt(codigolab));
-                psAgregar.setFloat(3, Float.parseFloat(monto));            
-                psAgregar.setInt(4, 1);                
-                psAgregar.setString(5, "REFORMULACION");
-                System.out.println(psAgregar.toString());
-                psAgregar.executeUpdate();
-                System.out.println("codigo lab = "+ codigolab +" monto = " +monto);
                 
+                if (!monto.equals("0.00")) {
+                    
+                    psAgregar = conexion.prepareStatement("INSERT INTO PRESUPUESTO VALUES (default,?,?,?,?,default,?);");
+                    psAgregar.setInt(1, 999);   
+                    psAgregar.setInt(2, Integer.parseInt(codigolab));
+                    psAgregar.setFloat(3, Float.parseFloat(monto));            
+                    psAgregar.setInt(4, 1);                
+                    psAgregar.setString(5, "REFORMULACION");
+                    System.out.println(psAgregar.toString());  
+                    psAgregar.executeUpdate();
+                }
+                
+                System.out.println("codigo lab = "+ codigolab +" monto = " +monto);                
                 i++;
             }
         
