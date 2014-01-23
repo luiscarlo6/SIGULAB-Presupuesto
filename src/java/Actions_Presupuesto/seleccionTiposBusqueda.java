@@ -3,11 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+package Actions_Presupuesto;
 
-package Actions_PresupuestoAsignado;
-
-import static Actions_Presupuesto.seleccionTiposBusqueda.RetornarTipos;
-import Clases.Presupuesto;
+import Clases.Tipo_de_Presupuesto;
 import Clases.Tipo;
 import DBMS.DBMS;
 import java.util.ArrayList;
@@ -24,11 +22,12 @@ import org.apache.struts.action.ActionMessage;
  *
  * @author juanpe
  */
-public class modificado extends org.apache.struts.action.Action {
+public class seleccionTiposBusqueda extends org.apache.struts.action.Action {
 
     /* forward name="success" path="" */
     private static final String SUCCESS = "success";
     private static final String FAILURE = "failure";
+
     /**
      * This is the action called from the Struts framework.
      *
@@ -43,25 +42,35 @@ public class modificado extends org.apache.struts.action.Action {
     public ActionForward execute(ActionMapping mapping, ActionForm form,
             HttpServletRequest request, HttpServletResponse response)
             throws Exception {
-        Presupuesto u;
-        u = (Presupuesto) form;
         HttpSession session = request.getSession(true);
         
-        ActionErrors error = new ActionErrors();
-        error = u.validate(mapping, request);
-        System.out.println("id = " + u.getId());
-            Presupuesto pre = DBMS.getInstance().seleccionarDatos_Presupuesto(Integer.parseInt(u.getId()));
-            u.resetearVariables();
-            if (pre != null) {
-                request.setAttribute("datosPres", pre);
-                ArrayList<Tipo> Tipos = DBMS.getInstance().listar_Tipos_existentes();
-                ArrayList<org.apache.struts.util.LabelValueBean> tipos = RetornarTipos(Tipos);
-                session.setAttribute(("tipo"), tipos);
-                return mapping.findForward(SUCCESS);
-            } else {
-                //u.setError("***Codigo no existe o esta deshabilitado***");
-                return mapping.findForward(FAILURE);
-            }
-
+        ArrayList<Tipo_de_Presupuesto> Presupuestos = DBMS.getInstance().consultarDatos_Tipo_de_presupuesto();
+        session.setAttribute(("presupuesto"), Presupuestos);
+            
+        
+        
+        ArrayList<Tipo> Tipos = DBMS.getInstance().listar_Tipos_existentes();
+        ArrayList<org.apache.struts.util.LabelValueBean> tipos = RetornarTipos(Tipos);
+        session.setAttribute(("tipo"), tipos);
+        
+        //session.setAttribute(("tipo"), tipos);
+        
+        return mapping.findForward(SUCCESS);
     }
+    
+    
+    public static ArrayList<org.apache.struts.util.LabelValueBean> RetornarTipos(ArrayList<Tipo> pres)  {
+        
+            ArrayList<org.apache.struts.util.LabelValueBean> codigos = new ArrayList<org.apache.struts.util.LabelValueBean>();
+            codigos.add(new org.apache.struts.util.LabelValueBean());
+            for (int i = 0;i<pres.size();i++){
+                
+                 codigos.add(new org.apache.struts.util.LabelValueBean(pres.get(i).getTipo(),pres.get(i).getTipo()));
+                
+            }
+	  
+	  
+            return codigos;	  
+    }
+    
 }

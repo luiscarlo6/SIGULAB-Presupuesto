@@ -131,25 +131,46 @@
                 <table border="0">                   
                             
                         
-                    <tbody>                               
-                        <tr>
-                            <td><font size="2" >Tipo:</font>                                
-                            </td>                                            
-                        
-                        </tr>
+                    <tbody>                                                       
                         <tr>
                             <td>                          
-                            <input type="checkbox" name="tipo1" id="tipo1" value="FUNINDES">FUNINDES
-                            <br>
-                            <input type="checkbox" name="tipo2" id="tipo2" value="FONACIT">FONACIT
-                            <br>
-                            <input type="checkbox" name="tipo3" id="tipo3" value="Donacion">Donación
-                            <br>
-                            <input type="checkbox" name="tipo4" id="tipo4" value="Ordinario">Ordinario
+                                
+                                <font size="2" >Seleccione hasta cuatro (4) Tipos para la busqueda:</font>
                                     
                             </td>
                         </tr>                        
 
+                        <tr>
+                            <td>
+                                
+                                <font size="2" >Tipo 1:</font>
+                                <html:select property="tipobusqueda1">
+                                        <html:options collection="tipo" property="value" labelProperty="label" />
+                                </html:select> 
+                                
+                                <font size="2" >Tipo 2:</font>
+                                <html:select property="tipobusqueda2">
+                                        <html:options collection="tipo" property="value" labelProperty="label" />
+                                </html:select>   
+                                
+                                <font size="2" >Tipo 3:</font>
+                                <html:select property="tipobusqueda3">
+                                        <html:options collection="tipo" property="value" labelProperty="label" />
+                                </html:select> 
+                                
+                                <font size="2" >Tipo 4:</font>
+                                <html:select property="tipobusqueda4">
+                                        <html:options collection="tipo" property="value" labelProperty="label" />
+                                </html:select>
+                                
+                            </td>                                            
+                        
+                        </tr>
+                                                
+                                                                      
+                        
+                        <tr><td><input type="checkbox" name="tipo_todos" id="tipo_todos" value="Todos">TODOS</td></tr>
+                        
                         <tr>
                             <td>
                                 <font size="2" >Fecha (desde): </font><br />                                

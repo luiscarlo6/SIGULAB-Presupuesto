@@ -795,7 +795,7 @@ public class DBMS {
                     u.setCodigo(""+Rs.getInt("codigo"));
                     u.setDescripcion(Rs.getString("descripcion"));
                     u.setTipo(Rs.getString("tipo"));
-                    System.out.println("monto = "+Rs.getFloat("monto"));
+                    //System.out.println("monto = "+Rs.getFloat("monto"));
                     NumberFormat monto = new DecimalFormat("#############.##");		
                     String s = monto.format(Rs.getFloat("monto"));
                     
@@ -814,7 +814,7 @@ public class DBMS {
                // }
                 
             }        
-                System.out.println("total = "+total);
+                //System.out.println("total = "+total);
                 Tipo_de_Presupuesto u = new Tipo_de_Presupuesto();
                 u.setDescripcion("TOTAL monto de Busqueda (Habilitados):");
                 NumberFormat monto = new DecimalFormat("#############.##");		

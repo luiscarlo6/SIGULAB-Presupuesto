@@ -80,7 +80,7 @@ public class modificar_datos extends org.apache.struts.action.Action {
                     Tipo tip = DBMS.getInstance().seleccionarDatos_Tipo(u.getTipo());
                     u.resetearVariables();
                     request.setAttribute("datosPres", tip);            
-                    error.add("tipo", new ActionMessage("error.tipo.required"));            
+                    error.add("tipo", new ActionMessage("error.tipo.existe"));            
                     saveErrors(request, error);
                     request.setAttribute("modificacion_fallida",SUCCESS);
                     return mapping.findForward(FAILURE);

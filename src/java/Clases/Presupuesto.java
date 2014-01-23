@@ -27,6 +27,12 @@ public class Presupuesto extends org.apache.struts.action.ActionForm {
     private String status;
     private String nombrelab;
     
+    private String tipo;
+    private String tipobusqueda1;
+    private String tipobusqueda2;
+    private String tipobusqueda3;
+    private String tipobusqueda4;
+    
 
     public void resetearVariables() {
         this.codigo_TDP = "";
@@ -35,6 +41,11 @@ public class Presupuesto extends org.apache.struts.action.ActionForm {
         this.descripcion="";
         this.status ="";
         this.nombrelab = "";
+        this.tipobusqueda1 = "";
+        this.tipobusqueda2 = "";
+        this.tipobusqueda3 = "";
+        this.tipobusqueda4 = "";
+        this.tipo = "";
     }    
 
     public String getCodigo_TDP() {
@@ -101,7 +112,45 @@ public class Presupuesto extends org.apache.struts.action.ActionForm {
         this.nombrelab = nombrelab;
     }
 
-    
+    public String getTipobusqueda1() {
+        return tipobusqueda1;
+    }
+
+    public void setTipobusqueda1(String tipobusqueda1) {
+        this.tipobusqueda1 = tipobusqueda1;
+    }
+
+    public String getTipobusqueda2() {
+        return tipobusqueda2;
+    }
+
+    public void setTipobusqueda2(String tipobusqueda2) {
+        this.tipobusqueda2 = tipobusqueda2;
+    }
+
+    public String getTipobusqueda3() {
+        return tipobusqueda3;
+    }
+
+    public void setTipobusqueda3(String tipobusqueda3) {
+        this.tipobusqueda3 = tipobusqueda3;
+    }
+
+    public String getTipobusqueda4() {
+        return tipobusqueda4;
+    }
+
+    public void setTipobusqueda4(String tipobusqueda4) {
+        this.tipobusqueda4 = tipobusqueda4;
+    }
+
+    public String getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
+    }
 
     
     /**

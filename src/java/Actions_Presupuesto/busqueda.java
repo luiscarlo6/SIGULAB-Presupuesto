@@ -48,7 +48,7 @@ public class busqueda extends org.apache.struts.action.Action {
         HttpSession session = request.getSession(true);
 
         ActionErrors error = new ActionErrors();
-        String msg_fecha_minima = "", msg_fecha_maxima="", msg_monto = "", msg_tipo = "", msg_fecha= "";
+        String msg_fecha_minima = "", msg_fecha_maxima="",msg_tipoTodos="", msg_monto = "", msg_tipo = "", msg_fecha= "";
         String valortipo1 = "", valortipo2 = "", valortipo3 = "", valortipo4 = "";
         error = u.validate(mapping, request);
         boolean huboError = false;
@@ -56,10 +56,10 @@ public class busqueda extends org.apache.struts.action.Action {
         //msg_codigo = u.ValidarCampoCodigo(); 
         //msg_monto = u.ValidarCampoMonto();
         //msg_tipo = u.ValidarCampoTipo();
-        valortipo1 = ""+request.getParameter("tipo1");
-        valortipo2 = ""+request.getParameter("tipo2");
-        valortipo3 = ""+request.getParameter("tipo3");
-        valortipo4 = ""+request.getParameter("tipo4");
+        valortipo1 = u.getTipobusqueda1();
+        valortipo2 = u.getTipobusqueda2();
+        valortipo3 = u.getTipobusqueda3();
+        valortipo4 = u.getTipobusqueda4();
         msg_fecha_minima = ""+request.getParameter("datepicker1");
         msg_fecha_maxima = ""+request.getParameter("datepicker2");
         /*if (error.size() != 0) {
@@ -67,12 +67,35 @@ public class busqueda extends org.apache.struts.action.Action {
         }
         
         */
+        msg_tipoTodos = ""+request.getParameter("tipo_todos");
+        
+        System.out.println("tipos: tipobusqueda1 = "+u.getTipobusqueda1()+" tipobusqueda2 = " +u.getTipobusqueda2() +" tipobusqueda3 = "+u.getTipobusqueda3() +" tipobusqueda4 = "+u.getTipobusqueda4());
+        
         
         System.out.println("fechaaa minima: "+msg_fecha_minima);
         System.out.println("fechaaa maxima: "+msg_fecha_maxima);
         
         System.out.println("valor tipo 1: "+valortipo1+" valor tipo 2: "+valortipo2+" valor tipo 3: "+valortipo3+" valor tipo 4: "+valortipo4);
-        
+        if (msg_tipoTodos.equals("null")){
+            if (u.getTipobusqueda1().equals("")){
+                valortipo1 = "null";
+            }
+            if (u.getTipobusqueda3().equals("")){
+                valortipo2 = "null";
+            }
+            if (u.getTipobusqueda3().equals("")){
+                valortipo3 = "null";
+            }
+            if (u.getTipobusqueda4().equals("")){
+                valortipo4 = "null";
+            }
+        }else{
+            valortipo1 = "null";
+            valortipo2 = "null";
+            valortipo3 = "null";
+            valortipo4 = "null";
+        }
+                u.resetearVariables();
                 ArrayList<Tipo_de_Presupuesto> Presupuestos = DBMS.getInstance().consultarDatos_Tipo_de_presupuesto_Busqueda
                             (valortipo1,valortipo2,valortipo3,valortipo4,msg_fecha_minima,msg_fecha_maxima);
                 session.setAttribute(("presupuesto"), Presupuestos);

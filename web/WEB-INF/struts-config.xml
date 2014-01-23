@@ -153,7 +153,11 @@
                 scope="request" 
                 validate="false" 
                 parameter="buscarTDP"/>
-
+        
+        <action path="/buscar_TDP" type="Actions_Presupuesto.seleccionTiposBusqueda" validate="false">
+            <forward name="success" path="buscarTDP"/>
+        </action>
+        
         <action input="/Presupuesto/buscar_tipo_de_presupuesto.jsp" name="Presupuesto" path="/form_buscar_TDP" type="Actions_Presupuesto.busqueda" validate="false">
             <forward name="success" path="buscarTDP"/>            
         </action>                                            
@@ -210,7 +214,7 @@
             <forward name="failure" path="asignarPresupuesto"/>
         </action>
         
-        <action input="/PresupuestoAsignado/asignar_presupuesto.jsp" name="PresupuestoAsignado" path="/form_buscar_TDP_Presupuesto" type="Actions_PresupuestoAsignado.busqueda" validate="false">
+        <action input="/PresupuestoAsignado/asignar_presupuesto.jsp" name="Presupuesto" path="/form_buscar_TDP_Presupuesto" type="Actions_PresupuestoAsignado.busqueda" validate="false">
             <forward name="success" path="asignarPresupuesto"/>
         </action>
         
@@ -237,7 +241,7 @@
                 validate="false" 
                 parameter="asignarPresupuestoEquitativo"/>
         
-        <action input="/PresupuestoAsignado/asignar_presupuesto.jsp" name="PresupuestoAsignado" path="/form_buscar_TDP_Presupuesto_equitativo" type="Actions_PresupuestoAsignado.busqueda" validate="false">
+        <action input="/PresupuestoAsignado/asignar_presupuesto.jsp" name="Presupuesto" path="/form_buscar_TDP_Presupuesto_equitativo" type="Actions_PresupuestoAsignado.busqueda" validate="false">
             <forward name="success" path="asignarPresupuestoEquitativo"/>
         </action>
                                   

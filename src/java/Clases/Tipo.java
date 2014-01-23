@@ -19,13 +19,15 @@ public class Tipo extends org.apache.struts.action.ActionForm {
 
     /* forward name="success" path="" */
     private String tipo;
-    private String tipo_nuevo;
-    
+    private String tipo_nuevo;        
     
 
     public void resetearVariables() {
         this.tipo = "";
         this.tipo_nuevo = "";
+        
+        
+        
     }    
 
     public String getTipo() {
@@ -43,6 +45,8 @@ public class Tipo extends org.apache.struts.action.ActionForm {
     public void setTipo_nuevo(String tipo_nuevo) {
         this.tipo_nuevo = tipo_nuevo;
     }
+
+    
 
     
 

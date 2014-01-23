@@ -33,6 +33,11 @@ public class Tipo_de_Presupuesto extends org.apache.struts.action.ActionForm {
     private String fecha;
     private String status;
     
+    private String tipobusqueda1;
+    private String tipobusqueda2;
+    private String tipobusqueda3;
+    private String tipobusqueda4;
+    
     
     public String getMonto() {
         return monto;
@@ -94,6 +99,10 @@ public class Tipo_de_Presupuesto extends org.apache.struts.action.ActionForm {
         this.mes="";
         this.ano="";
         this.fecha="";
+        this.tipobusqueda1 = "";
+        this.tipobusqueda2 = "";
+        this.tipobusqueda3 = "";
+        this.tipobusqueda4 = "";
         //this.codigo_nuevo = "";
 
     }    
@@ -138,6 +147,37 @@ public class Tipo_de_Presupuesto extends org.apache.struts.action.ActionForm {
         this.status = status;
     }
 
+    public String getTipobusqueda1() {
+        return tipobusqueda1;
+    }
+
+    public void setTipobusqueda1(String tipobusqueda1) {
+        this.tipobusqueda1 = tipobusqueda1;
+    }
+
+    public String getTipobusqueda2() {
+        return tipobusqueda2;
+    }
+
+    public void setTipobusqueda2(String tipobusqueda2) {
+        this.tipobusqueda2 = tipobusqueda2;
+    }
+
+    public String getTipobusqueda3() {
+        return tipobusqueda3;
+    }
+
+    public void setTipobusqueda3(String tipobusqueda3) {
+        this.tipobusqueda3 = tipobusqueda3;
+    }
+
+    public String getTipobusqueda4() {
+        return tipobusqueda4;
+    }
+
+    public void setTipobusqueda4(String tipobusqueda4) {
+        this.tipobusqueda4 = tipobusqueda4;
+    }
     
     /**
      * This is the action called from the Struts framework.
