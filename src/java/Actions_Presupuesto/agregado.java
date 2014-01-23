@@ -3,12 +3,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package Actions_Presupuesto;
 
-import Clases.Presupuesto;
+import Clases.Tipo_de_Presupuesto;
+
 import DBMS.DBMS;
 import java.util.ArrayList;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -42,38 +43,36 @@ public class agregado extends org.apache.struts.action.Action {
     public ActionForward execute(ActionMapping mapping, ActionForm form,
             HttpServletRequest request, HttpServletResponse response)
             throws Exception {
-        Presupuesto u;
-        u = (Presupuesto) form;
+        Tipo_de_Presupuesto u;
+        u = (Tipo_de_Presupuesto) form;
         HttpSession session = request.getSession(true);
 
         ActionErrors error = new ActionErrors();
-        String msg_codigo_TDP = "", msg_monto = "", msg_codigo_lab = "", msg_fecha="";
+        String msg_codigo = "", msg_monto = "", msg_tipo = "", msg_fecha= "";
         error = u.validate(mapping, request);
         boolean huboError = false;
 
-        msg_codigo_TDP = u.ValidarCampoCodigoTDP(); 
+        //msg_codigo = u.ValidarCampoCodigo(); 
         msg_monto = u.ValidarCampoMonto();
-        msg_codigo_lab = u.ValidarCampoCodigoLab(); 
-
-        msg_fecha = request.getParameter("datepicker");               
-        //System.out.println("fechaaa: "+request.getParameter("datepicker"));
+        msg_tipo = u.ValidarCampoTipo();
+        msg_fecha = request.getParameter("datepicker");
+        /*if (error.size() != 0) {
+            huboError = true;
+        }
+        
+        */
+        
+        System.out.println("fechaaa: "+request.getParameter("datepicker"));
         
         if ((msg_fecha.equals("null")) || (msg_fecha.equals(""))){
             error.add("fecha", new ActionMessage("error.fecha.required"));
             huboError = true;
         }
-        if ((!msg_codigo_TDP.equals("ok")) || (!msg_monto.equals("ok")) || (!msg_codigo_lab.equals("ok"))){
+        if (/*(!msg_codigo.equals("ok")) ||*/ (!msg_monto.equals("ok")) || (!msg_tipo.equals("ok")) /*|| (!msg_fecha.equals("ok"))*/){
             huboError = true;
-        } 
-        
-        if (huboError) {
-            if (!msg_codigo_TDP.equals("ok")){
-                if (msg_codigo_TDP.equals("Codigo errado, indique un Numero")){
-                    error.add("codigo", new ActionMessage("error.codigo.numero"));
-                }else{
-                    error.add("codigo", new ActionMessage("error.codigo.mayorquecero"));
-                }
-            }
+        }       
+            
+        if (huboError) {                        
             if (!msg_monto.equals("ok")){
                 if (msg_monto.equals("Indique un monto")){
                     error.add("monto", new ActionMessage("error.monto.required"));
@@ -81,54 +80,29 @@ public class agregado extends org.apache.struts.action.Action {
                     error.add("monto", new ActionMessage("error.monto.mayorquecero"));
                 }
             }
-            if (!msg_codigo_lab.equals("ok")){
-                if (msg_codigo_lab.equals("Codigo errado, indique un Numero")){
-                    error.add("codigo_lab", new ActionMessage("error.codigo.numero"));
-                }else{
-                    error.add("codigo_lab", new ActionMessage("error.codigo.mayorquecero"));
-                }
-            }            
+            if (!msg_tipo.equals("ok")){
+                error.add("tipo", new ActionMessage("error.tipo.required"));
+            }
+            
             u.resetearVariables();
             saveErrors(request, error);
             return mapping.findForward(FAILURE);
             //si los campos son validos
         } else {
             u.setFecha(msg_fecha);
-            String msg_status = DBMS.getInstance().agregarDatos_Presupuesto(u);
-            
-            
+            boolean agrego = DBMS.getInstance().agregarDatos_Tipo_de_presupuesto(u);
             u.resetearVariables();
-            if (msg_status.equals("Codigo de Tipo de Presupuesto NO encontrado")) {
-                error.add("codigo", new ActionMessage("error.codigo.TDPNofound"));
-                saveErrors(request, error);
-                return mapping.findForward(FAILURE);
-            } else if (msg_status.equals("El monto indicado excede el presupuesto")) {
-                error.add("monto", new ActionMessage("error.monto.exceder"));
-                saveErrors(request, error);
-                return mapping.findForward(FAILURE);
-            } else if (msg_status.equals("Presupuesto a agregar ya existe")){
-                error.add("monto", new ActionMessage("error.codigo_lab.existe"));
-                saveErrors(request, error);
-                return mapping.findForward(FAILURE);
-            } else if (msg_status.equals("Codigo de Laboratorio NO encontrado")) {
-                error.add("codigo_lab", new ActionMessage("error.codigo_lab.noexiste"));
-                saveErrors(request, error);
-                return mapping.findForward(FAILURE);
-            } else if (msg_status.equals("ok")){
-                ArrayList<Presupuesto> Presupuestos = DBMS.getInstance().consultarDatos_Presupuesto();
+            if (agrego) {
+                ArrayList<Tipo_de_Presupuesto> Presupuestos = DBMS.getInstance().consultarDatos_Tipo_de_presupuesto();
                 session.setAttribute(("presupuesto"), Presupuestos);
                 request.setAttribute("agregado_exitoso",SUCCESS);
-                session.setAttribute(("busqueda"), null);
-
                 return mapping.findForward(SUCCESS);
-            } else if (msg_status.equals("Fecha errada")) {
-                error.add("fecha", new ActionMessage("error.fecha.menorquetdp"));
-                saveErrors(request, error);
+            } else {
+                //error.add("codigo", new ActionMessage("error.codigo.existe"));
+                //saveErrors(request, error);
+                //u.setError_tipo();
                 return mapping.findForward(FAILURE);
             }
-            
-            
-            return mapping.findForward(FAILURE);
         }
     }
 }

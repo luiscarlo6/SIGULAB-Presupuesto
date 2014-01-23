@@ -3,11 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Actions_Presupuesto;
 
-import Clases.Tipo_de_Presupuesto;
+package Actions_Tipo;
+
+import Clases.Tipo;
 import DBMS.DBMS;
-import java.util.ArrayList;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -21,12 +21,11 @@ import org.apache.struts.action.ActionMessage;
  *
  * @author juanpe
  */
-public class eliminado extends org.apache.struts.action.Action {
+public class modificado extends org.apache.struts.action.Action {
 
     /* forward name="success" path="" */
     private static final String SUCCESS = "success";
     private static final String FAILURE = "failure";
-
     /**
      * This is the action called from the Struts framework.
      *
@@ -41,44 +40,42 @@ public class eliminado extends org.apache.struts.action.Action {
     public ActionForward execute(ActionMapping mapping, ActionForm form,
             HttpServletRequest request, HttpServletResponse response)
             throws Exception {
-        Tipo_de_Presupuesto u;
-        u = (Tipo_de_Presupuesto) form;
+        Tipo u;
+        u = (Tipo) form;
         HttpSession session = request.getSession(true);
 
         ActionErrors error = new ActionErrors();
-        String msg_codigo = "";
+        String msg_tipo = "";
         error = u.validate(mapping, request);
         boolean huboError = false;
-        msg_codigo = u.ValidarCampoCodigo();        
         
-        if (!msg_codigo.equals("ok")) {
+        msg_tipo = u.ValidarCampoTipo();
+        if (!msg_tipo.equals("ok")) {
             huboError = true;
         }
         
         
         if (huboError) {
             u.resetearVariables();            
-            if (msg_codigo.equals("Codigo errado, indique un Numero")){
-                error.add("codigo", new ActionMessage("error.codigo.numero"));
-            }else{
-                error.add("codigo", new ActionMessage("error.codigo.mayorquecero"));
+            if (!msg_tipo.equals("ok")){
+                error.add("tipo", new ActionMessage("error.tipo.indicar"));
             }
             saveErrors(request, error);            
             return mapping.findForward(FAILURE);
             //si los campos son validos
         } else {
-            boolean elimino = DBMS.getInstance().CambiarStatus_Tipo_de_presupuesto(u);
+            Tipo tip = DBMS.getInstance().seleccionarDatos_Tipo(u.getTipo());
             u.resetearVariables();
-            if (elimino) {
-                ArrayList<Tipo_de_Presupuesto> Presupuestos = DBMS.getInstance().consultarDatos_Tipo_de_presupuesto();
-                session.setAttribute(("presupuesto"), Presupuestos);
-                request.setAttribute("desactivacion_exitosa",SUCCESS);
+            if (tip != null) {
+                request.setAttribute("datosPres", tip);
                 return mapping.findForward(SUCCESS);
             } else {
                 error.add("codigo", new ActionMessage("error.codigo.noexiste_deshabilitado"));
                 saveErrors(request, error);
+                //u.setError("***Codigo no existe o esta deshabilitado***");
                 return mapping.findForward(FAILURE);
             }
         }
     }
 }
+

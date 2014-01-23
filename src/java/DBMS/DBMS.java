@@ -7,6 +7,7 @@ package DBMS;
 
 import java.util.ArrayList;
 import Clases.Tipo_de_Presupuesto;
+import Clases.Tipo;
 import Clases.Cheque;
 import Clases.Laboratorio;
 import Clases.Presupuesto;
@@ -170,6 +171,122 @@ public class DBMS {
         }
         
   
+    }
+    
+    //Agregar un nvo Tipo
+    public boolean agregar_NuevoTipo(Tipo u) {
+
+        PreparedStatement psAgregar = null;
+        try {
+
+            psAgregar = conexion.prepareStatement("INSERT INTO TDP_DISPONIBLE VALUES (?,?);");
+            
+            psAgregar.setString(1, u.getTipo());   
+            psAgregar.setInt(2, 1);   
+            System.out.println(psAgregar.toString());
+            Integer i = psAgregar.executeUpdate();
+            return i > 0;
+
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            return false;
+        }
+    }
+    
+    
+    public ArrayList<Tipo> listar_Tipos_existentes() {
+        
+        ArrayList<Tipo> Tipos = new ArrayList<Tipo>();
+        PreparedStatement psConsultar = null;
+        try {
+
+            psConsultar = conexion.prepareStatement("SELECT * FROM TDP_DISPONIBLE ORDER BY TIPO;");
+            ResultSet Rs = psConsultar.executeQuery();
+
+            while (Rs.next()) {
+                Tipo u = new Tipo();
+                
+                //if (Rs.getInt("status") == 1) {                    
+                    u.setTipo(Rs.getString("tipo"));
+                    Tipos.add(u);
+                //}
+                
+                
+            }
+
+
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        
+        return Tipos;
+
+    }
+    
+    //Cambiar Status para un Tipo
+    public boolean Eliminacion_deTipo(Tipo u) {
+
+        PreparedStatement psEliminar = null;
+        PreparedStatement psConsultar = null;
+        try {                       
+            
+            psEliminar = conexion.prepareStatement("DELETE FROM TDP_DISPONIBLE where tipo = ?;");
+
+            psEliminar.setString(1, u.getTipo());
+            System.out.println(psEliminar.toString());
+
+            Integer i = psEliminar.executeUpdate();
+            return i > 0;
+
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            return false;
+        }
+    }
+    
+    
+    public Tipo seleccionarDatos_Tipo(String s){
+        PreparedStatement psConsultar = null;
+        try {
+            
+            psConsultar = conexion.prepareStatement("SELECT * FROM TDP_DISPONIBLE WHERE tipo = ?;");
+            psConsultar.setString(1, s);
+            
+            System.out.println(psConsultar.toString());
+            
+            ResultSet Rs = psConsultar.executeQuery();
+            Rs.next();
+            //FormatoFloat();
+            Tipo tip = new Tipo();
+            tip.setTipo(Rs.getString("tipo"));
+            
+            
+            return tip;
+
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            return null;
+        }
+        
+  
+    }
+    
+
+    public boolean ModificarDatos_Tipo(Tipo u) {
+        PreparedStatement psConsultar = null;
+        try {
+            
+            psConsultar = conexion.prepareStatement("UPDATE TDP_DISPONIBLE SET tipo=? where tipo = ?;");
+            psConsultar.setString(1, u.getTipo_nuevo());
+            psConsultar.setString(2, u.getTipo());
+            Integer i = psConsultar.executeUpdate();
+
+            return i > 0;
+
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            return false;
+        }
     }
     
     

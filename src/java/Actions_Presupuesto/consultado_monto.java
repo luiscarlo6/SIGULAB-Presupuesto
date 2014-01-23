@@ -20,7 +20,7 @@ import org.apache.struts.action.ActionMessage;
  *
  * @author Luiscarlo
  */
-public class consultado extends org.apache.struts.action.Action {
+public class consultado_monto extends org.apache.struts.action.Action {
     /* forward name="success" path="" */
 
     private static final String SUCCESS = "success";
@@ -43,7 +43,7 @@ public class consultado extends org.apache.struts.action.Action {
         
         HttpSession session = request.getSession(true);
         
-        ArrayList<Tipo_de_Presupuesto> Presupuestos = DBMS.getInstance().consultarDatos_Tipo_de_presupuesto();
+        ArrayList<Tipo_de_Presupuesto> Presupuestos = DBMS.getInstance().consultarDatos_Tipo_de_presupuesto_ordenMonto();
             session.setAttribute(("presupuesto"), Presupuestos);
             return mapping.findForward(SUCCESS);
   

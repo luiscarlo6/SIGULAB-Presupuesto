@@ -2,10 +2,10 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package Actions_Presupuesto;
+package Actions_PresupuestoAsignado;
 
 import DBMS.DBMS;
-import Clases.Tipo_de_Presupuesto;
+import Clases.Presupuesto;
 import java.util.ArrayList;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -43,10 +43,11 @@ public class consultado extends org.apache.struts.action.Action {
         
         HttpSession session = request.getSession(true);
         
-        ArrayList<Tipo_de_Presupuesto> Presupuestos = DBMS.getInstance().consultarDatos_Tipo_de_presupuesto();
-            session.setAttribute(("presupuesto"), Presupuestos);
+        ArrayList<Presupuesto> Presupuestos = DBMS.getInstance().consultarDatos_Presupuesto();
+        
+            session.setAttribute(("presupuesto"), Presupuestos);            
+            session.setAttribute(("busqueda"), null);
             return mapping.findForward(SUCCESS);
-  
 
 //        Recuerden que esto es una plantilla trabajada con condicionales
 //        dentro de su sistema ustedes deben modelar tal cual si fuera un programa

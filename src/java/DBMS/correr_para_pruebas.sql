@@ -3,6 +3,7 @@ drop table TIPO_DE_PRESUPUESTO;
 drop table LABORATORIO;
 drop table USUARIO;
 drop sequence codigo_seq;
+drop table TDP_DISPONIBLE;
 SET DATESTYLE TO 'European';
 CREATE SEQUENCE codigo_seq Start with 100000;
 create table USUARIO 
@@ -18,6 +19,11 @@ create table TIPO_DE_PRESUPUESTO
     monto float NOT NULL CHECK (monto >= 0.0),
     fecha Date,
     CONSTRAINT PK_TIPO_DE_PRESUPUESTO PRIMARY KEY (codigo,tipo));
+
+create table TDP_DISPONIBLE 
+    (tipo varchar(100) NOT NULL CHECK (tipo != ''),
+    status int,
+    CONSTRAINT PK_TDP_DISPONIBLE PRIMARY KEY (tipo));
 
 create table LABORATORIO 
     (codigo_laboratorio int unique CHECK (codigo_laboratorio > 0), 
@@ -38,6 +44,11 @@ create table PRESUPUESTO
     CONSTRAINT FK_PRESUPUESTO_TIPO_DE_PRESUPUESTO FOREIGN KEY (codigo_TDP)  REFERENCES TIPO_DE_PRESUPUESTO (codigo),
     CONSTRAINT FK_PRESUPUESTO_LABORATORIO FOREIGN KEY (codigo_laboratorio)  REFERENCES LABORATORIO);
 
+
+INSERT INTO TDP_DISPONIBLE VALUES ('FUNINDES',1);
+INSERT INTO TDP_DISPONIBLE VALUES ('ORDINARIO',1);
+INSERT INTO TDP_DISPONIBLE VALUES ('DONACION',1);
+INSERT INTO TDP_DISPONIBLE VALUES ('FONACIT',1);
 
 insert into laboratorio values(01050301, 'ULAB', 'Administracion de laboratorios, Sartenejas',0.0);
 insert into laboratorio values(01050303, 'Laboratorio A', 'Investigacion en Ingenieria Aplicada', 0.0);

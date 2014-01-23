@@ -2,10 +2,11 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package Actions_Presupuesto;
+package Actions_Tipo;
+
 
 import DBMS.DBMS;
-import Clases.Tipo_de_Presupuesto;
+import Clases.Tipo;
 import java.util.ArrayList;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -20,7 +21,7 @@ import org.apache.struts.action.ActionMessage;
  *
  * @author Luiscarlo
  */
-public class consultado extends org.apache.struts.action.Action {
+public class consultarTipo extends org.apache.struts.action.Action {
     /* forward name="success" path="" */
 
     private static final String SUCCESS = "success";
@@ -43,9 +44,9 @@ public class consultado extends org.apache.struts.action.Action {
         
         HttpSession session = request.getSession(true);
         
-        ArrayList<Tipo_de_Presupuesto> Presupuestos = DBMS.getInstance().consultarDatos_Tipo_de_presupuesto();
-            session.setAttribute(("presupuesto"), Presupuestos);
-            return mapping.findForward(SUCCESS);
+        ArrayList<Tipo> Tipos = DBMS.getInstance().listar_Tipos_existentes();
+        session.setAttribute(("tipo"), Tipos);
+        return mapping.findForward(SUCCESS);
   
 
 //        Recuerden que esto es una plantilla trabajada con condicionales

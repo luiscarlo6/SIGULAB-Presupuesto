@@ -1,11 +1,13 @@
 /*
- * To change this template, choose Tools | Templates
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
 package Actions_Presupuesto;
 
-import DBMS.DBMS;
 import Clases.Tipo_de_Presupuesto;
+import Clases.Tipo;
+import DBMS.DBMS;
 import java.util.ArrayList;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -18,11 +20,11 @@ import org.apache.struts.action.ActionMessage;
 
 /**
  *
- * @author Luiscarlo
+ * @author juanpe
  */
-public class consultado extends org.apache.struts.action.Action {
-    /* forward name="success" path="" */
+public class seleccionTipos extends org.apache.struts.action.Action {
 
+    /* forward name="success" path="" */
     private static final String SUCCESS = "success";
     private static final String FAILURE = "failure";
 
@@ -40,18 +42,32 @@ public class consultado extends org.apache.struts.action.Action {
     public ActionForward execute(ActionMapping mapping, ActionForm form,
             HttpServletRequest request, HttpServletResponse response)
             throws Exception {
-        
         HttpSession session = request.getSession(true);
         
         ArrayList<Tipo_de_Presupuesto> Presupuestos = DBMS.getInstance().consultarDatos_Tipo_de_presupuesto();
-            session.setAttribute(("presupuesto"), Presupuestos);
-            return mapping.findForward(SUCCESS);
-  
-
-//        Recuerden que esto es una plantilla trabajada con condicionales
-//        dentro de su sistema ustedes deben modelar tal cual si fuera un programa
-//        comun y corriente, es decir, pueden usar IF, ELSE, WHILE, entre otras
-//        herramientas que provea java para realizar su flujo en el sistema.
+        session.setAttribute(("presupuesto"), Presupuestos);
+            
+        
+        
+        ArrayList<Tipo> Tipos = DBMS.getInstance().listar_Tipos_existentes();
+        ArrayList<org.apache.struts.util.LabelValueBean> tipos = RetornarTipos(Tipos);
+        session.setAttribute(("tipo"), tipos);
+        return mapping.findForward(SUCCESS);
     }
-
+    
+    
+    public static ArrayList<org.apache.struts.util.LabelValueBean> RetornarTipos(ArrayList<Tipo> pres)  {
+        
+            ArrayList<org.apache.struts.util.LabelValueBean> codigos = new ArrayList<org.apache.struts.util.LabelValueBean>();
+            codigos.add(new org.apache.struts.util.LabelValueBean());
+            for (int i = 0;i<pres.size();i++){
+                
+                 codigos.add(new org.apache.struts.util.LabelValueBean(pres.get(i).getTipo(),pres.get(i).getTipo()));
+                
+            }
+	  
+	  
+            return codigos;	  
+    }
+    
 }

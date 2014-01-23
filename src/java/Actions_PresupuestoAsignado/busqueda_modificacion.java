@@ -3,12 +3,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Actions_Presupuesto;
+package Actions_PresupuestoAsignado;
 
 import Clases.Tipo_de_Presupuesto;
-
+import Clases.Presupuesto;
 import DBMS.DBMS;
 import java.util.ArrayList;
+import java.util.StringTokenizer;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -23,7 +24,7 @@ import org.apache.struts.action.ActionMessage;
  *
  * @author juanpe
  */
-public class busqueda extends org.apache.struts.action.Action {
+public class busqueda_modificacion extends org.apache.struts.action.Action {
 
     /* forward name="success" path="" */
     private static final String SUCCESS = "success";
@@ -43,8 +44,8 @@ public class busqueda extends org.apache.struts.action.Action {
     public ActionForward execute(ActionMapping mapping, ActionForm form,
             HttpServletRequest request, HttpServletResponse response)
             throws Exception {
-        Tipo_de_Presupuesto u;
-        u = (Tipo_de_Presupuesto) form;
+        Presupuesto u;
+        u = (Presupuesto) form;
         HttpSession session = request.getSession(true);
 
         ActionErrors error = new ActionErrors();
@@ -76,9 +77,28 @@ public class busqueda extends org.apache.struts.action.Action {
                 ArrayList<Tipo_de_Presupuesto> Presupuestos = DBMS.getInstance().consultarDatos_Tipo_de_presupuesto_Busqueda
                             (valortipo1,valortipo2,valortipo3,valortipo4,msg_fecha_minima,msg_fecha_maxima);
                 session.setAttribute(("presupuesto"), Presupuestos);
+                ArrayList<org.apache.struts.util.LabelValueBean> codigos = RetornarCodigos(Presupuestos);
+                session.setAttribute(("busqueda"), codigos);
                 request.setAttribute("consulta_realizada",SUCCESS);
+                System.out.println("ID: "+u.getId());
+                Presupuesto pre = DBMS.getInstance().seleccionarDatos_Presupuesto(Integer.parseInt(u.getId()));
+                request.setAttribute("datosPres", pre);
+                
                 return mapping.findForward(SUCCESS);
             
         
+    }
+    
+    public static ArrayList<org.apache.struts.util.LabelValueBean> RetornarCodigos(ArrayList<Tipo_de_Presupuesto> pres)  {
+        
+            ArrayList<org.apache.struts.util.LabelValueBean> codigos = new ArrayList<org.apache.struts.util.LabelValueBean>();
+            for (int i = 0;i<pres.size();i++){
+                if (pres.get(i).getStatus().equals("Habilitado")) {
+                 codigos.add(new org.apache.struts.util.LabelValueBean(pres.get(i).getCodigo(),pres.get(i).getCodigo()));
+                }
+            }
+	  
+	  
+            return codigos;	  
     }
 }

@@ -24,7 +24,7 @@ import org.apache.struts.action.ActionMessage;
  *
  * @author juanpe
  */
-public class modificar_datos extends org.apache.struts.action.Action {
+public class modificar_datos_monto extends org.apache.struts.action.Action {
 
     /* forward name="success" path="" */
     private static final String SUCCESS = "success";
@@ -48,7 +48,7 @@ public class modificar_datos extends org.apache.struts.action.Action {
         Tipo_de_Presupuesto u;
         u = (Tipo_de_Presupuesto) form;
         HttpSession session = request.getSession(true);
-        String msg_fecha = "ok", msg_monto = "", msg_tipo = "";
+        String msg_fecha = "", msg_monto = "", msg_tipo = "";
         ActionErrors error = new ActionErrors();
 
         error = u.validate(mapping, request);
@@ -62,8 +62,7 @@ public class modificar_datos extends org.apache.struts.action.Action {
         msg_monto = u.ValidarCampoMonto();
         msg_tipo = u.ValidarCampoTipo();
         msg_fecha = request.getParameter("datepicker");
-        System.out.println("la fecha es en modificar_datos conoo= ");
-        System.out.println(msg_fecha);
+        System.out.println("la fecha es en modificar_datos = "+msg_fecha);
         if ((msg_fecha.equals("null")) || (msg_fecha.equals(""))){
             error.add("fecha", new ActionMessage("error.fecha.required"));
             huboError = true;
@@ -82,7 +81,6 @@ public class modificar_datos extends org.apache.struts.action.Action {
             huboError = true;
         }
         
-        System.out.println("u.getCodigo() = "+ u.getCodigo());
         if (huboError) {
             Tipo_de_Presupuesto pre = DBMS.getInstance().seleccionarDatos_Tipo_de_presupuesto(Integer.parseInt(u.getCodigo()));
             u.resetearVariables();
@@ -91,13 +89,15 @@ public class modificar_datos extends org.apache.struts.action.Action {
             saveErrors(request, error);
             return mapping.findForward(FAILURE);
             //si los campos son validos
-        } else {
+        } else 
+            
+            {
                 u.setFecha(msg_fecha);
                 boolean modifico = DBMS.getInstance().ModificarDatos_Tipo_de_presupuesto(u);
-                
+                //u.resetearVariables();
                 if (modifico) {
                     u.resetearVariables();
-                    ArrayList<Tipo_de_Presupuesto> Presupuestos = DBMS.getInstance().consultarDatos_Tipo_de_presupuesto();
+                    ArrayList<Tipo_de_Presupuesto> Presupuestos = DBMS.getInstance().consultarDatos_Tipo_de_presupuesto_ordenMonto();
                     session.setAttribute(("presupuesto"), Presupuestos);
                     request.setAttribute("modificacion_exitosa",SUCCESS);
                     return mapping.findForward(SUCCESS);
@@ -105,10 +105,10 @@ public class modificar_datos extends org.apache.struts.action.Action {
                     //u.resetearVariables();
                     Tipo_de_Presupuesto pre = DBMS.getInstance().seleccionarDatos_Tipo_de_presupuesto(Integer.parseInt(u.getCodigo()));
                     request.setAttribute("datosPres", pre);
+                    u.resetearVariables();
                     ArrayList<Tipo> Tipos = DBMS.getInstance().listar_Tipos_existentes();
                     ArrayList<org.apache.struts.util.LabelValueBean> tipos = RetornarTipos(Tipos);
                     session.setAttribute(("tipo"), tipos);
-                    u.resetearVariables();
                     error.add("codigo", new ActionMessage("error.codigo.modificando"));
                     saveErrors(request, error);
                     request.setAttribute("modificacion_fallida",SUCCESS);

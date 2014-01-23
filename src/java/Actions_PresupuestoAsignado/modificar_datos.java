@@ -4,11 +4,9 @@
  * and open the template in the editor.
  */
 
-package Actions_Presupuesto;
+package Actions_PresupuestoAsignado;
 
-import static Actions_Presupuesto.seleccionTipos.RetornarTipos;
-import Clases.Tipo;
-import Clases.Tipo_de_Presupuesto;
+import Clases.Presupuesto;
 import DBMS.DBMS;
 import java.util.ArrayList;
 import javax.servlet.http.HttpServletRequest;
@@ -45,10 +43,10 @@ public class modificar_datos extends org.apache.struts.action.Action {
             HttpServletRequest request, HttpServletResponse response)
             throws Exception {
         
-        Tipo_de_Presupuesto u;
-        u = (Tipo_de_Presupuesto) form;
+        Presupuesto u;
+        u = (Presupuesto) form;
         HttpSession session = request.getSession(true);
-        String msg_fecha = "ok", msg_monto = "", msg_tipo = "";
+        String msg_codigo_TDP = "", msg_monto = "", msg_codigo_lab = "", msg_fecha="";
         ActionErrors error = new ActionErrors();
 
         error = u.validate(mapping, request);
@@ -59,20 +57,24 @@ public class modificar_datos extends org.apache.struts.action.Action {
             
         }*/
         //msg_fecha = u.VerificarFecha(); 
+        msg_codigo_TDP = u.ValidarCampoCodigoTDP(); 
         msg_monto = u.ValidarCampoMonto();
-        msg_tipo = u.ValidarCampoTipo();
+        msg_codigo_lab = u.ValidarCampoCodigoLab(); 
         msg_fecha = request.getParameter("datepicker");
-        System.out.println("la fecha es en modificar_datos conoo= ");
-        System.out.println(msg_fecha);
+        System.out.println("la fecha es en modificar_datos = "+msg_fecha);
         if ((msg_fecha.equals("null")) || (msg_fecha.equals(""))){
             error.add("fecha", new ActionMessage("error.fecha.required"));
             huboError = true;
         }
             
-        if (!msg_tipo.equals("ok")){
-            error.add("tipo", new ActionMessage("error.tipo.required"));
+        if (!msg_codigo_TDP.equals("ok")){
+            if (msg_codigo_TDP.equals("Codigo errado, indique un Numero")){
+                    error.add("codigo", new ActionMessage("error.codigo.numero"));
+            }else{
+                error.add("codigo", new ActionMessage("error.codigo.mayorquecero"));
+            }
             huboError = true;
-        } 
+        }
         if (!msg_monto.equals("ok")){
             if (msg_monto.equals("Indique un monto")){
                     error.add("monto", new ActionMessage("error.monto.required"));
@@ -81,39 +83,53 @@ public class modificar_datos extends org.apache.struts.action.Action {
             }
             huboError = true;
         }
-        
-        System.out.println("u.getCodigo() = "+ u.getCodigo());
+        if (!msg_codigo_lab.equals("ok")){
+            error.add("codigo_lab", new ActionMessage("error.codigo_lab.noexiste"));              
+            huboError = true;
+        }
+        System.out.println("ID = "+u.getId());
         if (huboError) {
-            Tipo_de_Presupuesto pre = DBMS.getInstance().seleccionarDatos_Tipo_de_presupuesto(Integer.parseInt(u.getCodigo()));
+            Presupuesto pre = DBMS.getInstance().seleccionarDatos_Presupuesto(Integer.parseInt(u.getId()));            
             u.resetearVariables();
             request.setAttribute("datosPres", pre);            
             request.setAttribute("modificacion_fallida",SUCCESS);
             saveErrors(request, error);
             return mapping.findForward(FAILURE);
             //si los campos son validos
-        } else {
+        } else 
+            
+            {
                 u.setFecha(msg_fecha);
-                boolean modifico = DBMS.getInstance().ModificarDatos_Tipo_de_presupuesto(u);
-                
-                if (modifico) {
+                String modifico = DBMS.getInstance().ModificarDatos_Presupuesto(u);
+                //u.resetearVariables();
+                if (modifico.equals("ok")) {
                     u.resetearVariables();
-                    ArrayList<Tipo_de_Presupuesto> Presupuestos = DBMS.getInstance().consultarDatos_Tipo_de_presupuesto();
+                    ArrayList<Presupuesto> Presupuestos = DBMS.getInstance().consultarDatos_Presupuesto();
                     session.setAttribute(("presupuesto"), Presupuestos);
                     request.setAttribute("modificacion_exitosa",SUCCESS);
                     return mapping.findForward(SUCCESS);
-                } else {
-                    //u.resetearVariables();
-                    Tipo_de_Presupuesto pre = DBMS.getInstance().seleccionarDatos_Tipo_de_presupuesto(Integer.parseInt(u.getCodigo()));
-                    request.setAttribute("datosPres", pre);
-                    ArrayList<Tipo> Tipos = DBMS.getInstance().listar_Tipos_existentes();
-                    ArrayList<org.apache.struts.util.LabelValueBean> tipos = RetornarTipos(Tipos);
-                    session.setAttribute(("tipo"), tipos);
+                } else if (modifico.equals("Fecha errada")){
+                    Presupuesto pre = DBMS.getInstance().seleccionarDatos_Presupuesto(Integer.parseInt(u.getId()));            
                     u.resetearVariables();
-                    error.add("codigo", new ActionMessage("error.codigo.modificando"));
+                    request.setAttribute("datosPres", pre); 
+                    error.add("fecha", new ActionMessage("error.fecha.menorquetdp"));
                     saveErrors(request, error);
+                    
                     request.setAttribute("modificacion_fallida",SUCCESS);
                     return mapping.findForward(FAILURE);
-            }
+                } else {
+                    //u.resetearVariables();
+                    //Presupuesto pre = DBMS.getInstance().seleccionarDatos_Tipo_de_presupuesto(Integer.parseInt(u.getCodigo_TDP()));
+                    //request.setAttribute("datosPres", pre);
+                    Presupuesto pre = DBMS.getInstance().seleccionarDatos_Presupuesto(Integer.parseInt(u.getId()));            
+                    u.resetearVariables();
+                    request.setAttribute("datosPres", pre); 
+                    error.add("monto", new ActionMessage("error.monto.exceder"));
+                    saveErrors(request, error);
+                    
+                    request.setAttribute("modificacion_fallida",SUCCESS);
+                    return mapping.findForward(FAILURE);
+                }
         }
         
         

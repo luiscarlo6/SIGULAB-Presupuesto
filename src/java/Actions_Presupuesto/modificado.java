@@ -6,7 +6,9 @@
 
 package Actions_Presupuesto;
 
-import Clases.Presupuesto;
+import static Actions_Presupuesto.seleccionTipos.RetornarTipos;
+import Clases.Tipo;
+import Clases.Tipo_de_Presupuesto;
 import DBMS.DBMS;
 import java.util.ArrayList;
 import javax.servlet.http.HttpServletRequest;
@@ -41,22 +43,48 @@ public class modificado extends org.apache.struts.action.Action {
     public ActionForward execute(ActionMapping mapping, ActionForm form,
             HttpServletRequest request, HttpServletResponse response)
             throws Exception {
-        Presupuesto u;
-        u = (Presupuesto) form;
+       Tipo_de_Presupuesto u;
+        u = (Tipo_de_Presupuesto) form;
         HttpSession session = request.getSession(true);
-        
+
         ActionErrors error = new ActionErrors();
+        String msg_codigo = "";
         error = u.validate(mapping, request);
-        System.out.println("id = " + u.getId());
-            Presupuesto pre = DBMS.getInstance().seleccionarDatos_Presupuesto(Integer.parseInt(u.getId()));
+        boolean huboError = false;
+        msg_codigo = u.ValidarCampoCodigo();
+        
+        if (!msg_codigo.equals("ok")) {
+            huboError = true;
+        }
+        if (huboError) {
+            if (msg_codigo.equals("Codigo errado, indique un Numero")){
+                error.add("codigo", new ActionMessage("error.codigo.numero"));
+            }else{
+                error.add("codigo", new ActionMessage("error.codigo.mayorquecero"));
+            }
+            u.resetearVariables();
+            //u.setError(msg_codigo);
+            saveErrors(request, error);
+            return mapping.findForward(FAILURE);
+            //si los campos son validos
+        } else {
+            Tipo_de_Presupuesto pre = DBMS.getInstance().seleccionarDatos_Tipo_de_presupuesto(Integer.parseInt(u.getCodigo()));
             u.resetearVariables();
             if (pre != null) {
+                
+                ArrayList<Tipo> Tipos = DBMS.getInstance().listar_Tipos_existentes();
+                ArrayList<org.apache.struts.util.LabelValueBean> tipos = RetornarTipos(Tipos);
+                session.setAttribute(("tipo"), tipos);
+        
                 request.setAttribute("datosPres", pre);
                 return mapping.findForward(SUCCESS);
             } else {
+                error.add("codigo", new ActionMessage("error.codigo.noexiste_deshabilitado"));
+                saveErrors(request, error);
                 //u.setError("***Codigo no existe o esta deshabilitado***");
                 return mapping.findForward(FAILURE);
             }
-
+        }
     }
 }
+

@@ -3,9 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Actions_Presupuesto;
 
-import Clases.Tipo_de_Presupuesto;
+package Actions_PresupuestoAsignado;
+
+import Clases.Presupuesto;
 import DBMS.DBMS;
 import java.util.ArrayList;
 import javax.servlet.http.HttpServletRequest;
@@ -26,7 +27,6 @@ public class eliminado extends org.apache.struts.action.Action {
     /* forward name="success" path="" */
     private static final String SUCCESS = "success";
     private static final String FAILURE = "failure";
-
     /**
      * This is the action called from the Struts framework.
      *
@@ -41,41 +41,51 @@ public class eliminado extends org.apache.struts.action.Action {
     public ActionForward execute(ActionMapping mapping, ActionForm form,
             HttpServletRequest request, HttpServletResponse response)
             throws Exception {
-        Tipo_de_Presupuesto u;
-        u = (Tipo_de_Presupuesto) form;
+        Presupuesto u;
+        u = (Presupuesto) form;
         HttpSession session = request.getSession(true);
 
         ActionErrors error = new ActionErrors();
-        String msg_codigo = "";
         error = u.validate(mapping, request);
+        String msg_codigo_TDP = "",msg_codigo_lab="";
         boolean huboError = false;
-        msg_codigo = u.ValidarCampoCodigo();        
         
-        if (!msg_codigo.equals("ok")) {
+        msg_codigo_TDP = u.ValidarCampoCodigoTDP();         
+        msg_codigo_lab = u.ValidarCampoCodigoLab(); 
+        
+        if ((!msg_codigo_TDP.equals("ok")) || (!msg_codigo_lab.equals("ok")) ){
             huboError = true;
-        }
-        
+        } 
         
         if (huboError) {
-            u.resetearVariables();            
-            if (msg_codigo.equals("Codigo errado, indique un Numero")){
-                error.add("codigo", new ActionMessage("error.codigo.numero"));
-            }else{
-                error.add("codigo", new ActionMessage("error.codigo.mayorquecero"));
+            if (!msg_codigo_TDP.equals("ok")){
+                if (msg_codigo_TDP.equals("Codigo errado, indique un Numero")){
+                    error.add("codigo", new ActionMessage("error.codigo.numero"));
+                }else{
+                    error.add("codigo", new ActionMessage("error.codigo.mayorquecero"));
+                }
+            }            
+            if (!msg_codigo_lab.equals("ok")){
+                if (msg_codigo_lab.equals("Codigo errado, indique un Numero")){
+                    error.add("codigo_lab", new ActionMessage("error.codigo.numero"));
+                }else{
+                    error.add("codigo_lab", new ActionMessage("error.codigo.mayorquecero"));
+                }
             }
-            saveErrors(request, error);            
+            saveErrors(request, error);
+            u.resetearVariables();
             return mapping.findForward(FAILURE);
             //si los campos son validos
         } else {
-            boolean elimino = DBMS.getInstance().CambiarStatus_Tipo_de_presupuesto(u);
+            boolean elimino = DBMS.getInstance().CambiarStatus_Presupuesto(u);
             u.resetearVariables();
             if (elimino) {
-                ArrayList<Tipo_de_Presupuesto> Presupuestos = DBMS.getInstance().consultarDatos_Tipo_de_presupuesto();
+                ArrayList<Presupuesto> Presupuestos = DBMS.getInstance().consultarDatos_Presupuesto();
                 session.setAttribute(("presupuesto"), Presupuestos);
                 request.setAttribute("desactivacion_exitosa",SUCCESS);
                 return mapping.findForward(SUCCESS);
             } else {
-                error.add("codigo", new ActionMessage("error.codigo.noexiste_deshabilitado"));
+                error.add("codigo_lab", new ActionMessage("error.presupuesto.noexiste"));
                 saveErrors(request, error);
                 return mapping.findForward(FAILURE);
             }
