@@ -203,12 +203,16 @@
         -
         -
         --> 
-        <!--Asignar un Presupuesto -->
+        <!--Asignar un Presupuesto 
         <action path="/asignar_presupuesto" 
                 type="org.apache.struts.actions.ForwardAction" 
                 scope="request" 
                 validate="false" 
-                parameter="asignarPresupuesto"/>
+                parameter="asignarPresupuesto"/>-->
+        
+        <action path="/asignar_presupuesto" type="Actions_PresupuestoAsignado.seleccionTipos" validate="false">
+            <forward name="success" path="asignarPresupuesto"/>           
+        </action>
         
         <action input="/PresupuestoAsignado/asignar_presupuesto.jsp" name="PresupuestoAsignado" path="/form_asignar_presupuesto" type="Actions_PresupuestoAsignado.agregado" validate="false">
             <forward name="success" path="consultarPresupuesto"/>
@@ -243,7 +247,7 @@
                 validate="false" 
                 parameter="asignarPresupuestoEquitativo"/>
         
-        <action input="/PresupuestoAsignado/asignar_presupuesto.jsp" name="Presupuesto" path="/form_buscar_TDP_Presupuesto_equitativo" type="Actions_PresupuestoAsignado.busqueda" validate="false">
+        <action input="/PresupuestoAsignado/asignar_presupuesto_equitativo.jsp" name="Presupuesto" path="/form_buscar_TDP_Presupuesto_equitativo" type="Actions_PresupuestoAsignado.busqueda" validate="false">
             <forward name="success" path="asignarPresupuestoEquitativo"/>
             <forward name="failure" path="asignarPresupuestoEquitativo"/>
         </action>

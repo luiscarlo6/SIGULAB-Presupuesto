@@ -13,34 +13,34 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Tipos de Presupuestos</title>
+        <title>Presupuestos</title>
     </head>
     <body>       
         <logic:present name="agregado_exitoso">
             <div align="center" class="alert alert-success" id="alert">
-                Tipo de Presupuesto Agregado Exitosamente.
+                Presupuesto Agregado Exitosamente.
             </div>
         </logic:present>
         
         <logic:present name="desactivacion_exitosa">
             <div align="center" class="alert alert-success" id="alert">
-                Desactivación de Tipo de Presupuesto Exitoso.
+                Desactivación de Presupuesto Exitoso.
             </div>
         </logic:present>
         
         <logic:present name="modificacion_exitosa">
             <div align="center" class="alert alert-success" id="alert">
-                Modificación de Tipo de Presupuesto Exitoso.
+                Modificación de Presupuesto Exitoso.
             </div>
         </logic:present>
         
         <logic:present name="modificacion_fallida">
             <div align="center" class="alert alert-danger" id="alert">
-                Modificación de Tipo de Presupuesto Fallida, intente de nuevo.
+                Modificación de Presupuesto Fallida, intente de nuevo.
             </div>
         </logic:present>
 
-        <h2>Tipos de Presupuestos Existentes:</h2>
+        <h2>Presupuestos Existentes:</h2>
 
     <table border="1" >
     <thead>
@@ -119,7 +119,7 @@
 </table>
     <div align="center">
         <html:link  action="agregar_TDP"><font size="3" >Agregar Nuevo </font></html:link>  <font size="3" > | </font>   
-        <html:link  action="buscar_TDP"><font size="3" >Busqueda Especifica</font></html:link>
+        <html:link  action="buscar_TDP"><font size="3" >Búsqueda Específica</font></html:link>
     </div>
     
     <br />

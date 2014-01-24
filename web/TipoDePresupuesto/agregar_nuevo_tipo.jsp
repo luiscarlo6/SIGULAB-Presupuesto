@@ -16,7 +16,7 @@
         
     </head>
     <body>
-        <h2>Introduzca el nuevo tipo a agregar</h2>
+        <h2>Introduzca el nuevo Tipo de Presupuesto a agregar</h2>
 
         <html:form action="/form_agregar_nuevo_tipo">            
             <div id="welcome">
@@ -25,7 +25,7 @@
                         
                     <tbody>                               
                         <tr>
-                            <td><font size="2" >* Tipo:</font>
+                            <td><font size="2" >* Nombre del Tipo:</font>
                                 
                             </td>                                            
                         
@@ -43,7 +43,7 @@
                     <tr>
                         <td>
                             <html:submit onclick="javascript: return confirm('¿Está seguro de que los datos son correctos?')">
-                                Agregar Nuevo Tipo
+                                Agregar Nuevo Tipo de Presupuesto
                             </html:submit>
                             <!---< html:reset value="Limpiar" /> -->
                         </td>

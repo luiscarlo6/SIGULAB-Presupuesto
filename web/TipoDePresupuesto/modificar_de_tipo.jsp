@@ -22,10 +22,10 @@
     <body>
         <logic:present name="modificacion_fallida">
             <div align="center" class="alert alert-danger" id="alert">
-                Modificación de Tipo Fallida, intente de nuevo.
+                Modificación de Tipo de Presupuesto Fallida, intente de nuevo.
             </div>
         </logic:present>
-        <h2>Introduzca los datos del tipo a modificar:</h2>
+        <h2>Introduzca los datos del tipo de presupuesto a modificar:</h2>
         <html:form action="/form_parametros_nuevos_de_tipo">            
             <div id="welcome">
                 <table border="0">
@@ -44,7 +44,7 @@
                         <tr>
                             <td>
                                 <div>
-                                    <b><font size="2" >Indique Tipo nuevo </font></b><br />
+                                    <b><font size="2" >* Indique Tipo nuevo </font></b><br />
                                 </div>
                                 
                                 <html:text name="datosPres" property="tipo_nuevo" />
@@ -61,7 +61,7 @@
                         <html:submit onclick="javascript: return confirm('¿Está seguro de sus modificaciones?')">
                             Modificar Tipo
                         </html:submit>
-                        
+                        <font size="1" >*Campos Obligatorios</font>
                         <!---< html:reset value="Limpiar" /> -->
                     </td>
                     </tbody>

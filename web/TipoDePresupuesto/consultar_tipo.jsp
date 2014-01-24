@@ -18,19 +18,19 @@
     <body>       
         <logic:present name="agregado_Tipo">
             <div align="center" class="alert alert-success" id="alert">
-                Tipo Agregado Exitosamente.
+                Tipo de Presupuesto Agregado Exitosamente.
             </div>
         </logic:present>
         
         <logic:present name="desactivacion_exitosa">
             <div align="center" class="alert alert-success" id="alert">
-                Desactivación de Tipo Exitoso.
+                Desactivación de Tipo de Presupuesto Exitoso.
             </div>
         </logic:present>
         
         <logic:present name="modificacion_exitosa">
             <div align="center" class="alert alert-success" id="alert">
-                Modificación de Tipo Exitoso.
+                Modificación de Tipo de Presupuesto Exitoso.
             </div>
         </logic:present>
         
@@ -40,7 +40,7 @@
             </div>
         </logic:present>
 
-        <h2>Tipos Existentes Actualmente:</h2>
+        <h2>Tipos de Presupuesto Existentes Actualmente:</h2>
 
     <table border="1" cellpadding="0" cellspacing="0" width="40%">
     <thead>
@@ -96,7 +96,7 @@
     
 </table>   
         <div align="center">
-            <html:link  action="agregar_tipo"><font size="3" >Agregar Nuevo Tipo</font></html:link> <font size="3" > 
+            <html:link  action="agregar_tipo"><font size="3" >Agregar Nuevo Tipo de Presupuesto</font></html:link> <font size="3" > 
         </div>
     
     <br />
