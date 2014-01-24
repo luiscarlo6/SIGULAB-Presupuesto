@@ -5,6 +5,7 @@
  */
 package DBMS;
 
+import java.util.Calendar;
 import java.util.ArrayList;
 import Clases.Tipo_de_Presupuesto;
 import Clases.Tipo;
@@ -1586,7 +1587,20 @@ public class DBMS {
                     DBMS.getInstance().CambiarStatus_Presupuesto(u);
             } 
                     
-                    
+            psConsultar = conexion.prepareStatement("select fecha from tipo_de_presupuesto where tipo = 'REFORMULACION';");
+            Rs = psConsultar.executeQuery(); 
+            Rs.next();
+            Date date = Rs.getDate("fecha");
+            Calendar cal = Calendar.getInstance();
+            cal.setTime(date);
+            int year = cal.get(Calendar.YEAR);
+            String fecha = "01/01/"+(year+1);
+            
+            psAgregar = conexion.prepareStatement("UPDATE TIPO_DE_PRESUPUESTO SET fecha = ? WHERE TIPO = 'REFORMULACION';");
+            psAgregar.setDate(1, StringttoDate(fecha));
+            psAgregar.executeUpdate();
+            
+            
             int i = 0;
             while (i < Laboratorios.size()) {
                 String codigolab = Laboratorios.get(i).getCodigo_lab();
@@ -1594,13 +1608,14 @@ public class DBMS {
                 
                 if (!monto.equals("0.00")) {
                     
-                    psAgregar = conexion.prepareStatement("INSERT INTO PRESUPUESTO VALUES (default,?,?,?,?,default,?);");
+                    psAgregar = conexion.prepareStatement("INSERT INTO PRESUPUESTO VALUES (default,?,?,?,?,?,?);");
                     psAgregar.setInt(1, 999);   
                     psAgregar.setInt(2, Integer.parseInt(codigolab));
                     psAgregar.setFloat(3, Float.parseFloat(monto));            
-                    psAgregar.setInt(4, 1);                
-                    psAgregar.setString(5, "REFORMULACION");
-                    System.out.println(psAgregar.toString());  
+                    psAgregar.setInt(4, 1);
+                    psAgregar.setDate(5, StringttoDate(fecha));
+                    psAgregar.setString(6, "REFORMULACION");
+                    //System.out.println(psAgregar.toString());  
                     psAgregar.executeUpdate();
                 }
                 

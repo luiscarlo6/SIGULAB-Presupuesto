@@ -132,10 +132,9 @@
 </table>
    <div align="center">     
         <html:link action="asignar_presupuesto"><font size="3" > Asignar </font></html:link> <font size="3" > | </font>
-        <html:link action="asignar_presupuesto_equitativo"> <font size="3" >Asignación Equitativa</font></html:link> <font size="3" > | </font>
-        <!-- <html:link action="construccion"><font size="3" > Modificar</font></html:link> <font size="3" > | </font> --> 
+        <html:link action="asignar_presupuesto_equitativo"> <font size="3" >Asignación Equitativa</font></html:link> <font size="3" > | </font>        
         <html:link action="consulta_totales"><font size="3" > Totales Disponibles</font></html:link> <font size="3" > | </font>
-        <html:link action="buscar_presupuesto"><font size="3" > Busqueda Especifica</font></html:link>
+        <html:link action="buscar_presupuesto"><font size="3" > Búsqueda Específica</font></html:link>
         <br />
         <br />
         <br />

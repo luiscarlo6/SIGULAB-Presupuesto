@@ -53,8 +53,7 @@
     <div align="center">   
         <html:link action="consultar_presupuesto"><font size="3" >Presupuesto</font></html:link> <font size="3" > | </font>
         <html:link action="asignar_presupuesto"><font size="3" > Asignar </font></html:link> <font size="3" > | </font>
-        <html:link action="asignar_presupuesto_equitativo"> <font size="3" >Asignación Equitativa</font></html:link> <font size="3" > | </font>
-        <!-- <html:link action="construccion"><font size="3" > Modificar</font></html:link> <font size="3" > | </font> -->                
+        <html:link action="asignar_presupuesto_equitativo"> <font size="3" >Asignación Equitativa</font></html:link> <font size="3" > | </font>        
         <html:link action="buscar_presupuesto"><font size="3" > Busqueda Especifica</font></html:link>
         <br />
         <br />

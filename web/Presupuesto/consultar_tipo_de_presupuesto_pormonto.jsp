@@ -55,7 +55,7 @@
                 <b><font size="2" >Descripción</font></b>                                                
             </th>
             <th width="80px" align="center">
-                <b><html:link  action="consultar_TDP_monto_descendente"><font size="2" >Monto<br /></html:link>(por asignar)</font></b>                               
+                <b><html:link  action="consultar_TDP_monto_descendente"><font size="2" >Monto (BsF.)<br /></html:link>(por asignar)</font></b>                               
             </th>
             <th width="100px" align="center">
                 <b><font size="2" >Fecha</font></b>                                

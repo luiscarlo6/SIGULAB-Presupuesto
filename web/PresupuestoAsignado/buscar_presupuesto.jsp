@@ -63,7 +63,7 @@
     <body>
     <logic:present name="busqueda_error">
             <div align="center" class="alert alert-danger" id="alert">
-                Error en la Busqueda
+                Error en la Búsqueda
             </div>
     </logic:present>    
         
@@ -79,7 +79,7 @@
                 <b><font size="2" >Código de Laboratorio</font></b>                
             </th>
             <th width="50px" align="center">
-                <b><font size="2" >Código de Tipo de Presupuesto</font></b>
+                <b><font size="2" >Código de Presupuesto</font></b>
             </th>            
             <th width="70px" align="center">
                 <b><font size="2" >Monto Disponible (BsF.)</font></b>                               
@@ -125,7 +125,7 @@
         
 
         <br />
-        <h2>Introduzca los datos del Presupuesto para una Busqueda</h2>
+        <h2>Introduzca los datos del Presupuesto para una Búsqueda</h2>
         
         <html:form action="/form_buscar_presupuesto" method="get">            
             <div id="welcome">

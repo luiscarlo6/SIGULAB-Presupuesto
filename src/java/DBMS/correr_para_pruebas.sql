@@ -82,6 +82,3 @@ insert into presupuesto values(default,100003,01050308,'70000',1,'15/03/2014','I
 insert into presupuesto values(default,100000,01050309,'19500',1,'15/01/2014','FUNINDES, Ingreso externo');
 insert into presupuesto values(default,100000,01050305,'20000',1,'01/01/2014','FUNINDES, Ingreso externo');
 insert into presupuesto values(default,100000,01050307,'40000',1,'25/01/2014','FUNINDES, Ingreso externo');
-
-
-

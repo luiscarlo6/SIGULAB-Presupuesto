@@ -95,7 +95,7 @@
                         </tr>
                         <tr>
                         <td style="color: red">
-                        <b><font size="2" color="black" >* Monto:</font></b>
+                        <b><font size="2" color="black" >* Monto (BsF.):</font></b>
                         <br />
                              <font size="2" >**Nota: si el monto lleva decimales<br /> utilizar punto (.) y no coma (,)</font>
                         </td>

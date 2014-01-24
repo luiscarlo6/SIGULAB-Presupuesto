@@ -13,7 +13,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Tipos</title>
+        <title>Tipos de Presupuesto</title>
     </head>
     <body>       
         <logic:present name="agregado_Tipo">

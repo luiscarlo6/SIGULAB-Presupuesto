@@ -80,13 +80,13 @@
     <body>
         <logic:present name="busqueda_error">
             <div align="center" class="alert alert-danger" id="alert">
-                Error en la Busqueda
+                Error en la Búsqueda
             </div>
         </logic:present>
         <div>   
         <logic:present name="consulta_realizada">           
             
-        <h2>Tipos de Presupuestos segun busqueda indicada:</h2>
+        <h2>Presupuestos según búsqueda solicitada:</h2>
 
         <table border="1" cellpadding="0" cellspacing="0" width="40%">
         <thead>
@@ -147,7 +147,7 @@
         
         <div id="demo1" style="display:none;">
         <br />
-        <h2>Introduzca los datos del Tipo de Presupuesto para una Busqueda</h2>
+        <h2>Introduzca los datos del Presupuesto para una Búsqueda</h2>
         
         <html:form action="/form_buscar_TDP_Presupuesto_equitativo" method="get">            
             <div id="welcome">
@@ -158,7 +158,7 @@
                         <tr>
                             <td>                          
                                 
-                                <font size="2" >Seleccione hasta cuatro (4) Tipos para la busqueda:</font>
+                                <font size="2" >Seleccione hasta cuatro (4) Tipos para la búsqueda:</font>
                                     
                             </td>
                         </tr>                        
@@ -230,14 +230,14 @@
         </div>
         <hr color="#FF0000" noshade="noshade"/>   
         
-        <h2>Introduzca el código del <i><u>tipo de presupuesto</u></i> para asignacion equitativa:</h2>
+        <h2>Introduzca los datos siguientes para la asignación equitativa:</h2>
 
         <html:form action="/form_asignar_presupuesto_equitativo">            
             <div id="welcome">
                 <table border="0">
                     <tbody>
                         <logic:notPresent name="busqueda">
-                        <td><font size="2" >* Código de Tipo de Presupuesto: </font> <button type="button" href="javascript:void(0);" onclick="SINO('demo1')">Buscar Codigo</button></td>
+                        <td><font size="2" >* Código de Tipo de Presupuesto: </font> <button type="button" href="javascript:void(0);" onclick="SINO('demo1')">Buscar Código</button></td>
                             <tr>
                                 <td>
                                   <html:text name = "PresupuestoAsignado" property="codigo_TDP" />
@@ -252,7 +252,7 @@
                             
                         
                         <logic:present name="busqueda">
-                            <td><font size="2" >* Código de Tipo de Presupuesto: </font><button type="button" href="javascript:void(0);" onclick="SINO('demo1')">Buscar Codigo</button></td>
+                            <td><font size="2" >* Código de Tipo de Presupuesto: </font><button type="button" href="javascript:void(0);" onclick="SINO('demo1')">Buscar Código</button></td>
                             <tr>
                                 <td>
                                     <html:select name = "PresupuestoAsignado" property="codigo_TDP">
