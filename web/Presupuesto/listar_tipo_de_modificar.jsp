@@ -59,7 +59,7 @@
     <body>
         <logic:present name="modificacion_fallida">
             <div align="center" class="alert alert-danger" id="alert">
-                Modificación de Tipo de Presupuesto Fallida, intente de nuevo.
+                Modificación de Presupuesto Fallida, intente de nuevo.
             </div>
         </logic:present>
         <h2>Introduzca los datos del presupuesto a modificar:</h2>
@@ -91,7 +91,7 @@
                                     
                                     <br />
                                 <div>
-                                        <b><font size="2" >Seleccione Tipo Nuevo:</font></b><br />
+                                        <b><font size="2" >* Seleccione Tipo Nuevo:</font></b><br />
                                         <html:select property="tipo">
                                             <html:options collection="tipo" property="value" labelProperty="label" />
                                         </html:select> 
@@ -123,7 +123,7 @@
                         
                         <tr>
                         <td style="color: red">
-                        <b><font size="2" color="black" >Monto:</font></b>
+                        <b><font size="2" color="black" >* Monto:</font></b>
                         <br />
                              <font size="2" >**Nota: si el monto lleva decimales<br /> utilizar punto (.) y no coma (,)</font>
                         </td>
@@ -152,7 +152,7 @@
                         
                         <tr>
                             <td>
-                                <b><font size="2" >Seleccione Fecha Nueva:</font></b>
+                                <b><font size="2" >* Seleccione Fecha Nueva:</font></b>
                             </td>
                         </tr>    
                         <tr>

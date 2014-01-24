@@ -159,7 +159,8 @@
         </action>
         
         <action input="/Presupuesto/buscar_tipo_de_presupuesto.jsp" name="Presupuesto" path="/form_buscar_TDP" type="Actions_Presupuesto.busqueda" validate="false">
-            <forward name="success" path="buscarTDP"/>            
+            <forward name="success" path="buscarTDP"/>
+            <forward name="failure" path="buscarTDP"/>             
         </action>                                            
                 
                      
@@ -216,6 +217,7 @@
         
         <action input="/PresupuestoAsignado/asignar_presupuesto.jsp" name="Presupuesto" path="/form_buscar_TDP_Presupuesto" type="Actions_PresupuestoAsignado.busqueda" validate="false">
             <forward name="success" path="asignarPresupuesto"/>
+            <forward name="failure" path="asignarPresupuesto"/>
         </action>
         
         <!--Consultar los Presupuestos Existentes-->
@@ -243,6 +245,7 @@
         
         <action input="/PresupuestoAsignado/asignar_presupuesto.jsp" name="Presupuesto" path="/form_buscar_TDP_Presupuesto_equitativo" type="Actions_PresupuestoAsignado.busqueda" validate="false">
             <forward name="success" path="asignarPresupuestoEquitativo"/>
+            <forward name="failure" path="asignarPresupuestoEquitativo"/>
         </action>
                                   
         <action input="/PresupuestoAsignado/asignar_presupuesto_equitativo.jsp" name="PresupuestoAsignado" path="/form_asignar_presupuesto_equitativo" type="Actions_PresupuestoAsignado.asignado_equitativo" validate="false">
@@ -259,7 +262,7 @@
         
         <action input="/PresupuestoAsignado/buscar_presupuesto.jsp" name="PresupuestoAsignado" path="/form_buscar_presupuesto" type="Actions_PresupuestoAsignado.busqueda_presupuesto" validate="false">
             <forward name="success" path="buscarPresupuesto"/>
-            <forward name="failure" path="consultarTDP"/>
+            <forward name="failure" path="buscarPresupuesto"/>
         </action> 
         
         <!--Modificar presupuesto-->
@@ -270,6 +273,7 @@
         
         <action input="/PresupuestoAsignado/listar_modificar_presupuesto.jsp" name="PresupuestoAsignado" path="/form_buscar_TDP_Presupuesto_modificacion" type="Actions_PresupuestoAsignado.busqueda_modificacion" validate="false">
             <forward name="success" path="nuevosDatosDePresupuesto"/>
+            <forward name="failure" path="nuevosDatosDePresupuesto"/>
         </action>
         
         <action input="/PresupuestoAsignado/listar_modificar_presupuesto.jsp" name="PresupuestoAsignado" path="/form_parametros_nuevos_presupuesto" scope="request" type="Actions_PresupuestoAsignado.modificar_datos" validate="false">

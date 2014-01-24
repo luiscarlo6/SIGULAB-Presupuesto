@@ -6,6 +6,7 @@
 
 
 <!--
+<put name="sidebarR" value="/Plantilla/sidebarR.jsp"/>
      This is a blank Tiles definition file with a commented example.
 -->
 
@@ -14,7 +15,7 @@
     
     <definition name="base" path="/Plantilla/plantilla.jsp">
         <put name="banner" value="/Plantilla/banner.jsp"/>
-        <put name="sidebarR" value="/Plantilla/sidebarR.jsp"/>
+        
         <put name="body" value="/Plantilla/body.jsp"/>
         <put name="footer" value="/Plantilla/footer.jsp"/>
     </definition>

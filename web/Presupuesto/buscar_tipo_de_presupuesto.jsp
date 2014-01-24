@@ -61,10 +61,16 @@
         </script>
     </head>
     <body>
+    <logic:present name="busqueda_error">
+            <div align="center" class="alert alert-danger" id="alert">
+                Error en la Búsqueda
+            </div>
+    </logic:present>
+        
      <div>   
     <logic:present name="consulta_realizada">           
             
-    <h2>Tipos de Presupuestos Existentes:</h2>
+    <h2>Presupuestos Existentes:</h2>
 
     <table border="1" cellpadding="0" cellspacing="0" width="40%">
     <thead>
@@ -124,7 +130,7 @@
         
 
         <br />
-        <h2>Introduzca los datos del Tipo de Presupuesto para una Busqueda</h2>
+        <h2>Introduzca los datos del Presupuesto para una Búsqueda</h2>
         
         <html:form action="/form_buscar_TDP" method="get">            
             <div id="welcome">
@@ -135,7 +141,7 @@
                         <tr>
                             <td>                          
                                 
-                                <font size="2" >Seleccione hasta cuatro (4) Tipos para la busqueda:</font>
+                                <font size="2" >Seleccione hasta cuatro (4) Tipos para la búsqueda:</font>
                                     
                             </td>
                         </tr>                        

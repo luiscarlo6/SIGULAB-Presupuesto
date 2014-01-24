@@ -654,7 +654,7 @@ public class DBMS {
                 fechas[k] = fmax;
                 max = 1;
                 k++;
-            }
+            }                        
             
             if (j == 0){
                 if (k==0){

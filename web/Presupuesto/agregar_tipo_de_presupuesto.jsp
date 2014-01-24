@@ -52,7 +52,7 @@
         </script>
     </head>
     <body>
-        <h2>Introduzca los datos del Tipo de Presupuesto:</h2>
+        <h2>Introduzca los datos del Presupuesto:</h2>
 
         <html:form action="/form_agregar_TDP">            
             <div id="welcome">
@@ -95,7 +95,7 @@
                         </tr>
                         <tr>
                         <td style="color: red">
-                        <b><font size="2" color="black" >Monto:</font></b>
+                        <b><font size="2" color="black" >* Monto:</font></b>
                         <br />
                              <font size="2" >**Nota: si el monto lleva decimales<br /> utilizar punto (.) y no coma (,)</font>
                         </td>
@@ -140,7 +140,7 @@
             </div>     
         </html:form>
 
-        <font size="1" >*Campos Obligatorios</font>
+        <font size="1" >* Campos Obligatorios</font>
         
         <html:link action= "/consultar_TDP" >
             <h2>

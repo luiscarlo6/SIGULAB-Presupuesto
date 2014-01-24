@@ -22,7 +22,7 @@
             <li class="leaf"><html:link action="consultar_laboratorio"><p>Lista de Laboratorios</p></html:link></li>
             <li class="leaf"><html:link action="construccion"><p>Orden de Gastos</p></html:link></li>
             <li class="leaf"><html:link action="construccion"><p>Cheques</p></html:link></li>
-            <li class="leaf"><html:link action="cerrar_sesion"><p>Cerrar Sesion</p></html:link></li>            
+            <li class="leaf"><html:link action="cerrar_sesion"><p>Cerrar Sesión</p></html:link></li>            
         </ul>                    
     </div>        
 </html>

@@ -5,11 +5,13 @@
  */
 package Actions_PresupuestoAsignado;
 
+import static Actions_Presupuesto.busqueda.StringttoDate;
 import static Actions_Presupuesto.seleccionTiposBusqueda.RetornarTipos;
 import Clases.Tipo_de_Presupuesto;
 import Clases.Presupuesto;
 import Clases.Tipo;
 import DBMS.DBMS;
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.StringTokenizer;
 
@@ -96,7 +98,22 @@ public class busqueda_modificacion extends org.apache.struts.action.Action {
             valortipo3 = "null";
             valortipo4 = "null";
         }
-                
+        if (!msg_fecha_minima.equals("") && !msg_fecha_maxima.equals("")){
+            Date fecha1 = StringttoDate(msg_fecha_minima);
+            Date fecha2 = StringttoDate(msg_fecha_maxima);
+            if (fecha2.before(fecha1)){
+                    request.setAttribute("busqueda_error",SUCCESS);
+                    error.add("fecha", new ActionMessage("error.fecha.solapadasbusqueda"));
+                    Presupuesto pre = DBMS.getInstance().seleccionarDatos_Presupuesto(Integer.parseInt(u.getId()));
+                    request.setAttribute("datosPres", pre);
+                    ArrayList<Tipo> Tipos = DBMS.getInstance().listar_Tipos_existentes();
+                    ArrayList<org.apache.struts.util.LabelValueBean> tipos = RetornarTipos(Tipos);
+                    session.setAttribute(("tipo"), tipos);
+                    u.resetearVariables();
+                    saveErrors(request, error);
+                    return mapping.findForward(FAILURE);
+            }
+        }        
                 ArrayList<Tipo_de_Presupuesto> Presupuestos = DBMS.getInstance().consultarDatos_Tipo_de_presupuesto_Busqueda
                             (valortipo1,valortipo2,valortipo3,valortipo4,msg_fecha_minima,msg_fecha_maxima);
                 session.setAttribute(("presupuesto"), Presupuestos);
@@ -104,12 +121,13 @@ public class busqueda_modificacion extends org.apache.struts.action.Action {
                 session.setAttribute(("busqueda"), codigos);
                 request.setAttribute("consulta_realizada",SUCCESS);
                 System.out.println("ID: "+u.getId());
-                u.resetearVariables();
+                //
                 Presupuesto pre = DBMS.getInstance().seleccionarDatos_Presupuesto(Integer.parseInt(u.getId()));
                 request.setAttribute("datosPres", pre);
                 ArrayList<Tipo> Tipos = DBMS.getInstance().listar_Tipos_existentes();
                 ArrayList<org.apache.struts.util.LabelValueBean> tipos = RetornarTipos(Tipos);
                 session.setAttribute(("tipo"), tipos);
+                u.resetearVariables();
                 return mapping.findForward(SUCCESS);
             
         

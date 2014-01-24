@@ -20,9 +20,7 @@
                 <tiles:insert attribute="banner"/>
             </div>
            
-            <div>
-                <tiles:insert attribute="sidebarR"/>
-            </div>
+            
             
             <div>
                 <tiles:insert attribute="sidebarL"/>

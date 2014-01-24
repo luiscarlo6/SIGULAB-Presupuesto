@@ -79,6 +79,11 @@
     </head>
     <body>
         <h2 align="center">Asignar un Nuevo Presupuesto</h2>    
+        <logic:present name="busqueda_error">
+            <div align="center" class="alert alert-danger" id="alert">
+                Error en la Busqueda
+            </div>
+        </logic:present>
         <div>   
         <logic:present name="consulta_realizada">           
             
@@ -209,7 +214,11 @@
                                 <input type="text" property="fecha" name="datepicker2" id="datepicker2" readonly="readonly" size="12" />                                
                             </td>
                         </tr>
-                        
+                        <tr>
+                            <td style="color: red">
+                                <html:errors property="fecha" /> 
+                            </td>
+                        </tr>
                         
                     <td>                        
                         <html:submit onclick="javascript: return confirm('¿Está seguro de que los datos son correctos?')">

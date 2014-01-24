@@ -78,7 +78,11 @@
         </SCRIPT>
     </head>
     <body>
-        
+        <logic:present name="busqueda_error">
+            <div align="center" class="alert alert-danger" id="alert">
+                Error en la Busqueda
+            </div>
+        </logic:present>
         <div>   
         <logic:present name="consulta_realizada">           
             

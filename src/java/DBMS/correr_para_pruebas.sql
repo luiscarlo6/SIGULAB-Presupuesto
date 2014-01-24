@@ -65,24 +65,23 @@ insert into usuario values('juanpe','123456');
 
 insert into tipo_de_presupuesto values(default, 'FUNINDES', 'La Fundacion de Investigacion y Desarrollo', 1, '260000.00', '1/01/2014');
 insert into tipo_de_presupuesto values(default, 'FONACIT', 'Presupuesto para Proyecto 1', 1, '250000.00', '30/09/2014');
-insert into tipo_de_presupuesto values(default, 'Donacion', 'Donaciones a la Unidad de Laboratorios', 1, '400000.00', '7/10/2014');
-insert into tipo_de_presupuesto values(default, 'Ordinario', 'Presupuesto Ordinario asignado', 1, '350000.00', '27/02/2014');
-insert into tipo_de_presupuesto values(default, 'Ordinario', 'Presupuesto Delegado de la DII', 1, '170000.00', '23/04/2014');
+insert into tipo_de_presupuesto values(default, 'DONACION', 'Donaciones a la Unidad de Laboratorios', 1, '400000.00', '7/10/2014');
+insert into tipo_de_presupuesto values(default, 'ORDINARIO', 'Presupuesto Ordinario asignado', 1, '350000.00', '27/02/2014');
+insert into tipo_de_presupuesto values(default, 'ORDINARIO', 'Presupuesto Delegado de la DII', 1, '170000.00', '23/04/2014');
 insert into tipo_de_presupuesto values(default, 'FONACIT', 'Presupuesto para Proyecto 3', 1, '280000.00', '21/01/2014');
 insert into tipo_de_presupuesto values(default, 'FONACIT', 'Presupuesto para Proyecto 2', 1, '135000.00', '18/11/2014');
 insert into tipo_de_presupuesto values(default, 'FONACIT', 'Presupuesto para Proyecto 4', 1, '218000.00', '17/03/2014');
 insert into tipo_de_presupuesto values('999', 'REFORMULACION', 'REFORMULACION', 0, '0.00', '01/01/2014');
 
-insert into presupuesto values(default,100001,01050303,'56000',1);
-insert into presupuesto values(default,100001,01050301,'12000',1);
-insert into presupuesto values(default,100003,01050301,'15000',1);
-insert into presupuesto values(default,100002,01050304,'10000',1);
-insert into presupuesto values(default,100002,01050306,'30000',1);
-insert into presupuesto values(default,100003,01050308,'70000',1);
-
-insert into presupuesto values(default,100003,01050309,'19500',1);
-insert into presupuesto values(default,100003,01050305,'20000',1);
-insert into presupuesto values(default,100003,01050307,'40000',1);
+insert into presupuesto values(default,100001,01050303,'56000',1,'01/11/2014','Presupuesto para proyecto "Harley" Lab A');
+insert into presupuesto values(default,100001,01050301,'12000',1,'15/11/2014','ULAB, nuevo Ingreso FONACIT');
+insert into presupuesto values(default,100003,01050301,'15000',1,'01/03/2014','ULAB ingreso ordinario');
+insert into presupuesto values(default,100002,01050304,'10000',1,'08/10/2014','Ingreso proveniente de donaciones');
+insert into presupuesto values(default,100002,01050306,'30000',1,'15/10/2014','Lab D, Ingreso por donaciones');
+insert into presupuesto values(default,100003,01050308,'70000',1,'15/03/2014','Ingreso Ordinario, Lab F');
+insert into presupuesto values(default,100000,01050309,'19500',1,'15/01/2014','FUNINDES, Ingreso externo');
+insert into presupuesto values(default,100000,01050305,'20000',1,'01/01/2014','FUNINDES, Ingreso externo');
+insert into presupuesto values(default,100000,01050307,'40000',1,'25/01/2014','FUNINDES, Ingreso externo');
 
 
 

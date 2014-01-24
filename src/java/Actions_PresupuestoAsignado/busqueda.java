@@ -5,9 +5,11 @@
  */
 package Actions_PresupuestoAsignado;
 
+import static Actions_Presupuesto.busqueda.StringttoDate;
 import Clases.Tipo_de_Presupuesto;
 import Clases.Presupuesto;
 import DBMS.DBMS;
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.StringTokenizer;
 
@@ -91,6 +93,17 @@ public class busqueda extends org.apache.struts.action.Action {
             valortipo2 = "null";
             valortipo3 = "null";
             valortipo4 = "null";
+        }
+        if (!msg_fecha_minima.equals("") && !msg_fecha_maxima.equals("")){
+            Date fecha1 = StringttoDate(msg_fecha_minima);
+            Date fecha2 = StringttoDate(msg_fecha_maxima);
+            if (fecha2.before(fecha1)){
+                    request.setAttribute("busqueda_error",SUCCESS);
+                    error.add("fecha", new ActionMessage("error.fecha.solapadasbusqueda"));
+                    u.resetearVariables();
+                    saveErrors(request, error);
+                    return mapping.findForward(FAILURE);
+            }
         }
                 u.resetearVariables();
                 ArrayList<Tipo_de_Presupuesto> Presupuestos = DBMS.getInstance().consultarDatos_Tipo_de_presupuesto_Busqueda

@@ -27,9 +27,9 @@
             <li class="leaf"><html:link action="asignar_presupuesto_equitativo"><p> * Asignación Equitativa</p></html:link></li>            
             <li class="leaf"><html:link action="consulta_totales"><p> * Totales Disponibles</p></html:link></li>
             <!-- <li class="leaf"><html:link action="consulta_individual"><p> * Consulta Individual</p></html:link></li> -->
-            <li class="leaf"><html:link action="buscar_presupuesto"><p> * Busqueda Especifica</p></html:link></li>
+            <li class="leaf"><html:link action="buscar_presupuesto"><p> * Búsqueda Específica</p></html:link></li>
             <li class="leaf"><html:link onclick="javascript: return confirm('¿Está seguro de que Realizar la reformulación? la fecha de la ejecución será la actual.')" 
-                       action="reformular_presupuesto"><p> * Reformulación</p></html:link></li>
+                       action="reformular_presupuesto"><p>*Reformulación </p></html:link></li>
             
             <li class="leaf"><html:link action="consultar_laboratorio"><p>Lista de Laboratorios</p></html:link></li>
             <li class="leaf"><html:link action="construccion"><p>Orden de Gastos</p></html:link></li>

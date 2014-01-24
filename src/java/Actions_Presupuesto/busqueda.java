@@ -8,7 +8,9 @@ package Actions_Presupuesto;
 import Clases.Tipo_de_Presupuesto;
 
 import DBMS.DBMS;
+import java.sql.Date;
 import java.util.ArrayList;
+import java.util.StringTokenizer;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -95,6 +97,19 @@ public class busqueda extends org.apache.struts.action.Action {
             valortipo3 = "null";
             valortipo4 = "null";
         }
+        
+        if (!msg_fecha_minima.equals("") && !msg_fecha_maxima.equals("")){
+            Date fecha1 = StringttoDate(msg_fecha_minima);
+            Date fecha2 = StringttoDate(msg_fecha_maxima);
+            if (fecha2.before(fecha1)){
+                    request.setAttribute("busqueda_error",SUCCESS);
+                    error.add("fecha", new ActionMessage("error.fecha.solapadas"));
+                    u.resetearVariables();
+                    saveErrors(request, error);
+                    return mapping.findForward(FAILURE);
+            }
+        }
+        
                 u.resetearVariables();
                 ArrayList<Tipo_de_Presupuesto> Presupuestos = DBMS.getInstance().consultarDatos_Tipo_de_presupuesto_Busqueda
                             (valortipo1,valortipo2,valortipo3,valortipo4,msg_fecha_minima,msg_fecha_maxima);
@@ -103,5 +118,28 @@ public class busqueda extends org.apache.struts.action.Action {
                 return mapping.findForward(SUCCESS);
             
         
+    }
+    
+    
+    public static Date StringttoDate(String fecha)  {
+        
+	  StringTokenizer st = new StringTokenizer(fecha,"/"); 
+	  //con esto creas el tokenizer y le pasas la cadena como parametro
+	  int i = 1;
+	  int dia= 0 , mes=0, anio=0;
+	  while(st.hasMoreTokens()) { //este ciclo es para comprobar cuando se acaba de procesar tu cadena
+	      String palabra = st.nextToken();
+	      if (i == 1){
+		dia = Integer.parseInt(palabra);
+	      }else if (i==2) {
+		mes = Integer.parseInt(palabra) - 1;
+	      }else{
+		anio = Integer.parseInt(palabra) - 1900;
+	      }
+	      i++;	      
+	  } 
+	    
+	  java.sql.Date DateSistema=new java.sql.Date(anio,mes,dia);
+	  return DateSistema;	  
     }
 }

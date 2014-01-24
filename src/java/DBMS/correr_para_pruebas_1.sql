@@ -56,10 +56,10 @@ insert into tipo_de_presupuesto values(default, 'FUNINDES', 'La Fundacion de Inv
 insert into tipo_de_presupuesto values(default, 'FONACIT', 'Presupuesto para Proyecto 1', 1, '30000.00', '01/02/2014');
 insert into tipo_de_presupuesto values('999', 'REFORMULACION', 'REFORMULACION', 0, '0.00', '01/01/2014');
 
-insert into presupuesto values(default,100001,01050303,'56000',1,'01/02/2014');
-insert into presupuesto values(default,100001,01050301,'12000',1,'01/02/2014');
-insert into presupuesto values(default,100000,01050304,'10000',1);
-insert into presupuesto values(default,100000,01050306,'30000',1);
+insert into presupuesto values(default,100001,01050303,'56000',1,'01/02/2014','Lab A, nuevo Ingreso FONACIT, Proyecto "Manhatan"');
+insert into presupuesto values(default,100001,01050301,'12000',1,'01/02/2014','ULAB, nuevo Ingreso FONACIT');
+insert into presupuesto values(default,100000,01050304,'10000',1,'01/01/2014','FUNINDES, Ingreso externo');
+insert into presupuesto values(default,100000,01050306,'30000',1,'01/01/2014','FUNINDES, Ingreso externo');
 
 
 
