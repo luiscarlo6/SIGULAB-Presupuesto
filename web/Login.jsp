@@ -13,7 +13,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="stylesheet" type="text/css" href="css/Login.css">
-        <title>Bienvenidos a SIGULAB</title>
+        <title>Bienvenidos a Sistema SIGULAB</title>
     </head>
     <body>     
         <div id="contenedor">
